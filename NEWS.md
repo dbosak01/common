@@ -1,0 +1,9 @@
+# common 0.0.9000
+
+* Initial version with following functions: 
+- `labels.data.frame()`: Adds, views and removes labels on a data frame.
+- `sort.data.frame()`: Sorts a data frame.
+- `%p%`: An infix operator for the `paste0()` function.
+- `%eq`: An infix operator to determine equality between two objects.
+- `roundup()`: A function that rounds 5 away from zero.
+- `v()`: A quoting function for non-standard evaluation.

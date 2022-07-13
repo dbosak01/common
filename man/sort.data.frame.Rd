@@ -2,42 +2,36 @@
 % Please edit documentation in R/common.R
 \name{sort.data.frame}
 \alias{sort.data.frame}
-\title{Orders a data frame}
+\title{Sorts a data frame}
 \usage{
-\method{sort}{data.frame}(
-  x,
-  decreasing = FALSE,
-  ...,
-  by = NULL,
-  descending = FALSE,
-  na.last = TRUE,
-  index.return = FALSE
-)
+\method{sort}{data.frame}(x, decreasing = FALSE, ..., by = NULL, ascending = TRUE, na.last = TRUE)
 }
 \arguments{
 \item{x}{The input data to sort.}
 
-\item{decreasing}{Whether the sort should be in decreasing order.}
+\item{decreasing}{This parameter was added to conform to the S3 generic
+method signature of the \code{\link{sort}} function, and will be
+ignored here.  Please use the \code{ascending} parameter.}
 
-\item{...}{Follow on parameters.}
+\item{...}{This parameter is required for the generic method signature.
+Anything passed on it will be ignored.}
 
 \item{by}{A vector of column names to sort by.  If this parameter
 is not supplied, the function will sort by all columns in order
 from left to right.}
 
-\item{descending}{A vector of TRUE or FALSE values corresponding
-to the variables in the \code{by} parameter.  These values will determine
-the direction to sort each column.}
+\item{ascending}{A vector of TRUE or FALSE values corresponding
+to the variables on the \code{by} parameter.  These values will determine
+the direction to sort each column.  Vector will be recycled.  By default,
+all variables will be sorted ascending.}
 
 \item{na.last}{Whether to put NA values last in the sort.}
-
-\item{index.return}{Whether to return the sorted data frame or an index}
 }
 \value{
-A vector of row numbers in the desired sort order.
+The sorted data frame.
 }
 \description{
-An override to the Base R order function that actually works
-with data frames.  Allows multiple columns to be sorted, and multiple
-descending options.
+An override to the Base R \code{\link[base]{sort}} function for
+data frames.  Allows multiple columns to be sorted easily.  Also
+allows you to control the sort direction for each column independently.
 }

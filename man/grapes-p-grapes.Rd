@@ -7,7 +7,7 @@
 x \%p\% y
 }
 \arguments{
-\item{x}{A value on the left side of the paste infix operator.}
+\item{x}{A value for the left side of the paste infix operator.}
 
 \item{y}{A value for the right side of the paste infix operator.}
 }

@@ -25,7 +25,7 @@ A named list of labels. The labels must be quoted strings.
 The \code{labels} function extracts all assigned labels from a
 data frame, and returns them in a named list. The function also
 assigns labels from a named list.  This function is a data frame-specific
-implementation of the Base R \code{labels} function.
+implementation of the Base R \code{\link[base]{labels}} function.
 }
 \details{
 If labels are assigned to the "label" attributes of the data frame

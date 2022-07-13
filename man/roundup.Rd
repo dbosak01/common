@@ -15,19 +15,21 @@ roundup(x, digits = 0)
 The rounded data vector.
 }
 \description{
-A function to round numbers up where the last digit is
-5 or above.  The function contains a parameter to control the number of
-decimals to round to.
+A function that rounds positive numbers up when the last digit
+is a 5.  For negative numbers ending in 5, the function actually rounds down.
+"Round away from zero" is the most accurate description of this function.
 }
 \examples{
 # Round to even
-round(2.4)  # 2
-round(2.5)  # 2
-round(2.6)  # 3
+round(2.4)   # 2
+round(2.5)   # 2
+round(-2.5)  # -2
+round(2.6)   # 3
 
 # Round up
-roundup(2.4) # 2
-roundup(2.5) # 3
-roundup(2.6) # 3
+roundup(2.4)  # 2
+roundup(2.5)  # 3
+roundup(-2.5) # -3
+roundup(2.6)  # 3
 
 }
