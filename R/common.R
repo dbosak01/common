@@ -121,12 +121,16 @@ labels.data.frame <- function(object, ...) {
 #' the direction to sort each column.  Vector will be recycled.  By default,
 #' all variables will be sorted ascending.
 #' @param na.last Whether to put NA values last in the sort.
+#' @param index.return Whether to return the sorted data frame or a vector
+#' of sorted index values.  If this parameter is TRUE, the function
+#' will return sorted index values.  Default is FALSE.
 #' @return The sorted data frame.
 # If the \code{index.return} parameter is true, it will return a vector
 # of row indexes.
 #' @export
 sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
-                            ascending = TRUE, na.last = TRUE) {
+                            ascending = TRUE, na.last = TRUE,
+                            index.return = FALSE) {
 
   # A temporary list to hold columns
   tmp <- list()
@@ -162,8 +166,12 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
   # Get row order
   ord <- do.call('order', tmp)
 
-  # Sort input dataframe
-  ret <- df[ord, , drop = FALSE]
+  if (index.return) {
+    ret <- ord
+  } else {
+    # Sort input dataframe
+    ret <- df[ord, , drop = FALSE]
+  }
 
 
   return(ret)

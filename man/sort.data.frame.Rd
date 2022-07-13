@@ -4,7 +4,15 @@
 \alias{sort.data.frame}
 \title{Sorts a data frame}
 \usage{
-\method{sort}{data.frame}(x, decreasing = FALSE, ..., by = NULL, ascending = TRUE, na.last = TRUE)
+\method{sort}{data.frame}(
+  x,
+  decreasing = FALSE,
+  ...,
+  by = NULL,
+  ascending = TRUE,
+  na.last = TRUE,
+  index.return = FALSE
+)
 }
 \arguments{
 \item{x}{The input data to sort.}
@@ -26,6 +34,10 @@ the direction to sort each column.  Vector will be recycled.  By default,
 all variables will be sorted ascending.}
 
 \item{na.last}{Whether to put NA values last in the sort.}
+
+\item{index.return}{Whether to return the sorted data frame or a vector
+of sorted index values.  If this parameter is TRUE, the function
+will return sorted index values.  Default is FALSE.}
 }
 \value{
 The sorted data frame.
