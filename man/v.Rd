@@ -13,8 +13,10 @@ v(...)
 A vector of quoted values.
 }
 \description{
-A function to combine unquoted values into a vector.
-The function will return a vector of quoted values.
+A function to quote and combine unquoted values.
+The function will return a vector of quoted values.  This function
+allows you to use non-standard evaluation for any parameter
+that accepts a string or vector of strings.
 }
 \examples{
 # Combine unquoted values

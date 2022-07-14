@@ -30,20 +30,106 @@ from left to right.}
 
 \item{ascending}{A vector of TRUE or FALSE values corresponding
 to the variables on the \code{by} parameter.  These values will determine
-the direction to sort each column.  Vector will be recycled.  By default,
-all variables will be sorted ascending.}
+the direction to sort each column. Ascending is TRUE, and descending is FALSE.
+The vector will be recycled if it is short, and truncated if it is long.
+By default, all variables will be sorted ascending.}
 
-\item{na.last}{Whether to put NA values last in the sort.}
+\item{na.last}{Whether to put NA values first or last in the sort. If TRUE,
+NA values will sort to the bottom.  If FALSE, NA values will sort to the
+top.  The default is TRUE.}
 
 \item{index.return}{Whether to return the sorted data frame or a vector
 of sorted index values.  If this parameter is TRUE, the function
-will return sorted index values.  Default is FALSE.}
+will return sorted index values.  By default the parameter is FALSE,
+and will return the sorted data frame.}
 }
 \value{
-The sorted data frame.
+The function returns either a sorted data frame or a
+sorted vector of row index values, depending on the value of the
+\code{index.return} parameter.  If \code{index.return} is FALSE,
+the function will return the sorted data frame.
+If the \code{index.return} parameter is TRUE, it will return a vector
+of row indices.
 }
 \description{
 An override to the Base R \code{\link[base]{sort}} function for
 data frames.  Allows multiple columns to be sorted easily.  Also
 allows you to control the sort direction for each column independently.
+}
+\examples{
+# Prepare unsorted sample data
+dt <- mtcars[1:10, 1:3]
+dt
+#                    mpg cyl  disp
+# Mazda RX4         21.0   6 160.0
+# Mazda RX4 Wag     21.0   6 160.0
+# Datsun 710        22.8   4 108.0
+# Hornet 4 Drive    21.4   6 258.0
+# Hornet Sportabout 18.7   8 360.0
+# Valiant           18.1   6 225.0
+# Duster 360        14.3   8 360.0
+# Merc 240D         24.4   4 146.7
+# Merc 230          22.8   4 140.8
+# Merc 280          19.2   6 167.6
+
+# Sort by mpg ascending
+dt1 <- sort(dt, by = "mpg")
+dt1
+#                    mpg cyl  disp
+# Duster 360        14.3   8 360.0
+# Valiant           18.1   6 225.0
+# Hornet Sportabout 18.7   8 360.0
+# Merc 280          19.2   6 167.6
+# Mazda RX4         21.0   6 160.0
+# Mazda RX4 Wag     21.0   6 160.0
+# Hornet 4 Drive    21.4   6 258.0
+# Datsun 710        22.8   4 108.0
+# Merc 230          22.8   4 140.8
+# Merc 240D         24.4   4 146.7
+
+# Sort by mpg descending
+dt1 <- sort(dt, by = "mpg", ascending = FALSE)
+dt1
+#                    mpg cyl  disp
+# Merc 240D         24.4   4 146.7
+# Datsun 710        22.8   4 108.0
+# Merc 230          22.8   4 140.8
+# Hornet 4 Drive    21.4   6 258.0
+# Mazda RX4         21.0   6 160.0
+# Mazda RX4 Wag     21.0   6 160.0
+# Merc 280          19.2   6 167.6
+# Hornet Sportabout 18.7   8 360.0
+# Valiant           18.1   6 225.0
+# Duster 360        14.3   8 360.0
+
+# Sort by cyl then mpg
+dt1 <- sort(dt, by = c("cyl", "mpg"))
+dt1
+#                    mpg cyl  disp
+# Datsun 710        22.8   4 108.0
+# Merc 230          22.8   4 140.8
+# Merc 240D         24.4   4 146.7
+# Valiant           18.1   6 225.0
+# Merc 280          19.2   6 167.6
+# Mazda RX4         21.0   6 160.0
+# Mazda RX4 Wag     21.0   6 160.0
+# Hornet 4 Drive    21.4   6 258.0
+# Duster 360        14.3   8 360.0
+# Hornet Sportabout 18.7   8 360.0
+
+# Sort by cyl descending then mpg ascending
+dt1 <- sort(dt, by = c("cyl", "mpg"),
+            ascending = c(FALSE, TRUE))
+dt1
+#                    mpg cyl  disp
+# Duster 360        14.3   8 360.0
+# Hornet Sportabout 18.7   8 360.0
+# Valiant           18.1   6 225.0
+# Merc 280          19.2   6 167.6
+# Mazda RX4         21.0   6 160.0
+# Mazda RX4 Wag     21.0   6 160.0
+# Hornet 4 Drive    21.4   6 258.0
+# Datsun 710        22.8   4 108.0
+# Merc 230          22.8   4 140.8
+# Merc 240D         24.4   4 146.7
 }

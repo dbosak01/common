@@ -1,0 +1,74 @@
+---
+title: "Frequently Asked Questions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{FAQ}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+options(rmarkdown.html_vignette.check_title = FALSE)
+
+```
+
+Below are some frequently asked questions about the **common** package. Click
+on the links below to navigate to the full question and answer content.
+
+## Index{#top}
+
+* [Where is my log?](#location)
+* [How come it didn't log anything?](#nolog)
+* [How do I change the name of the log?](#name)
+
+
+
+## Content
+
+### Where is my log? {#location}
+
+**Q:** I followed the examples to add **logr** functions to my script, and I think
+I created a log.  But I can't find it.  Where does the log go?
+
+
+**A:** It depends on what you passed to the `file_name` parameter on the 
+`log_open()` function.  
+
+If you passed nothing, the log will be created in a subdirectory 
+named "log" in the same directory as your program, and with the program name.  
+
+If you passed a file name without a path, the log subdirectory will be created
+in your working directory, and the log will be named with the name you 
+assigned it.
+
+If you passed a full path, it will be created in the full path, but will still
+be created in a subdirectory named "log" unless the `logdir` parameter on
+`log_open()` is set to FALSE.
+
+If you still can't find it, add the following line to your program someplace
+after the call to `log_open()`:
+
+```
+print(log_path())
+```
+Then rerun the program.  The path to the log will be printed to the console.
+
+Note that the `log_open()` function also returns the path to the log.  You can
+save this path in a variable for easy access, like this:
+
+```
+pth <- log_open()
+print(pth)
+```
+
+[top](#top) 
+
+******
+
+
+

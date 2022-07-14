@@ -14,6 +14,10 @@ Description: Contains functions that should be in Base R but are not.
 License: CC0
 Encoding: UTF-8
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
+Imports: this.path
 Config/testthat/edition: 3
 RoxygenNote: 7.2.0
+VignetteBuilder: knitr

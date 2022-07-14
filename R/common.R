@@ -118,15 +118,98 @@ labels.data.frame <- function(object, ...) {
 #' from left to right.
 #' @param ascending A vector of TRUE or FALSE values corresponding
 #' to the variables on the \code{by} parameter.  These values will determine
-#' the direction to sort each column.  Vector will be recycled.  By default,
-#' all variables will be sorted ascending.
-#' @param na.last Whether to put NA values last in the sort.
+#' the direction to sort each column. Ascending is TRUE, and descending is FALSE.
+#' The vector will be recycled if it is short, and truncated if it is long.
+#' By default, all variables will be sorted ascending.
+#' @param na.last Whether to put NA values first or last in the sort. If TRUE,
+#' NA values will sort to the bottom.  If FALSE, NA values will sort to the
+#' top.  The default is TRUE.
 #' @param index.return Whether to return the sorted data frame or a vector
 #' of sorted index values.  If this parameter is TRUE, the function
-#' will return sorted index values.  Default is FALSE.
-#' @return The sorted data frame.
-# If the \code{index.return} parameter is true, it will return a vector
-# of row indexes.
+#' will return sorted index values.  By default the parameter is FALSE,
+#' and will return the sorted data frame.
+#' @return The function returns either a sorted data frame or a
+#' sorted vector of row index values, depending on the value of the
+#' \code{index.return} parameter.  If \code{index.return} is FALSE,
+#' the function will return the sorted data frame.
+#' If the \code{index.return} parameter is TRUE, it will return a vector
+#' of row indices.
+#' @examples
+#' # Prepare unsorted sample data
+#' dt <- mtcars[1:10, 1:3]
+#' dt
+#' #                    mpg cyl  disp
+#' # Mazda RX4         21.0   6 160.0
+#' # Mazda RX4 Wag     21.0   6 160.0
+#' # Datsun 710        22.8   4 108.0
+#' # Hornet 4 Drive    21.4   6 258.0
+#' # Hornet Sportabout 18.7   8 360.0
+#' # Valiant           18.1   6 225.0
+#' # Duster 360        14.3   8 360.0
+#' # Merc 240D         24.4   4 146.7
+#' # Merc 230          22.8   4 140.8
+#' # Merc 280          19.2   6 167.6
+#'
+#' # Sort by mpg ascending
+#' dt1 <- sort(dt, by = "mpg")
+#' dt1
+#' #                    mpg cyl  disp
+#' # Duster 360        14.3   8 360.0
+#' # Valiant           18.1   6 225.0
+#' # Hornet Sportabout 18.7   8 360.0
+#' # Merc 280          19.2   6 167.6
+#' # Mazda RX4         21.0   6 160.0
+#' # Mazda RX4 Wag     21.0   6 160.0
+#' # Hornet 4 Drive    21.4   6 258.0
+#' # Datsun 710        22.8   4 108.0
+#' # Merc 230          22.8   4 140.8
+#' # Merc 240D         24.4   4 146.7
+#'
+#' # Sort by mpg descending
+#' dt1 <- sort(dt, by = "mpg", ascending = FALSE)
+#' dt1
+#' #                    mpg cyl  disp
+#' # Merc 240D         24.4   4 146.7
+#' # Datsun 710        22.8   4 108.0
+#' # Merc 230          22.8   4 140.8
+#' # Hornet 4 Drive    21.4   6 258.0
+#' # Mazda RX4         21.0   6 160.0
+#' # Mazda RX4 Wag     21.0   6 160.0
+#' # Merc 280          19.2   6 167.6
+#' # Hornet Sportabout 18.7   8 360.0
+#' # Valiant           18.1   6 225.0
+#' # Duster 360        14.3   8 360.0
+#'
+#' # Sort by cyl then mpg
+#' dt1 <- sort(dt, by = c("cyl", "mpg"))
+#' dt1
+#' #                    mpg cyl  disp
+#' # Datsun 710        22.8   4 108.0
+#' # Merc 230          22.8   4 140.8
+#' # Merc 240D         24.4   4 146.7
+#' # Valiant           18.1   6 225.0
+#' # Merc 280          19.2   6 167.6
+#' # Mazda RX4         21.0   6 160.0
+#' # Mazda RX4 Wag     21.0   6 160.0
+#' # Hornet 4 Drive    21.4   6 258.0
+#' # Duster 360        14.3   8 360.0
+#' # Hornet Sportabout 18.7   8 360.0
+#'
+#' # Sort by cyl descending then mpg ascending
+#' dt1 <- sort(dt, by = c("cyl", "mpg"),
+#'             ascending = c(FALSE, TRUE))
+#' dt1
+#' #                    mpg cyl  disp
+#' # Duster 360        14.3   8 360.0
+#' # Hornet Sportabout 18.7   8 360.0
+#' # Valiant           18.1   6 225.0
+#' # Merc 280          19.2   6 167.6
+#' # Mazda RX4         21.0   6 160.0
+#' # Mazda RX4 Wag     21.0   6 160.0
+#' # Hornet 4 Drive    21.4   6 258.0
+#' # Datsun 710        22.8   4 108.0
+#' # Merc 230          22.8   4 140.8
+#' # Merc 240D         24.4   4 146.7
 #' @export
 sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
                             ascending = TRUE, na.last = TRUE,
@@ -149,19 +232,19 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
   if (!is.null(ascending)) {
     a <- rep(ascending, length(by))
   }
-  names(d) <- by
+  names(a) <- by
 
-  # Create xtfrm columns to handle custom sorts
+  # Create rank columns to handle custom sorts
   for (nm in by) {
 
     if (a[nm] == TRUE)
-      tmp[[nm]] <- xtfrm(df[[nm]])
+      tmp[[nm]] <- rank(df[[nm]], na.last = na.last)
     else
-      tmp[[nm]] <- -xtfrm(df[[nm]])
+      tmp[[nm]] <- -rank(df[[nm]], na.last = na.last)
   }
 
   # Get modified dataframe
-  tmp <- as.data.frame(tmp)
+  tmp <- as.data.frame(tmp, stringsAsFactors = FALSE)
 
   # Get row order
   ord <- do.call('order', tmp)
@@ -180,18 +263,32 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
 }
 
 
-
 # Infix Operators ---------------------------------------------------------
 
 
 
 
-#' @title An infix operator for paste0()
+#' @title An infix operator for \code{paste0()}
 #' @description This function provides an infix operator for the
-#' \code{\link{paste0}} function to concatenate strings.
+#' \code{\link{paste0}} function to concatenate strings.  The operator
+#' will concatenate a vector of one or more values. The functionality
+#' is identical to \code{paste0()}, but more convenient to use in some
+#' situations.
 #' @param x A value for the left side of the paste infix operator.
 #' @param y A value for the right side of the paste infix operator.
-#' @return The concatenated or pasted value.
+#' @return The concatenated or pasted value.  No spaces will be inserted
+#' in between the values to paste. If a vector of values is supplied,
+#' a vector of pasted values will be returned.
+#' @examples
+#' # Paste together two strings
+#' str <- "Hello" %p% "World"
+#' str
+#' # [1] "HelloWorld"
+#'
+#' # Paste together number and strings
+#' str <- 100 %p% " Kittens"
+#' str
+#' # [1] "100 Kittens"
 #' @export
 `%p%` <- function(x,y) {
 
@@ -314,6 +411,33 @@ strong_eq <- Vectorize(function(x1, x2) {
 
 
 
+# File Operations ---------------------------------------------------------
+
+
+#' @title Returns the path of the current program
+#' @description A function that gets the full path of the currently running
+#' program.  If the function fails to retrieve the path for some reason,
+#' it will return a NULL.  The function takes no parameters.
+#'
+#' Credit for this function goes to Andrew Simmons and the
+#' \code{\link{this.path}} package.
+#' @returns The full path of the currently running program, or a NULL.
+#' @examples
+#' # Get current path
+#' pth <- Sys.path()
+#' pth
+#' # [1] "C:/programs/myprogram.R"
+#' @export
+Sys.path <- function() {
+
+  ppth <- NULL
+  tryCatch({
+    ppth <- this.path::this.path()
+  }, error = function(e) { ppth <- NULL})
+
+  return(ppth)
+
+}
 
 
 # Other Functions ---------------------------------------------------------
@@ -357,8 +481,10 @@ roundup <- function(x, digits = 0) {
 
 
 #' @title Combine unquoted values
-#' @description A function to combine unquoted values into a vector.
-#' The function will return a vector of quoted values.
+#' @description A function to quote and combine unquoted values.
+#' The function will return a vector of quoted values.  This function
+#' allows you to use non-standard evaluation for any parameter
+#' that accepts a string or vector of strings.
 #' @param ... One or more unquoted values.
 #' @returns A vector of quoted values.
 #' @examples

@@ -1,0 +1,30 @@
+url: https://logr.r-sassy.org
+
+reference:
+- title: Base R Overloads
+  desc: Functions that derive from Base R.
+  contents:
+  - labels.data.frame
+  - sort.data.frame
+- title: Infix Operators
+  desc: Functions that provide a convenient infix operator.
+  contents:
+  - '%p%'
+  - '%eq%'
+- title: Other
+  desc: Functions that fall outside the above categories.
+  contents:
+  - Sys.path
+  - roundup
+  - v
+navbar:
+  type: inverse
+  structure:
+    right: [home, intro, reference, faq, news, github]
+  components:
+    faq:
+      text: FAQ
+      href: ./articles/common-faq.html
+
+
+

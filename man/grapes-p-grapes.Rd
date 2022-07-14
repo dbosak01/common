@@ -2,7 +2,7 @@
 % Please edit documentation in R/common.R
 \name{\%p\%}
 \alias{\%p\%}
-\title{An infix operator for paste0()}
+\title{An infix operator for \code{paste0()}}
 \usage{
 x \%p\% y
 }
@@ -12,9 +12,25 @@ x \%p\% y
 \item{y}{A value for the right side of the paste infix operator.}
 }
 \value{
-The concatenated or pasted value.
+The concatenated or pasted value.  No spaces will be inserted
+in between the values to paste. If a vector of values is supplied,
+a vector of pasted values will be returned.
 }
 \description{
 This function provides an infix operator for the
-\code{\link{paste0}} function to concatenate strings.
+\code{\link{paste0}} function to concatenate strings.  The operator
+will concatenate a vector of one or more values. The functionality
+is identical to \code{paste0()}, but more convenient to use in some
+situations.
+}
+\examples{
+# Paste together two strings
+str <- "Hello" \%p\% "World"
+str
+# [1] "HelloWorld"
+
+# Paste together number and strings
+str <- 100 \%p\% " Kittens"
+str
+# [1] "100 Kittens"
 }
