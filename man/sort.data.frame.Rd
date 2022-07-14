@@ -52,7 +52,7 @@ If the \code{index.return} parameter is TRUE, it will return a vector
 of row indices.
 }
 \description{
-An override to the Base R \code{\link[base]{sort}} function for
+An overload to the Base R \code{\link[base]{sort}} function for
 data frames.  Allows multiple columns to be sorted easily.  Also
 allows you to control the sort direction for each column independently.
 }

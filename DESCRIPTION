@@ -1,7 +1,7 @@
 Package: common
 Type: Package
 Title: Functions That Should Be in Base R
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: c(
     person(given = "David",
            family = "Bosak",
@@ -9,7 +9,7 @@ Authors@R: c(
            email = "dbosak01@gmail.com"))
 Maintainer: David J. Bosak<dbosak01@gmail.com>
 Description: Contains functions that should be in Base R but are not.  
-    These functions solve very common problems, and 
+    These functions solve common problems, and 
     can be used in many programs and packages.
 License: CC0
 Encoding: UTF-8

@@ -1,3 +1,7 @@
+# common 1.0.0
+
+* Published to CRAN.
+
 # common 0.0.9001
 
 * Add news.

@@ -104,7 +104,7 @@ labels.data.frame <- function(object, ...) {
 
 
 #' @title Sorts a data frame
-#' @description An override to the Base R \code{\link[base]{sort}} function for
+#' @description An overload to the Base R \code{\link[base]{sort}} function for
 #' data frames.  Allows multiple columns to be sorted easily.  Also
 #' allows you to control the sort direction for each column independently.
 #' @param x The input data to sort.

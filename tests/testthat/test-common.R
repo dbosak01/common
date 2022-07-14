@@ -67,6 +67,8 @@ test_that("common1: sort.data.frame works as expected.", {
   # Test with NA value
   dt_mod <- dt
   dt_mod[2, 3] <- NA
+  dt_mod$names <- rownames(dt_mod)
+  dt_mod[5, 4] <- NA
 
 
   dt7 <-  sort(dt_mod, by = c( "disp"), na.last = TRUE)
@@ -81,6 +83,28 @@ test_that("common1: sort.data.frame works as expected.", {
 
   expect_equal(is.na(dt8[1, 3]), TRUE)
   expect_equal(is.na(dt8[10, 3]), FALSE)
+
+
+  dt9 <-  sort(dt_mod, by = c( "names"), na.last = TRUE)
+  dt9
+
+  expect_equal(is.na(dt9[1, 4]), FALSE)
+  expect_equal(is.na(dt9[10, 4]), TRUE)
+
+
+  dt10 <-  sort(dt_mod, by = c( "names"), na.last = FALSE)
+  dt10
+
+
+  expect_equal(is.na(dt10[1, 4]), TRUE)
+  expect_equal(is.na(dt10[10, 4]), FALSE)
+
+  dt11 <-  sort(dt_mod, by = c("disp", "names"), na.last = TRUE)
+  dt11
+
+
+  expect_equal(is.na(dt11[9, 4]), TRUE)
+  expect_equal(is.na(dt11[10, 3]), TRUE)
 
 })
 
@@ -109,7 +133,28 @@ test_that("common3: roundup() function works as expected.", {
   res
 
 
+
   expect_equal(res, c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+
+
+  vct0 <- c(-2.5, -1.5, -.5, 1.5, 2.5)
+  vct1 <- c(8.75, 8.85, 8.95, 9.05, 9.15, 9.25)
+
+  res0 <- roundup(vct0)
+
+  sasres0 <- c(-3, -2, -1, 2,3)
+  expect_equal(all(res0 == sasres0), TRUE)
+
+  rres0 <- round(vct0)
+  expect_equal(all(res0 == rres0), FALSE)
+
+  res1 <- roundup(vct1, 1)
+
+  sasres1 <- c(8.8, 8.9, 9.0, 9.1, 9.2, 9.3)
+  expect_equal(all(res1 == sasres1), TRUE)
+
+  rres1 <- round(vct1)
+  expect_equal(all(res1 == rres1), FALSE)
 
 })
 

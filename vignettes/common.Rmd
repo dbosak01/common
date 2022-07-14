@@ -13,7 +13,350 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+The **common** package is a lightweight package that contains 
+solutions for commonly encountered problems when working in Base R.
 
-```{r setup}
-library(common)
+Here is a list of the functions and a short explanation of each:
+
+- **sort.data.frame()**: An overload to the sort function for data frames. 
+- **labels.data.frame()**: An overload to the labels function for data frames.
+- **%p%**: An infix operator for the `paste0()` function.
+- **%eq%**: An enhanced equality operator.
+- **Sys.path()**: A function to return the path of the currently running program.
+- **v()**: A generalized NSE quoting function.
+- **roundup()**: A rounding function that matches SAS® rounding.
+
+### Sort a data frame
+Base R provides sort and order functions that work adequately on vectors. 
+For data frames, the options are more limited.  In particular, if you want to sort
+a data frame by multiple columns, there are no functions in Base R to do it.
+The R documentation makes the following suggestion:
 ```
+# Prepare data
+dat <- mtcars[1:10, 1:3]
+
+# Get sort order
+ord <- do.call('order', dat[ ,c("cyl", "mpg")])
+
+# Sort data
+dat[ord, ]
+#                    mpg cyl  disp
+# Datsun 710        22.8   4 108.0
+# Merc 230          22.8   4 140.8
+# Merc 240D         24.4   4 146.7
+# Valiant           18.1   6 225.0
+# Merc 280          19.2   6 167.6
+# Mazda RX4         21.0   6 160.0
+# Mazda RX4 Wag     21.0   6 160.0
+# Hornet 4 Drive    21.4   6 258.0
+# Duster 360        14.3   8 360.0
+# Hornet Sportabout 18.7   8 360.0
+```
+In the above example, notice that a) there is no actual sorting function for
+data frames, and b) the method illustrated above provides no way to 
+control the sort order of the variables involved.  They are all sorted 
+ascending.
+
+The `sort.data.frame()` function is an overload to the generic `sort()` function
+that is tailored for data frames.  It allows you to sort by multiple columns,
+and control the sort direction for each sort variable.  Here is an example:
+
+```
+# Sort by cyl then mpg
+dat1 <- sort(dat, by = c("cyl", "mpg"))
+dat1
+#                    mpg cyl  disp
+# Datsun 710        22.8   4 108.0
+# Merc 230          22.8   4 140.8
+# Merc 240D         24.4   4 146.7
+# Valiant           18.1   6 225.0
+# Merc 280          19.2   6 167.6
+# Mazda RX4         21.0   6 160.0
+# Mazda RX4 Wag     21.0   6 160.0
+# Hornet 4 Drive    21.4   6 258.0
+# Duster 360        14.3   8 360.0
+# Hornet Sportabout 18.7   8 360.0
+
+# Sort by cyl descending then mpg ascending
+dat2 <- sort(dat, by = c("cyl", "mpg"),
+             ascending = c(FALSE, TRUE))
+dat2
+#                    mpg cyl  disp
+# Duster 360        14.3   8 360.0
+# Hornet Sportabout 18.7   8 360.0
+# Valiant           18.1   6 225.0
+# Merc 280          19.2   6 167.6
+# Mazda RX4         21.0   6 160.0
+# Mazda RX4 Wag     21.0   6 160.0
+# Hornet 4 Drive    21.4   6 258.0
+# Datsun 710        22.8   4 108.0
+# Merc 230          22.8   4 140.8
+# Merc 240D         24.4   4 146.7
+
+```
+The `sort.data.frame()` function also allows you to control whether NA
+values are sorted to the top or bottom.  See the documentation for further 
+information and more examples.
+
+### Modify labels on a data frame
+While many data operations in R do not require control over the labels
+on a data frame, some types of programming do. Particularly in situations
+where you are sharing data between multiple people and groups, the column
+labels can provide valuable information about the data contained in a particular
+column.  
+
+Unfortunately, Base R does not supply an easy way to manipulate these
+labels. The only approach is to use the `attr()` function to set the 
+labels individually for each column.  Like this:
+```
+# Prepare data
+dat <- mtcars[1:10, 1:3]
+
+# Assign labels
+attr(dat$mpg, "label") <- "Miles Per Gallon"
+attr(dat$cyl, "label") <- "Cylinders"
+attr(dat$disp, "label") <- "Displacement"
+
+```
+The `labels.data.frame()` function is an overload to the Base R 
+`labels()` function that is specific to data frames.  The function
+allows you to set labels for an entire data frame using a named list.
+Here is an example:
+```
+# Prepare data
+dat <- mtcars[1:10, 1:3]
+
+# Assign labels
+labels(dat) <- list(mpg = "Miles Per Gallon",
+                    cyl = "Cylinders",
+                    disp = "Displacement")
+                    
+# View label attributes
+labels(dat)
+# $mpg
+# [1] "Miles Per Gallon"
+# 
+# $cyl
+# [1] "Cylinders"
+# 
+# $disp
+# [1] "Displacement"
+```
+This function makes it much easier to set and retrieve labels on a data
+frame.  The labels make it easier for users to understand the data.
+This function should be included in Base R, but for some reason is not.
+
+### An infix concatenation operator
+Most programming languages provide a built-in concatenation operator.  R does
+not. Instead, it provides the `paste()` and `paste0()` functions.  While 
+these functions do perform concatenation adequately, it is sometimes more convenient
+to have an operator.  
+
+The `%p%` operator is an infix version of the `paste0()` function.  It provides
+the same functionality of `paste0()`, but in a more compact manner. Like so:
+```
+# Concatenation using paste0() function
+print(paste0("There are ", nrow(mtcars), " rows in the mtcars data frame"))
+# [1] "There are 32 rows in the mtcars data frame"
+
+# Concatenation using %p% operator
+print("There are " %p% nrow(mtcars) %p% " rows in the mtcars data frame")
+# [1] "There are 32 rows in the mtcars data frame"
+
+```
+
+### An enhanced equality operator
+The **common** package contains an enhanced equality operator.  The 
+objective of the `%eq%` operator is to return a TRUE or FALSE value when
+any two objects are compared.  This enhanced equality operator is useful
+for situations when you don't want to check for NULL or NA values, or care
+about the data types of the objects you are comparing.
+
+The `%eq%` operator also compares data frames.  The comparison will include
+all data values, but no attributes.  This functionality is particularly useful
+when comparing tibbles, as tibbles often have many attributes assigned by 
+`dplyr` functions.
+
+Below is an example of several comparisons using the `%eq%` infix operator:
+
+```{r eval=FALSE, echo=TRUE}
+
+# Comparing of NULLs and NA
+NULL %eq% NULL        # TRUE
+NULL %eq% NA          # FALSE
+NA %eq% NA            # TRUE
+1 %eq% NULL           # FALSE
+1 %eq% NA             # FALSE
+
+# Comparing of atomic values
+1 %eq% 1              # TRUE
+"one" %eq% "one"      # TRUE
+1 %eq% "one"          # FALSE
+1 %eq% Sys.Date()     # FALSE
+
+# Comparing of vectors
+v1 <- c("A", "B", "C")
+v2 <- c("A", "B", "C", "D")
+v1 %eq% v1            # TRUE
+v1 %eq% v2            # FALSE
+
+# Comparing of data frames
+mtcars %eq% mtcars    # TRUE
+mtcars %eq% iris      # FALSE
+iris %eq% iris[1:50,] # FALSE
+
+# Mixing it up 
+mtcars %eq% NULL      # FALSE
+v1 %eq% NA            # FALSE
+1 %eq% v1             # FALSE
+```
+While it can be advantageous to have a comparison operator that does not give
+errors when encountering a NULL or NA value, note that this behavior can also 
+mask problems with your code.  Therefore, use the `%eq%` operator
+with care.
+
+### Getting the current path
+Most programming languages provide a simple way to get the path of the
+currently running program. This basic feature has been left out of R.  The 
+`Sys.path()` function aims to make up for the oversight.
+
+```
+# Get current path
+pth <- Sys.path()
+
+# View path
+pth
+# [1] "C:/packages/common/vignettes/common.Rmd"
+```
+Credit for this function goes to Andrew Simmons and the **this.path** package.
+The **this.path** functionality is renamed and provided here out of convenience.
+
+### A generalized NSE quoting function 
+Normally, when working in Base R, it is necessary to quote variable names
+when passing them into a function or operator.  For example, observe
+the R subset brackets:
+```
+# Variable names passed to subset are quoted
+dat <- mtcars[1:10 , c("mpg", "cyl", "disp")]
+
+# View results
+dat
+                   mpg cyl  disp
+Mazda RX4         21.0   6 160.0
+Mazda RX4 Wag     21.0   6 160.0
+Datsun 710        22.8   4 108.0
+Hornet 4 Drive    21.4   6 258.0
+Hornet Sportabout 18.7   8 360.0
+Valiant           18.1   6 225.0
+Duster 360        14.3   8 360.0
+Merc 240D         24.4   4 146.7
+Merc 230          22.8   4 140.8
+Merc 280          19.2   6 167.6
+```
+
+Some Base R functions and almost all **tidyverse** functions 
+use Non-standard Evaluation (NSE) when passing variable
+names.  This style of evaluation allows the user to type
+variables without using quotation marks or other methods of resolution. 
+
+Picking up from the previous example, let's now subset the `dat` data frame
+created above:
+```
+# No quotes on "cyl" using subset() function
+dt <- subset(dat, cyl == 4)
+
+# View results
+dt
+#             mpg cyl  disp
+# Datsun 710 22.8   4 108.0
+# Merc 240D  24.4   4 146.7
+# Merc 230   22.8   4 140.8
+```
+The `v()` function in the **common** package is a quoting function.  It allows
+you to use Non-Standard Evaluation (NSE) even on functions that were not
+specifically written for NSE. Observe:
+```
+# Create a vector of unquoted names
+v1 <- v(mpg, cyl, disp)
+
+# Result is a quoted vector
+v1
+# [1] "mpg"  "cyl"  "disp"
+
+# Variable names not quoted
+dat2 <- mtcars[1:10, v(mpg, cyl, disp)]
+
+# Works as expected
+dat2
+#                    mpg cyl  disp
+# Mazda RX4         21.0   6 160.0
+# Mazda RX4 Wag     21.0   6 160.0
+# Datsun 710        22.8   4 108.0
+# Hornet 4 Drive    21.4   6 258.0
+# Hornet Sportabout 18.7   8 360.0
+# Valiant           18.1   6 225.0
+# Duster 360        14.3   8 360.0
+# Merc 240D         24.4   4 146.7
+# Merc 230          22.8   4 140.8
+# Merc 280          19.2   6 167.6
+
+```
+
+### An alternate rounding function
+As everyone knows, the R `round()` function rounds to the nearest even.
+For example: 
+```
+# Prepare sample vector 
+v1 <- seq(0.5,9.5,by=1)
+v1
+# [1] 0.5 1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5
+
+# Base R round function
+r1 <- round(v1)
+
+# Rounds to nearest even
+r1
+# [1]  0  2  2  4  4  6  6  8  8 10
+
+```
+However, humans and other software systems usually round 5 up.  The reasons for
+R rounding the way it does are valid.  Yet this difference
+in the way R rounds sometimes makes it difficult to compare R results
+to results from other software systems, particularly SAS®. It would be 
+convenient if there were another rounding function that could be used 
+when trying to compare R results to SAS®.  
+
+That is the purpose of the `roundup()`
+function. Observe the differences in output to what was shown above:
+```
+# Round up function
+r2 <- roundup(v1)
+
+# Rounds 5 up
+r2
+# [1]  1  2  3  4  5  6  7  8  9 10
+
+```
+Note that the function behaves differently when rounding negative 
+values.  
+```
+# Negate original vector
+v2 <- -v1
+v2
+# [1] -0.5 -1.5 -2.5 -3.5 -4.5 -5.5 -6.5 -7.5 -8.5 -9.5
+
+# Rounding negative values
+r3 <- roundup(v2)
+
+# Rounds away from zero
+r3
+# [1]  -1  -2  -3  -4  -5  -6  -7  -8  -9 -10
+```
+As you can see, when dealing with negative numbers, the `roundup()`
+function actually rounds down.  "Round away from zero" is the best description
+of this function.  The rounding logic of the `roundup()` function 
+matches SAS® software, and can be used when comparing output between
+the two systems.
+
+
+

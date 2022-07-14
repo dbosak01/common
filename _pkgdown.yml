@@ -11,7 +11,7 @@ reference:
   contents:
   - '%p%'
   - '%eq%'
-- title: Other
+- title: Other Functions
   desc: Functions that fall outside the above categories.
   contents:
   - Sys.path
@@ -20,11 +20,8 @@ reference:
 navbar:
   type: inverse
   structure:
-    right: [home, intro, reference, faq, news, github]
-  components:
-    faq:
-      text: FAQ
-      href: ./articles/common-faq.html
+    right: [home, intro, reference, news, github]
+
 
 
 
