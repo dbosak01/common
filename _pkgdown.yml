@@ -15,8 +15,9 @@ reference:
   desc: Functions that fall outside the above categories.
   contents:
   - Sys.path
-  - roundup
   - v
+  - roundup
+
 navbar:
   type: inverse
   structure:

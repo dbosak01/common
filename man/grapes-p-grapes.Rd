@@ -29,8 +29,15 @@ str <- "Hello" \%p\% "World"
 str
 # [1] "HelloWorld"
 
-# Paste together number and strings
+# Paste together number and string
 str <- 100 \%p\% " Kittens"
 str
 # [1] "100 Kittens"
+
+# Paste together two vectors
+v1 <- c("A", "B", "C")
+v2 <- c(1, 2, 3)
+str <- v1 \%p\% v2
+str
+# [1] "A1" "B2" "C3"
 }

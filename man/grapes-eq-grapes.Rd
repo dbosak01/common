@@ -12,7 +12,7 @@ x1 \%eq\% x2
 \item{x2}{The second object to compare}
 }
 \value{
-A TRUE or FALSE value depending on whether the objects are equal.
+A single TRUE or FALSE value depending on whether the objects are equal.
 }
 \description{
 The goal of the \code{\%eq\%} operator is to return a TRUE

@@ -15,7 +15,7 @@
 )
 }
 \arguments{
-\item{x}{The input data to sort.}
+\item{x}{The input data frame to sort.}
 
 \item{decreasing}{This parameter was added to conform to the S3 generic
 method signature of the \code{\link{sort}} function, and will be
@@ -40,7 +40,7 @@ top.  The default is TRUE.}
 
 \item{index.return}{Whether to return the sorted data frame or a vector
 of sorted index values.  If this parameter is TRUE, the function
-will return sorted index values.  By default the parameter is FALSE,
+will return sorted index values.  By default, the parameter is FALSE,
 and will return the sorted data frame.}
 }
 \value{

@@ -106,6 +106,8 @@ test_that("common1: sort.data.frame works as expected.", {
   expect_equal(is.na(dt11[9, 4]), TRUE)
   expect_equal(is.na(dt11[10, 3]), TRUE)
 
+  expect_error(sort(dt_mod, by = "fork"))
+
 })
 
 
@@ -156,6 +158,14 @@ test_that("common3: roundup() function works as expected.", {
   rres1 <- round(vct1)
   expect_equal(all(res1 == rres1), FALSE)
 
+  vct3 <- c(-2.5, -1.5, NA, 1.5, 2.5)
+  rres2 <- roundup(vct3)
+
+  expect_equal(is.na(rres2[3]), TRUE)
+  expect_equal(rres2[4], 2)
+
+  expect_error(roundup("1"))
+  expect_error(roundup(NULL))
 })
 
 

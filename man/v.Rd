@@ -22,4 +22,24 @@ that accepts a string or vector of strings.
 # Combine unquoted values
 v(var1, var2, var3)
 # [1] "var1" "var2" "var3"
+
+# Data frame subset
+dat <- mtcars[1:5, v(mpg, cyl, disp)]
+dat
+#                    mpg cyl disp
+# Mazda RX4         21.0   6  160
+# Mazda RX4 Wag     21.0   6  160
+# Datsun 710        22.8   4  108
+# Hornet 4 Drive    21.4   6  258
+# Hornet Sportabout 18.7   8  360
+
+# Data frame sort
+dat2 <- sort(dat, by = v(cyl, mpg))
+dat2
+#                    mpg cyl disp
+# Datsun 710        22.8   4  108
+# Mazda RX4         21.0   6  160
+# Mazda RX4 Wag     21.0   6  160
+# Hornet 4 Drive    21.4   6  258
+# Hornet Sportabout 18.7   8  360
 }

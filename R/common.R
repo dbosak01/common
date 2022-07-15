@@ -30,7 +30,6 @@
 #' @param object A data frame or tibble.
 #' @param ... Follow-on parameters.  Required for generic function.
 #' @return A named list of labels. The labels must be quoted strings.
-#' @export
 #' @aliases labels<-
 #' @examples
 #' # Take subset of data
@@ -41,16 +40,32 @@
 #'
 #' # Examine attributes
 #' str(df1)
+#' # 'data.frame':	10 obs. of  2 variables:
+#' # $ mpg: num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2
+#' # ..- attr(*, "label")= chr "Mile Per Gallon"
+#' # $ cyl: num  6 6 4 6 8 6 8 4 4 6
+#' # ..- attr(*, "label")= chr "Cylinders"
 #'
 #' # View assigned labels
 #' labels(df1)
+#' # $mpg
+#' # [1] "Mile Per Gallon"
+#' #
+#' # $cyl
+#' # [1] "Cylinders"
 #'
 #' # Clear labels
 #' labels(df1) <- NULL
 #'
 #' # Display Cleared Labels
 #' labels(df1)
+#' # list()
+#' @export
 labels.data.frame <- function(object, ...) {
+
+
+  if (!"data.frame" %in% class(object))
+    stop("Object class list must contain 'data.frame'.")
 
   ret <- list()
 
@@ -70,7 +85,7 @@ labels.data.frame <- function(object, ...) {
 #' @aliases labels.data.frame
 #' @rdname  labels.data.frame
 #' @param x A data frame or tibble
-#' @param value A named list of labels  The labels must be quoted strings.
+#' @param value A named list of labels. The labels must be quoted strings.
 #' @export
 `labels<-` <- function(x, value) {
 
@@ -107,7 +122,7 @@ labels.data.frame <- function(object, ...) {
 #' @description An overload to the Base R \code{\link[base]{sort}} function for
 #' data frames.  Allows multiple columns to be sorted easily.  Also
 #' allows you to control the sort direction for each column independently.
-#' @param x The input data to sort.
+#' @param x The input data frame to sort.
 #' @param decreasing This parameter was added to conform to the S3 generic
 #' method signature of the \code{\link{sort}} function, and will be
 #' ignored here.  Please use the \code{ascending} parameter.
@@ -126,7 +141,7 @@ labels.data.frame <- function(object, ...) {
 #' top.  The default is TRUE.
 #' @param index.return Whether to return the sorted data frame or a vector
 #' of sorted index values.  If this parameter is TRUE, the function
-#' will return sorted index values.  By default the parameter is FALSE,
+#' will return sorted index values.  By default, the parameter is FALSE,
 #' and will return the sorted data frame.
 #' @return The function returns either a sorted data frame or a
 #' sorted vector of row index values, depending on the value of the
@@ -215,6 +230,19 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
                             ascending = TRUE, na.last = TRUE,
                             index.return = FALSE) {
 
+  if (!"data.frame" %in% class(x)) {
+    stop("Input object must be derived from a data frame")
+
+  }
+
+  nms <- names(x)
+  if (!all(by %in% nms)) {
+    lst <- by[!by %in% nms]
+
+    stop(paste0("By value '", lst, "' is not a column on the input data frame."))
+
+  }
+
   # A temporary list to hold columns
   tmp <- list()
 
@@ -285,10 +313,17 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
 #' str
 #' # [1] "HelloWorld"
 #'
-#' # Paste together number and strings
+#' # Paste together number and string
 #' str <- 100 %p% " Kittens"
 #' str
 #' # [1] "100 Kittens"
+#'
+#' # Paste together two vectors
+#' v1 <- c("A", "B", "C")
+#' v2 <- c(1, 2, 3)
+#' str <- v1 %p% v2
+#' str
+#' # [1] "A1" "B2" "C3"
 #' @export
 `%p%` <- function(x,y) {
 
@@ -311,7 +346,7 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
 #' data frames are equal, and ignores differences in attributes.
 #' @param x1 The first object to compare
 #' @param x2 The second object to compare
-#' @return A TRUE or FALSE value depending on whether the objects are equal.
+#' @return A single TRUE or FALSE value depending on whether the objects are equal.
 #' @examples
 #' # Comparing of NULLs and NA
 #' NULL %eq% NULL        # TRUE
@@ -468,6 +503,10 @@ Sys.path <- function() {
 #' @export
 roundup <- function(x, digits = 0) {
 
+  if (!is.numeric(x)) {
+    stop("Input value must be numeric.")
+  }
+
   posneg = sign(x)
   z = abs(x)*10^digits
   z = z + 0.5 + sqrt(.Machine$double.eps)
@@ -491,6 +530,26 @@ roundup <- function(x, digits = 0) {
 #' # Combine unquoted values
 #' v(var1, var2, var3)
 #' # [1] "var1" "var2" "var3"
+#'
+#' # Data frame subset
+#' dat <- mtcars[1:5, v(mpg, cyl, disp)]
+#' dat
+#' #                    mpg cyl disp
+#' # Mazda RX4         21.0   6  160
+#' # Mazda RX4 Wag     21.0   6  160
+#' # Datsun 710        22.8   4  108
+#' # Hornet 4 Drive    21.4   6  258
+#' # Hornet Sportabout 18.7   8  360
+#'
+#' # Data frame sort
+#' dat2 <- sort(dat, by = v(cyl, mpg))
+#' dat2
+#' #                    mpg cyl disp
+#' # Datsun 710        22.8   4  108
+#' # Mazda RX4         21.0   6  160
+#' # Mazda RX4 Wag     21.0   6  160
+#' # Hornet 4 Drive    21.4   6  258
+#' # Hornet Sportabout 18.7   8  360
 #' @export
 v <- function(...) {
 

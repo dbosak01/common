@@ -16,7 +16,7 @@ labels(x) <- value
 
 \item{x}{A data frame or tibble}
 
-\item{value}{A named list of labels  The labels must be quoted strings.}
+\item{value}{A named list of labels. The labels must be quoted strings.}
 }
 \value{
 A named list of labels. The labels must be quoted strings.
@@ -51,13 +51,24 @@ labels(df1) <- list(mpg = "Mile Per Gallon", cyl = "Cylinders")
 
 # Examine attributes
 str(df1)
+# 'data.frame':	10 obs. of  2 variables:
+# $ mpg: num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2
+# ..- attr(*, "label")= chr "Mile Per Gallon"
+# $ cyl: num  6 6 4 6 8 6 8 4 4 6
+# ..- attr(*, "label")= chr "Cylinders"
 
 # View assigned labels
 labels(df1)
+# $mpg
+# [1] "Mile Per Gallon"
+#
+# $cyl
+# [1] "Cylinders"
 
 # Clear labels
 labels(df1) <- NULL
 
 # Display Cleared Labels
 labels(df1)
+# list()
 }
