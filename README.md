@@ -21,7 +21,7 @@ When working in Base R, there are some situations where you stop and wonder:
 - Why isn't there a function in Base R to add/modify data frame labels?
 
 The answer to all of the above questions is that there should be.
-The purpose of the **common** package is encapsulate those types of functions,
+The purpose of the **common** package is to encapsulate these types of functions,
 and provide them to R users in a lightweight package.  These functions
 are particularly useful for package developers, who might want to add
 these capabilities to their package without creating dependencies on 
