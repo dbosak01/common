@@ -325,7 +325,7 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
 #' str
 #' # [1] "A1" "B2" "C3"
 #' @export
-`%p%` <- function(x,y) {
+'%p%' <- function(x,y) {
 
   ret <- paste0(x,y)
 
@@ -378,7 +378,7 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
 #' 1 %eq% v1             # FALSE
 #'
 #' @export
-`%eq%` <- function(x1, x2) {
+'%eq%' <- function(x1, x2) {
 
   ret <- TRUE
   if (is.null(x1) & is.null(x2))
