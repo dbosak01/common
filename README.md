@@ -25,7 +25,7 @@ The purpose of the **common** package is to encapsulate these types of functions
 and provide them to R users in a lightweight package.  These functions
 are particularly useful for package developers, who might want to add
 these capabilities to their package without creating dependencies on 
-**tidyverse**.
+**tidyverse**. 
 
 If you have ideas for more **common** functions, please submit
 your suggestion to the github 
