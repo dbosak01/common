@@ -82,6 +82,8 @@ Base R.</p>
 <p>Here is a list of the functions and a short explanation of each:</p>
 <ul>
 <li>
+<strong>v()</strong>: A generalized NSE quoting function.</li>
+<li>
 <strong>sort.data.frame()</strong>: An overload to the sort function
 for data frames.</li>
 <li>
@@ -96,11 +98,76 @@ function for data frames.</li>
 <strong>Sys.path()</strong>: A function to return the path of the
 currently running program.</li>
 <li>
-<strong>v()</strong>: A generalized NSE quoting function.</li>
-<li>
 <strong>roundup()</strong>: A rounding function that matches SAS®
 rounding.</li>
 </ul>
+<div id="a-generalized-nse-quoting-function" class="section level3">
+<h3 class="hasAnchor">
+<a href="#a-generalized-nse-quoting-function" class="anchor"></a>A generalized NSE quoting function</h3>
+<p>Normally, when working in Base R, it is necessary to quote variable
+names when passing them into a function or operator. For example,
+observe the R subset brackets:</p>
+<pre><code># Variable names passed to subset are quoted
+dat &lt;- mtcars[1:10 , c("mpg", "cyl", "disp")]
+
+# View results
+dat
+                   mpg cyl  disp
+Mazda RX4         21.0   6 160.0
+Mazda RX4 Wag     21.0   6 160.0
+Datsun 710        22.8   4 108.0
+Hornet 4 Drive    21.4   6 258.0
+Hornet Sportabout 18.7   8 360.0
+Valiant           18.1   6 225.0
+Duster 360        14.3   8 360.0
+Merc 240D         24.4   4 146.7
+Merc 230          22.8   4 140.8
+Merc 280          19.2   6 167.6</code></pre>
+<p>Some Base R functions and almost all <strong>tidyverse</strong>
+functions use Non-standard Evaluation (NSE) when passing variable names.
+This style of evaluation allows the user to type variables without using
+quotation marks or other methods of resolution.</p>
+<p>Picking up from the previous example, let’s now subset the
+<code>dat</code> data frame created above using the
+<code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> function, which uses NSE:</p>
+<pre><code># No quotes on "cyl" using subset() function
+dt &lt;- subset(dat, cyl == 4)
+
+# View results
+dt
+#             mpg cyl  disp
+# Datsun 710 22.8   4 108.0
+# Merc 240D  24.4   4 146.7
+# Merc 230   22.8   4 140.8</code></pre>
+<p>The <code><a href="../reference/v.html">v()</a></code> function in the <strong>common</strong> package
+is a quoting function. It allows you to use Non-Standard Evaluation
+(NSE) even on functions that were not specifically written for NSE.
+Observe:</p>
+<pre><code># Create a vector of unquoted names
+v1 &lt;- v(mpg, cyl, disp)
+
+# Result is a quoted vector
+v1
+# [1] "mpg"  "cyl"  "disp"
+
+# Variable names not quoted
+dat2 &lt;- mtcars[1:10, v(mpg, cyl, disp)]
+
+# Works as expected
+dat2
+#                    mpg cyl  disp
+# Mazda RX4         21.0   6 160.0
+# Mazda RX4 Wag     21.0   6 160.0
+# Datsun 710        22.8   4 108.0
+# Hornet 4 Drive    21.4   6 258.0
+# Hornet Sportabout 18.7   8 360.0
+# Valiant           18.1   6 225.0
+# Duster 360        14.3   8 360.0
+# Merc 240D         24.4   4 146.7
+# Merc 230          22.8   4 140.8
+# Merc 280          19.2   6 167.6
+</code></pre>
+</div>
 <div id="sort-a-data-frame" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sort-a-data-frame" class="anchor"></a>Sort a data frame</h3>
@@ -252,7 +319,7 @@ functionality is particularly useful when comparing tibbles, as tibbles
 often have many attributes assigned by <code>dplyr</code> functions.</p>
 <p>Below is an example of several comparisons using the
 <code>%eq%</code> infix operator:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Comparing of NULLs and NA</span></span>
 <span><span class="cn">NULL</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="cn">NULL</span>        <span class="co"># TRUE</span></span>
@@ -300,75 +367,13 @@ pth &lt;- Sys.path()
 # View path
 pth
 # [1] "C:/packages/common/vignettes/common.Rmd"</code></pre>
+<p>Note that this function returns the full path of the currently
+running program, including the file name and extension. This
+functionality is different from <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code>, which returns only
+the current working directory.</p>
 <p>Credit for this function goes to Andrew Simmons and the
 <strong>this.path</strong> package. The <strong>this.path</strong>
 functionality is renamed and provided here out of convenience.</p>
-</div>
-<div id="a-generalized-nse-quoting-function" class="section level3">
-<h3 class="hasAnchor">
-<a href="#a-generalized-nse-quoting-function" class="anchor"></a>A generalized NSE quoting function</h3>
-<p>Normally, when working in Base R, it is necessary to quote variable
-names when passing them into a function or operator. For example,
-observe the R subset brackets:</p>
-<pre><code># Variable names passed to subset are quoted
-dat &lt;- mtcars[1:10 , c("mpg", "cyl", "disp")]
-
-# View results
-dat
-                   mpg cyl  disp
-Mazda RX4         21.0   6 160.0
-Mazda RX4 Wag     21.0   6 160.0
-Datsun 710        22.8   4 108.0
-Hornet 4 Drive    21.4   6 258.0
-Hornet Sportabout 18.7   8 360.0
-Valiant           18.1   6 225.0
-Duster 360        14.3   8 360.0
-Merc 240D         24.4   4 146.7
-Merc 230          22.8   4 140.8
-Merc 280          19.2   6 167.6</code></pre>
-<p>Some Base R functions and almost all <strong>tidyverse</strong>
-functions use Non-standard Evaluation (NSE) when passing variable names.
-This style of evaluation allows the user to type variables without using
-quotation marks or other methods of resolution.</p>
-<p>Picking up from the previous example, let’s now subset the
-<code>dat</code> data frame created above:</p>
-<pre><code># No quotes on "cyl" using subset() function
-dt &lt;- subset(dat, cyl == 4)
-
-# View results
-dt
-#             mpg cyl  disp
-# Datsun 710 22.8   4 108.0
-# Merc 240D  24.4   4 146.7
-# Merc 230   22.8   4 140.8</code></pre>
-<p>The <code><a href="../reference/v.html">v()</a></code> function in the <strong>common</strong> package
-is a quoting function. It allows you to use Non-Standard Evaluation
-(NSE) even on functions that were not specifically written for NSE.
-Observe:</p>
-<pre><code># Create a vector of unquoted names
-v1 &lt;- v(mpg, cyl, disp)
-
-# Result is a quoted vector
-v1
-# [1] "mpg"  "cyl"  "disp"
-
-# Variable names not quoted
-dat2 &lt;- mtcars[1:10, v(mpg, cyl, disp)]
-
-# Works as expected
-dat2
-#                    mpg cyl  disp
-# Mazda RX4         21.0   6 160.0
-# Mazda RX4 Wag     21.0   6 160.0
-# Datsun 710        22.8   4 108.0
-# Hornet 4 Drive    21.4   6 258.0
-# Hornet Sportabout 18.7   8 360.0
-# Valiant           18.1   6 225.0
-# Duster 360        14.3   8 360.0
-# Merc 240D         24.4   4 146.7
-# Merc 230          22.8   4 140.8
-# Merc 280          19.2   6 167.6
-</code></pre>
 </div>
 <div id="an-alternate-rounding-function" class="section level3">
 <h3 class="hasAnchor">
@@ -432,7 +437,7 @@ used when comparing output between the two systems.</p>
 
 
       <footer><div class="copyright">
-  <p>Developed by David Bosak.</p>
+  <p>Developed by David Bosak, Andrew Simmons.</p>
 </div>
 
 <div class="pkgdown">
