@@ -1,7 +1,7 @@
 Package: common
 Type: Package
 Title: Solutions for Common Problems in Base R
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person(given = "David",
            family = "Bosak",
@@ -16,7 +16,7 @@ Authors@R: c(
            role = c("ctb"),
            email = "trand000@aol.com")
            )
-Maintainer: David Bosak<dbosak01@gmail.com>
+Maintainer: David Bosak <dbosak01@gmail.com>
 Description: Contains functions for solving commonly encountered problems while
     programming in R. This package is intended to provide a lightweight 
     supplement to Base R, and will be useful for almost any R user.

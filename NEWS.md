@@ -1,4 +1,4 @@
-# common 1.0.0
+# common 1.0.1
 
 * Published to CRAN.
 
