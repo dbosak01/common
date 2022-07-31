@@ -118,11 +118,18 @@ test_that("common2: v() function works", {
 
   expect_equal(res, c("a", "b", "c"))
 
-  res1 <- v(a, b, c * d)
+  res1 <- v( c * d, a, b)
 
-  res
+  res1
 
-  expect_equal(res1, c("a", "b", "c * d"))
+  expect_equal(res1, c("c * d", "a", "b"))
+
+
+  res2 <- v(c & d, a, b)
+
+  res2
+
+  expect_equal(res2, c("c & d", "a", "b"))
 
 })
 

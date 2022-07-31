@@ -554,9 +554,9 @@ roundup <- function(x, digits = 0) {
 v <- function(...) {
 
   # Determine if it is a vector or not.  "language" is a vector.
-  if (typeof(substitute(..., env = environment())) == "language")
-    vars <- substitute(..., env = environment())
-  else
+  # if (typeof(substitute(..., env = environment())) == "language")
+  #   vars <- substitute(..., env = environment())
+  # else
     vars <- substitute(list(...), env = environment())
 
   # Turn each item into a character
@@ -577,3 +577,9 @@ v <- function(...) {
 }
 
 
+
+file.find <- function(location, file_name, up = 3, down = 3) {
+
+
+
+}
