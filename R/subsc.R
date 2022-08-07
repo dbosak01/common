@@ -2,7 +2,32 @@
 # Subscript -------------------------------------------------------------
 
 
-
+#' @title
+#' Converts a string to UTF-8 subscript
+#' @encoding UTF-8
+#' @description
+#' The \code{subsc} function translates a normal character to a UTF-8
+#' subscript character.  The function can be used to
+#' generate subscripts for many common characters.  All
+#' numeric characters and some lower case letters have UTF-8 subscripts.
+#' There are no upper case subscript letters.
+#' This function is useful
+#' because it saves you from having to look up the subscript character
+#' code, or copy and paste from the internet.  If a corresponding
+#' subscript character code does not exist, a question mark
+#' will be returned for that character.
+#' @param x A string to be converted to subscript.
+#' @return The subscript version of the string passed to the function,
+#' if one exists. Otherwise, a question mark will be returned.
+#' @examples
+#' # Date string
+#' "December 5" %p% subsc("th")
+#' # [1] "December 5ₜₕ"
+#'
+#' # Chemistry
+#' "H" %p% subsc("2") %p% "SO" %p% subsc("4")
+#' # [1] "H₂SO₄"
+#' @export
 subsc <- function(x) {
 
   ret <- c()
@@ -45,45 +70,55 @@ subsc <- function(x) {
 # Lookups -----------------------------------------------------------------
 
 
+combother <- function(comb) {
+
+  ret <- comb
+
+  if (comb == "1/2")
+    ret <- "\U00BD"
+  else
+
+
+  return(ret)
+}
+
 
 subother <- function(oth) {
 
   ret <- NULL
 
   if (oth == 1)
-    ret <- "\U00B9"
+    ret <- "\U2081"
   else if (oth == 2)
-    ret <- "\U00B2"
+    ret <- "\U2082"
   else if (oth == 3)
-    ret <- "\U00B3"
+    ret <- "\U2083"
   else if (oth == 4)
-    ret <- "\U2074"
+    ret <- "\U2084"
   else if (oth == 5)
-    ret <- "\U2075"
+    ret <- "\U2085"
+  else if (oth == 6)
+    ret <- "\U2086"
   else if (oth == 7)
-    ret <- "\U2076"
-  else if (oth == 7)
-    ret <- "\U2077"
+    ret <- "\U2087"
   else if (oth == 8)
-    ret <- "\U2078"
+    ret <- "\U2088"
   else if (oth == 9)
-    ret <- "\U2079"
+    ret <- "\U2089"
   else if (oth == 0)
-    ret <- "\U2070"
-  else if (oth == "i")
-    ret <- "\U2071"
+    ret <- "\U2080"
   else if (oth == "+")
-    ret <- "\U207A"
+    ret <- "\U208A"
   else if (oth == "-")
-    ret <- "\U207B"
+    ret <- "\U208B"
   else if (oth == "=")
-    ret <- "\U207C"
+    ret <- "\U208C"
   else if (oth == "(")
-    ret <- "\U207D"
+    ret <- "\U208D"
   else if (oth == ")")
-    ret <- "\U207E"
-  else if (oth == "n")
-    ret <- "\U207F"
+    ret <- "\U208E"
+  else if (oth == "/")
+    ret <- "\U2E1D"
   else
     ret <- oth
 
@@ -95,59 +130,59 @@ subother <- function(oth) {
 # Lookups -----------------------------------------------------------------
 
 
-sublower <- c(a = "\U1D43",
-              b = "\U1D47",
-              c = "\U1D9C",
-              d = "\U1D48",
-              e = "\U1D49",
-              f = "\U1DA0",
-              g = "",
-              h = "",
-              i = "",
-              j = "",
-              k = "",
-              l = "",
-              m = "",
-              n = "",
-              o = "",
-              p = "",
-              q = "",
-              r = "",
-              s = "",
-              t = "",
-              u = "",
-              v = "",
-              w = "",
-              x = "",
-              y = "",
-              z = "")
+sublower <- c(a = "\U2090",
+              b = "?",
+              c = "?",
+              d = "?",
+              e = "\U2091",
+              f = "?",
+              g = "?",
+              h = "\U2095",
+              i = "?",
+              j = "?",
+              k = "\U2096",
+              l = "\U2097",
+              m = "\U2098",
+              n = "\U2099",
+              o = "\U2092",
+              p = "\U209A",
+              q = "?",
+              r = "?",
+              s = "\U209B",
+              t = "\U209C",
+              u = "?",
+              v = "?",
+              w = "?",
+              x = "\U2093",
+              y = "?",
+              z = "?")
 
-subupper <- c(A = "",
-              B = "",
-              C = "",
-              D = "",
-              E = "",
-              'F' = "",
-              G = "",
-              H = "",
-              I = "",
-              J = "",
-              K = "",
-              L = "",
-              M = "",
-              N = "",
-              O = "",
-              P = "",
-              Q = "",
-              R = "",
-              S = "",
-              'T' = "",
-              U = "",
-              V = "",
-              W = "",
-              X = "",
-              Y = "",
-              z = "")
+subupper <- c(A = "?",
+              B = "?",
+              C = "?",
+              D = "?",
+              E = "?",
+              'F' = "?",
+              G = "?",
+              H = "?",
+              I = "?",
+              J = "?",
+              K = "?",
+              L = "?",
+              M = "?",
+              N = "?",
+              O = "?",
+              P = "?",
+              Q = "?",
+              R = "?",
+              S = "?",
+              'T' = "?",
+              U = "?",
+              V = "?",
+              W = "?",
+              X = "?",
+              Y = "?",
+              Z = "?")
 
 
 

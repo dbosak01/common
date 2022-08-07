@@ -16,21 +16,24 @@ knitr::opts_chunk$set(
 The **common** package is a lightweight package that contains 
 solutions for commonly encountered problems when working in Base R.
 
-Here is a list of the functions and a short explanation of each:
+Here is a list of the functions and a short explanation of each:{#top}
 
-- **v()**: A generalized NSE quoting function.
-- **sort.data.frame()**: An overload to the sort function for data frames. 
-- **labels.data.frame()**: An overload to the labels function for data frames.
-- **%p%**: An infix operator for the `paste0()` function.
-- **%eq%**: An enhanced equality operator.
-- **Sys.path()**: A function to return the path of the currently running program.
-- **roundup()**: A rounding function that matches SAS® rounding.
+- [**v()**](#v): A generalized NSE quoting function.
+- [**sort.data.frame()**](#sort): An overload to the sort function for data frames. 
+- [**labels.data.frame()**](#labels): An overload to the labels function for data frames.
+- [**%p%**](#p): An infix operator for the `paste0()` function.
+- [**%eq%**](#eq): An enhanced equality operator.
+- [**Sys.path()**](#path): A function to return the path of the currently running program.
+- [**roundup()**](#roundup): A rounding function that matches SAS® rounding.
+- [**file.find()**](#find): A function to search for a file on the file system.
+- [**supsc()**](#supsc): A function to get UTF-8 superscript characters.
+- [**subsc()**](#supsc): A function to get UTF-8 subscript characters.
 
-### A generalized NSE quoting function 
+### A generalized NSE quoting function {#v}
 Normally, when working in Base R, it is necessary to quote variable names
 when passing them into a function or operator.  For example, observe
 the R subset brackets:
-```
+```{r eval=FALSE, echo=TRUE}
 # Variable names passed to subset are quoted
 dat <- mtcars[1:10 , c("mpg", "cyl", "disp")]
 
@@ -56,7 +59,7 @@ variables without using quotation marks or other methods of resolution.
 
 Picking up from the previous example, let's now subset the `dat` data frame
 created above using the `subset()` function, which uses NSE:
-```
+```{r eval=FALSE, echo=TRUE}
 # No quotes on "cyl" using subset() function
 dt <- subset(dat, cyl == 4)
 
@@ -70,7 +73,7 @@ dt
 The `v()` function in the **common** package is a quoting function.  It allows
 you to use Non-Standard Evaluation (NSE) even on functions that were not
 specifically written for NSE. Observe:
-```
+```{r eval=FALSE, echo=TRUE}
 # Create a vector of unquoted names
 v1 <- v(mpg, cyl, disp)
 
@@ -96,13 +99,14 @@ dat2
 # Merc 280          19.2   6 167.6
 
 ```
+[top](#top)
 
-### Sort a data frame
+### Sort a data frame {#sort}
 Base R provides sort and order functions that work adequately on vectors. 
 For data frames, the options are more limited.  In particular, if you want to sort
 a data frame by multiple columns, there are no functions in Base R to do it.
 The R documentation makes the following suggestion:
-```
+```{r eval=FALSE, echo=TRUE}
 # Prepare data
 dat <- mtcars[1:10, 1:3]
 
@@ -132,9 +136,9 @@ The `sort.data.frame()` function is an overload to the generic `sort()` function
 that is tailored for data frames.  It allows you to sort by multiple columns,
 and control the sort direction for each sort variable.  Here is an example:
 
-```
+```{r eval=FALSE, echo=TRUE}
 # Sort by cyl then mpg
-dat1 <- sort(dat, by = c("cyl", "mpg"))
+dat1 <- sort(dat, by = v(cyl, mpg))
 dat1
 #                    mpg cyl  disp
 # Datsun 710        22.8   4 108.0
@@ -149,7 +153,7 @@ dat1
 # Hornet Sportabout 18.7   8 360.0
 
 # Sort by cyl descending then mpg ascending
-dat2 <- sort(dat, by = c("cyl", "mpg"),
+dat2 <- sort(dat, by = v(cyl, mpg),
              ascending = c(FALSE, TRUE))
 dat2
 #                    mpg cyl  disp
@@ -167,9 +171,10 @@ dat2
 ```
 The `sort.data.frame()` function also allows you to control whether NA
 values are sorted to the top or bottom.  See the documentation for further 
-information and more examples.
+information and more examples.   
+[top](#top)
 
-### Modify labels on a data frame
+### Modify labels on a data frame {#labels}
 While many data operations in R do not require control over the labels
 on a data frame, some types of programming do. Particularly in situations
 where you are sharing data between multiple people and groups, the column
@@ -179,7 +184,7 @@ column.
 Unfortunately, Base R does not supply an easy way to manipulate these
 labels. The only approach is to use the `attr()` function to set the 
 labels individually for each column.  Like this:
-```
+```{r eval=FALSE, echo=TRUE}
 # Prepare data
 dat <- mtcars[1:10, 1:3]
 
@@ -193,7 +198,7 @@ The `labels.data.frame()` function is an overload to the Base R
 `labels()` function that is specific to data frames.  The function
 allows you to set labels for an entire data frame using a named list.
 Here is an example:
-```
+```{r eval=FALSE, echo=TRUE}
 # Prepare data
 dat <- mtcars[1:10, 1:3]
 
@@ -215,9 +220,10 @@ labels(dat)
 ```
 This function makes it much easier to set and retrieve labels on a data
 frame.  The labels make it easier for users to understand the data.
-This function should be included in Base R, but for some reason is not.
+This function should be included in Base R, but for some reason is not.   
+[top](#top)
 
-### An infix concatenation operator
+### An infix concatenation operator {#p}
 Most programming languages provide a built-in concatenation operator.  R does
 not. Instead, it provides the `paste()` and `paste0()` functions.  While 
 these functions do perform concatenation adequately, it is sometimes more convenient
@@ -225,7 +231,7 @@ to have an operator.
 
 The `%p%` operator is an infix version of the `paste0()` function.  It provides
 the same functionality of `paste0()`, but in a more compact manner. Like so:
-```
+```{r eval=FALSE, echo=TRUE}
 # Concatenation using paste0() function
 print(paste0("There are ", nrow(mtcars), " rows in the mtcars data frame"))
 # [1] "There are 32 rows in the mtcars data frame"
@@ -235,8 +241,9 @@ print("There are " %p% nrow(mtcars) %p% " rows in the mtcars data frame")
 # [1] "There are 32 rows in the mtcars data frame"
 
 ```
+[top](#top)
 
-### An enhanced equality operator
+### An enhanced equality operator {#eq}
 The **common** package contains an enhanced equality operator.  The 
 objective of the `%eq%` operator is to return a TRUE or FALSE value when
 any two objects are compared.  This enhanced equality operator is useful
@@ -284,14 +291,15 @@ v1 %eq% NA            # FALSE
 While it can be advantageous to have a comparison operator that does not give
 errors when encountering a NULL or NA value, note that this behavior can also 
 mask problems with your code.  Therefore, use the `%eq%` operator
-with care.
+with care.   
+[top](#top)
 
-### Getting the current path
+### Getting the current path {#path}
 Most programming languages provide a simple way to get the path of the
 currently running program. This basic feature has been left out of R.  The 
 `Sys.path()` function aims to make up for the oversight.
 
-```
+```{r eval=FALSE, echo=TRUE}
 # Get current path
 pth <- Sys.path()
 
@@ -304,12 +312,13 @@ program, including the file name and extension.  This functionality is different
 `getwd()`, which returns only the current working directory.  
 
 Credit for this function goes to Andrew Simmons and the **this.path** package.
-The **this.path** functionality is renamed and provided here out of convenience.
+The **this.path** functionality is renamed and provided here out of convenience.   
+[top](#top)
 
-### An alternate rounding function
+### An alternate rounding function {#roundup}
 As everyone knows, the R `round()` function rounds to the nearest even.
 For example: 
-```
+```{r eval=FALSE, echo=TRUE}
 # Prepare sample vector 
 v1 <- seq(0.5,9.5,by=1)
 v1
@@ -332,7 +341,7 @@ when trying to compare R results to SAS®.
 
 That is the purpose of the `roundup()`
 function. Observe the differences in output to what was shown above:
-```
+```{r eval=FALSE, echo=TRUE}
 # Round up function
 r2 <- roundup(v1)
 
@@ -343,7 +352,7 @@ r2
 ```
 Note that the function behaves differently when rounding negative 
 values.  
-```
+```{r eval=FALSE, echo=TRUE}
 # Negate original vector
 v2 <- -v1
 v2
@@ -360,7 +369,77 @@ As you can see, when dealing with negative numbers, the `roundup()`
 function actually rounds down.  "Round away from zero" is the best description
 of this function.  The rounding logic of the `roundup()` function 
 matches SAS® software, and can be used when comparing output between
-the two systems.
+the two systems.   
+[top](#top)
 
 
+### File searching capability {#find}
+Sometimes you know the file name of the file you are looking for, but 
+do not know the exact location.  It might be in the directory above your
+program, or it might be in the directory below.  The `file.find()`
+function provides an easy way to search for files you are looking for.
+You tell the function where to start searching from and what to look for,
+and it will begin looking in the base directory.  If the file is not 
+found in the base directory, it will expand the search above and below the 
+base directory.  The search routine will continue expanding the search
+until it finds a file that matchs the search criteria, or hits the 
+limits imposed by the `up` and `down` parameters.  Here is an example:
+```{r eval=FALSE, echo=TRUE}
+# Look for a file named "globals.R"
+pths <- file.find(Sys.path(), "globals.R")
+pths
+```
+The function will return a vector of full paths that meet the search 
+criteria, and are within bounds of the search.  If no file is 
+found that meets the search criteria, the function returns a NULL.   
+[top](#top)
 
+### Superscripts and Subscripts {#supsc}
+There are many occasions when you need to 
+create a superscript or subscript. The UTF-8 character set provides
+superscript and subscript versions of many commonly used characters.
+For example, the following code can be used to add a superscript '1'
+to the front of a footnote string:
+```{r eval=FALSE, echo=TRUE}
+# Append superscript as UTF-8 code
+myfoot <- "\U00B9My footnotes"
+myfoot
+# [1] "¹My footnotes"
+
+```
+Remembering these UTF-8 codes, however, can be a challenge for most people.
+The `supsc()` and `subsc()` functions look up the superscript
+or subscript version of a normal character, without having to remember
+or research the proper UTF-8 code.  
+
+Using these functions, we can therefore rewrite the above example as follows:
+```{r eval=FALSE, echo=TRUE}
+# Append superscript using supsc() 
+myfoot <- supsc("1") %p% "My footnotes"
+myfoot
+# [1] "¹My footnotes"
+
+```
+Here are a couple more examples:
+```{r eval=FALSE, echo=TRUE}
+# Subscript
+str1 <- "The chemical symbol for water is H" %p% subsc("2") %p% "O."
+str1
+# [1] "The chemical symbol for water is H₂O."
+
+# Mathmatical notation
+mth <- "x" %p% supsc("(a + 1)")
+mth
+# [1] "x⁽ᵃ ⁺ ¹⁾"
+```
+Note that using the **glue** package, you can embed these functions
+directly in your character strings:
+```{r eval=FALSE, echo=TRUE}
+library(glue)
+
+# Embedded superscript
+cit <- glue("My citation{supsc('2')}")
+cit
+# My citation²
+```
+[top](#top)

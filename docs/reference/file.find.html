@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check equality of two objects — %eq% • common</title>
+<title>Search for files — file.find • common</title>
 
 
 <!-- jquery -->
@@ -39,14 +39,13 @@
 
 
 
-<meta property="og:title" content="Check equality of two objects — %eq%" />
-<meta property="og:description" content="The goal of the %eq% operator is to return a TRUE
-or FALSE value when any two objects are compared.  The function provides a
-simple, reliable equality check that allows comparing
-of NULLs, NA values, and atomic data types without error.
-The function also allows comparing
-of data frames.  It will return TRUE if all values in the
-data frames are equal, and ignores differences in attributes." />
+<meta property="og:title" content="Search for files — file.find" />
+<meta property="og:description" content="A function to find files on the file system. The function
+starts from the directory specified in the location parameter,
+and searches for the file name in the file_name parameter.
+The file_name accepts wild cards (*).  The function searches
+both above and below the current directory locations.  The number of levels
+to search can be controlled by the up and down parameters." />
 
 
 
@@ -115,70 +114,56 @@ data frames are equal, and ignores differences in attributes." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check equality of two objects</h1>
+    <h1>Search for files</h1>
     
-    <div class="hidden name"><code>grapes-eq-grapes.Rd</code></div>
+    <div class="hidden name"><code>file.find.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The goal of the <code>%eq%</code> operator is to return a TRUE
-or FALSE value when any two objects are compared.  The function provides a
-simple, reliable equality check that allows comparing
-of NULLs, NA values, and atomic data types without error.</p>
-<p>The function also allows comparing
-of data frames.  It will return TRUE if all values in the
-data frames are equal, and ignores differences in attributes.</p>
+    <p>A function to find files on the file system. The function
+starts from the directory specified in the <code>location</code> parameter,
+and searches for the file name in the <code>file_name</code> parameter.
+The <code>file_name</code> accepts wild cards (*).  The function searches
+both above and below the current directory locations.  The number of levels
+to search can be controlled by the <code>up</code> and <code>down</code> parameters.</p>
     </div>
 
-    <pre class="usage"><span><span class='va'>x1</span> <span class='op'>%eq%</span> <span class='va'>x2</span></span></pre>
+    <pre class="usage"><span><span class='fu'>file.find</span><span class='op'>(</span><span class='va'>location</span>, <span class='va'>file_name</span>, up <span class='op'>=</span> <span class='fl'>3</span>, down <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x1</th>
-      <td><p>The first object to compare</p></td>
+      <th>location</th>
+      <td><p>The directory to start searching from.  The path of the
+current program can be retrieved using <code><a href='Sys.path.html'>Sys.path</a></code>.</p></td>
     </tr>
     <tr>
-      <th>x2</th>
-      <td><p>The second object to compare</p></td>
+      <th>file_name</th>
+      <td><p>A full or partial name of the file to find.  If partial,
+use the asterisk (*) character to indicate the missing piece.</p></td>
+    </tr>
+    <tr>
+      <th>up</th>
+      <td><p>The number of levels above the location to search.</p></td>
+    </tr>
+    <tr>
+      <th>down</th>
+      <td><p>The number of levels below the location to search.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A single TRUE or FALSE value depending on whether the objects are equal.</p>
+    <p>A vector of one or more full file paths that met the search criteria,
+or a NULL if no files met the criteria.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span><span class='co'># Comparing of NULLs and NA</span></span>
-<span><span class='cn'>NULL</span> <span class='op'>%eq%</span> <span class='cn'>NULL</span>        <span class='co'># TRUE</span></span>
-<span><span class='cn'>NULL</span> <span class='op'>%eq%</span> <span class='cn'>NA</span>          <span class='co'># FALSE</span></span>
-<span><span class='cn'>NA</span> <span class='op'>%eq%</span> <span class='cn'>NA</span>            <span class='co'># TRUE</span></span>
-<span><span class='fl'>1</span> <span class='op'>%eq%</span> <span class='cn'>NULL</span>           <span class='co'># FALSE</span></span>
-<span><span class='fl'>1</span> <span class='op'>%eq%</span> <span class='cn'>NA</span>             <span class='co'># FALSE</span></span>
+    <pre class="examples"><span><span class='co'># Search for a file named "globals.R"</span></span>
+<span><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>file.find</span><span class='op'>(</span><span class='fu'><a href='Sys.path.html'>Sys.path</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"globals.R"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># Comparing of atomic values</span></span>
-<span><span class='fl'>1</span> <span class='op'>%eq%</span> <span class='fl'>1</span>              <span class='co'># TRUE</span></span>
-<span><span class='st'>"one"</span> <span class='op'>%eq%</span> <span class='st'>"one"</span>      <span class='co'># TRUE</span></span>
-<span><span class='fl'>1</span> <span class='op'>%eq%</span> <span class='st'>"one"</span>          <span class='co'># FALSE</span></span>
-<span><span class='fl'>1</span> <span class='op'>%eq%</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span>     <span class='co'># FALSE</span></span>
-<span></span>
-<span><span class='co'># Comparing of vectors</span></span>
-<span><span class='va'>v1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span><span class='op'>)</span></span>
-<span><span class='va'>v2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"D"</span><span class='op'>)</span></span>
-<span><span class='va'>v1</span> <span class='op'>%eq%</span> <span class='va'>v1</span>            <span class='co'># TRUE</span></span>
-<span><span class='va'>v1</span> <span class='op'>%eq%</span> <span class='va'>v2</span>            <span class='co'># FALSE</span></span>
-<span></span>
-<span><span class='co'># Comparing of data frames</span></span>
-<span><span class='va'>mtcars</span> <span class='op'>%eq%</span> <span class='va'>mtcars</span>    <span class='co'># TRUE</span></span>
-<span><span class='va'>mtcars</span> <span class='op'>%eq%</span> <span class='va'>iris</span>      <span class='co'># FALSE</span></span>
-<span><span class='va'>iris</span> <span class='op'>%eq%</span> <span class='va'>iris</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>50</span>,<span class='op'>]</span> <span class='co'># FALSE</span></span>
-<span></span>
-<span><span class='co'># Mixing it up</span></span>
-<span><span class='va'>mtcars</span> <span class='op'>%eq%</span> <span class='cn'>NULL</span>      <span class='co'># FALSE</span></span>
-<span><span class='va'>v1</span> <span class='op'>%eq%</span> <span class='cn'>NA</span>            <span class='co'># FALSE</span></span>
-<span><span class='fl'>1</span> <span class='op'>%eq%</span> <span class='va'>v1</span>             <span class='co'># FALSE</span></span>
-<span></span></pre>
+<span><span class='co'># Search for SAS datasets</span></span>
+<span><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>file.find</span><span class='op'>(</span><span class='fu'><a href='Sys.path.html'>Sys.path</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"*.sas7bdat"</span><span class='op'>)</span></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -1,7 +1,7 @@
 Package: common
 Type: Package
 Title: Solutions for Common Problems in Base R
-Version: 1.1.0
+Version: 1.0.2
 Authors@R: c(
     person(given = "David",
            family = "Bosak",
@@ -26,7 +26,8 @@ Depends: R (>= 3.6.0)
 Suggests: 
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    glue
 Enhances: base
 Imports: this.path
 Config/testthat/edition: 3

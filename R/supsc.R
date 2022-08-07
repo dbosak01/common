@@ -3,7 +3,38 @@
 # Superscript -------------------------------------------------------------
 
 
-
+#' @title
+#' Converts a string to UTF-8 superscript
+#' @encoding UTF-8
+#' @description
+#' The \code{supsc} function translates a normal character to a UTF-8
+#' superscript character.  The function can be used to
+#' generate superscripts for many common characters.  Most alphabetic
+#' and numeric characters have UTF-8 superscripts.  This function is useful
+#' because it saves you from having to look up the superscript character
+#' code, or copy and pasting from the internet.  If a corresponding
+#' superscript character code does not exist, a question mark
+#' will be returned for that character.
+#' @param x A string to be converted to superscript.
+#' @return The superscript version of the string passed to the function,
+#' if one exists. Otherwise, a question mark will be returned.
+#' @examples
+#' # Single letter
+#' supsc("a") %p% "Footnote"
+#' # [1] "ᵃFootnote"
+#'
+#' # Single number
+#' supsc("1") %p% "Footnote"
+#' # [1] "¹Footnote"
+#'
+#' # Character string
+#' "December 5" %p% supsc("th")
+#' # [1] "December 5ᵗʰ"
+#'
+#' # Formula
+#' "x" %p% supsc("(a+1)")
+#' # "x⁽ᵃ⁺¹⁾"
+#' @export
 supsc <- function(x) {
 
 
@@ -57,7 +88,7 @@ supother <- function(oth) {
     ret <- "\U2074"
   else if (oth == 5)
     ret <- "\U2075"
-  else if (oth == 7)
+  else if (oth == 6)
     ret <- "\U2076"
   else if (oth == 7)
     ret <- "\U2077"
@@ -83,6 +114,12 @@ supother <- function(oth) {
     ret <- "\U207F"
   else if (oth == "\U0153")
     ret <- "\UA7F9"
+  else if (oth == "/")
+    ret <- "\U141F"  #"\U2E0D"
+  else if (oth == "*")
+    ret <- "\U20F0"  #"⃰"
+  else if (oth == " ")
+    ret <- "\U2009"
   else
     ret <- "?"
 
@@ -122,8 +159,8 @@ suplower <- c(a = "\U1D43",
               z = "\U1DBB")
 
 supupper <- c(A = "\U1D2C",
-              B = "\U1D2D",
-              C = "?",
+              B = "\U1D2E",
+              C = "\U1D04",
               D = "\U1D30",
               E = "\U1D31",
               'F' = "?",
@@ -146,6 +183,6 @@ supupper <- c(A = "\U1D2C",
               W = "\U1D42",
               X = "?",  # None
               Y = "?",  # None
-              Z = "?")  # None
+              Z = "\U1D22")  # None
 
 

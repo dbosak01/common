@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">common</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -79,50 +79,62 @@
 <p>The <strong>common</strong> package is a lightweight package that
 contains solutions for commonly encountered problems when working in
 Base R.</p>
-<p>Here is a list of the functions and a short explanation of each:</p>
+<p>Here is a list of the functions and a short explanation of
+each:{#top}</p>
 <ul>
 <li>
-<strong>v()</strong>: A generalized NSE quoting function.</li>
+<a href="#v"><strong>v()</strong></a>: A generalized NSE quoting
+function.</li>
 <li>
-<strong>sort.data.frame()</strong>: An overload to the sort function
-for data frames.</li>
+<a href="#sort"><strong>sort.data.frame()</strong></a>: An overload
+to the sort function for data frames.</li>
 <li>
-<strong>labels.data.frame()</strong>: An overload to the labels
-function for data frames.</li>
+<a href="#labels"><strong>labels.data.frame()</strong></a>: An
+overload to the labels function for data frames.</li>
 <li>
-<strong>%p%</strong>: An infix operator for the
+<a href="#p"><strong>%p%</strong></a>: An infix operator for the
 <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> function.</li>
 <li>
-<strong>%eq%</strong>: An enhanced equality operator.</li>
+<a href="#eq"><strong>%eq%</strong></a>: An enhanced equality
+operator.</li>
 <li>
-<strong>Sys.path()</strong>: A function to return the path of the
-currently running program.</li>
+<a href="#path"><strong>Sys.path()</strong></a>: A function to
+return the path of the currently running program.</li>
 <li>
-<strong>roundup()</strong>: A rounding function that matches SAS®
-rounding.</li>
+<a href="#roundup"><strong>roundup()</strong></a>: A rounding
+function that matches SAS® rounding.</li>
+<li>
+<a href="#find"><strong>file.find()</strong></a>: A function to
+search for a file on the file system.</li>
+<li>
+<a href="#supsc"><strong>supsc()</strong></a>: A function to get
+UTF-8 superscript characters.</li>
+<li>
+<a href="#supsc"><strong>subsc()</strong></a>: A function to get
+UTF-8 subscript characters.</li>
 </ul>
-<div id="a-generalized-nse-quoting-function" class="section level3">
+<div id="v" class="section level3">
 <h3 class="hasAnchor">
-<a href="#a-generalized-nse-quoting-function" class="anchor"></a>A generalized NSE quoting function</h3>
+<a href="#v" class="anchor"></a>A generalized NSE quoting function</h3>
 <p>Normally, when working in Base R, it is necessary to quote variable
 names when passing them into a function or operator. For example,
 observe the R subset brackets:</p>
-<pre><code># Variable names passed to subset are quoted
-dat &lt;- mtcars[1:10 , c("mpg", "cyl", "disp")]
-
-# View results
-dat
-                   mpg cyl  disp
-Mazda RX4         21.0   6 160.0
-Mazda RX4 Wag     21.0   6 160.0
-Datsun 710        22.8   4 108.0
-Hornet 4 Drive    21.4   6 258.0
-Hornet Sportabout 18.7   8 360.0
-Valiant           18.1   6 225.0
-Duster 360        14.3   8 360.0
-Merc 240D         24.4   4 146.7
-Merc 230          22.8   4 140.8
-Merc 280          19.2   6 167.6</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable names passed to subset are quoted</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> , <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"disp"</span>)]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View results</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dat</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                   mpg cyl  disp</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Mazda RX4         <span class="fl">21.0</span>   <span class="dv">6</span> <span class="fl">160.0</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Mazda RX4 Wag     <span class="fl">21.0</span>   <span class="dv">6</span> <span class="fl">160.0</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Datsun <span class="dv">710</span>        <span class="fl">22.8</span>   <span class="dv">4</span> <span class="fl">108.0</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Hornet <span class="dv">4</span> Drive    <span class="fl">21.4</span>   <span class="dv">6</span> <span class="fl">258.0</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Hornet Sportabout <span class="fl">18.7</span>   <span class="dv">8</span> <span class="fl">360.0</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Valiant           <span class="fl">18.1</span>   <span class="dv">6</span> <span class="fl">225.0</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Duster <span class="dv">360</span>        <span class="fl">14.3</span>   <span class="dv">8</span> <span class="fl">360.0</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Merc 240D         <span class="fl">24.4</span>   <span class="dv">4</span> <span class="fl">146.7</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Merc <span class="dv">230</span>          <span class="fl">22.8</span>   <span class="dv">4</span> <span class="fl">140.8</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Merc <span class="dv">280</span>          <span class="fl">19.2</span>   <span class="dv">6</span> <span class="fl">167.6</span></span></code></pre></div>
 <p>Some Base R functions and almost all <strong>tidyverse</strong>
 functions use Non-standard Evaluation (NSE) when passing variable names.
 This style of evaluation allows the user to type variables without using
@@ -130,71 +142,74 @@ quotation marks or other methods of resolution.</p>
 <p>Picking up from the previous example, let’s now subset the
 <code>dat</code> data frame created above using the
 <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> function, which uses NSE:</p>
-<pre><code># No quotes on "cyl" using subset() function
-dt &lt;- subset(dat, cyl == 4)
-
-# View results
-dt
-#             mpg cyl  disp
-# Datsun 710 22.8   4 108.0
-# Merc 240D  24.4   4 146.7
-# Merc 230   22.8   4 140.8</code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># No quotes on "cyl" using subset() function</span></span>
+<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">cyl</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View results</span></span>
+<span><span class="va">dt</span></span>
+<span><span class="co">#             mpg cyl  disp</span></span>
+<span><span class="co"># Datsun 710 22.8   4 108.0</span></span>
+<span><span class="co"># Merc 240D  24.4   4 146.7</span></span>
+<span><span class="co"># Merc 230   22.8   4 140.8</span></span></code></pre></div>
 <p>The <code><a href="../reference/v.html">v()</a></code> function in the <strong>common</strong> package
 is a quoting function. It allows you to use Non-Standard Evaluation
 (NSE) even on functions that were not specifically written for NSE.
 Observe:</p>
-<pre><code># Create a vector of unquoted names
-v1 &lt;- v(mpg, cyl, disp)
-
-# Result is a quoted vector
-v1
-# [1] "mpg"  "cyl"  "disp"
-
-# Variable names not quoted
-dat2 &lt;- mtcars[1:10, v(mpg, cyl, disp)]
-
-# Works as expected
-dat2
-#                    mpg cyl  disp
-# Mazda RX4         21.0   6 160.0
-# Mazda RX4 Wag     21.0   6 160.0
-# Datsun 710        22.8   4 108.0
-# Hornet 4 Drive    21.4   6 258.0
-# Hornet Sportabout 18.7   8 360.0
-# Valiant           18.1   6 225.0
-# Duster 360        14.3   8 360.0
-# Merc 240D         24.4   4 146.7
-# Merc 230          22.8   4 140.8
-# Merc 280          19.2   6 167.6
-</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a vector of unquoted names</span></span>
+<span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/v.html">v</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">cyl</span>, <span class="va">disp</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Result is a quoted vector</span></span>
+<span><span class="va">v1</span></span>
+<span><span class="co"># [1] "mpg"  "cyl"  "disp"</span></span>
+<span></span>
+<span><span class="co"># Variable names not quoted</span></span>
+<span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="../reference/v.html">v</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">cyl</span>, <span class="va">disp</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Works as expected</span></span>
+<span><span class="va">dat2</span></span>
+<span><span class="co">#                    mpg cyl  disp</span></span>
+<span><span class="co"># Mazda RX4         21.0   6 160.0</span></span>
+<span><span class="co"># Mazda RX4 Wag     21.0   6 160.0</span></span>
+<span><span class="co"># Datsun 710        22.8   4 108.0</span></span>
+<span><span class="co"># Hornet 4 Drive    21.4   6 258.0</span></span>
+<span><span class="co"># Hornet Sportabout 18.7   8 360.0</span></span>
+<span><span class="co"># Valiant           18.1   6 225.0</span></span>
+<span><span class="co"># Duster 360        14.3   8 360.0</span></span>
+<span><span class="co"># Merc 240D         24.4   4 146.7</span></span>
+<span><span class="co"># Merc 230          22.8   4 140.8</span></span>
+<span><span class="co"># Merc 280          19.2   6 167.6</span></span></code></pre></div>
+<p><a href="#top">top</a></p>
 </div>
-<div id="sort-a-data-frame" class="section level3">
+<div id="sort" class="section level3">
 <h3 class="hasAnchor">
-<a href="#sort-a-data-frame" class="anchor"></a>Sort a data frame</h3>
+<a href="#sort" class="anchor"></a>Sort a data frame</h3>
 <p>Base R provides sort and order functions that work adequately on
 vectors. For data frames, the options are more limited. In particular,
 if you want to sort a data frame by multiple columns, there are no
 functions in Base R to do it. The R documentation makes the following
 suggestion:</p>
-<pre><code># Prepare data
-dat &lt;- mtcars[1:10, 1:3]
-
-# Get sort order
-ord &lt;- do.call('order', dat[ ,c("cyl", "mpg")])
-
-# Sort data
-dat[ord, ]
-#                    mpg cyl  disp
-# Datsun 710        22.8   4 108.0
-# Merc 230          22.8   4 140.8
-# Merc 240D         24.4   4 146.7
-# Valiant           18.1   6 225.0
-# Merc 280          19.2   6 167.6
-# Mazda RX4         21.0   6 160.0
-# Mazda RX4 Wag     21.0   6 160.0
-# Hornet 4 Drive    21.4   6 258.0
-# Duster 360        14.3   8 360.0
-# Hornet Sportabout 18.7   8 360.0</code></pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Prepare data</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Get sort order</span></span>
+<span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="st">'order'</span>, <span class="va">dat</span><span class="op">[</span> ,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cyl"</span>, <span class="st">"mpg"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Sort data</span></span>
+<span><span class="va">dat</span><span class="op">[</span><span class="va">ord</span>, <span class="op">]</span></span>
+<span><span class="co">#                    mpg cyl  disp</span></span>
+<span><span class="co"># Datsun 710        22.8   4 108.0</span></span>
+<span><span class="co"># Merc 230          22.8   4 140.8</span></span>
+<span><span class="co"># Merc 240D         24.4   4 146.7</span></span>
+<span><span class="co"># Valiant           18.1   6 225.0</span></span>
+<span><span class="co"># Merc 280          19.2   6 167.6</span></span>
+<span><span class="co"># Mazda RX4         21.0   6 160.0</span></span>
+<span><span class="co"># Mazda RX4 Wag     21.0   6 160.0</span></span>
+<span><span class="co"># Hornet 4 Drive    21.4   6 258.0</span></span>
+<span><span class="co"># Duster 360        14.3   8 360.0</span></span>
+<span><span class="co"># Hornet Sportabout 18.7   8 360.0</span></span></code></pre></div>
 <p>In the above example, notice that a) there is no actual sorting
 function for data frames, and b) the method illustrated above provides
 no way to control the sort order of the variables involved. They are all
@@ -203,44 +218,44 @@ sorted ascending.</p>
 generic <code><a href="https://rdrr.io/r/base/sort.html">sort()</a></code> function that is tailored for data frames.
 It allows you to sort by multiple columns, and control the sort
 direction for each sort variable. Here is an example:</p>
-<pre><code># Sort by cyl then mpg
-dat1 &lt;- sort(dat, by = c("cyl", "mpg"))
-dat1
-#                    mpg cyl  disp
-# Datsun 710        22.8   4 108.0
-# Merc 230          22.8   4 140.8
-# Merc 240D         24.4   4 146.7
-# Valiant           18.1   6 225.0
-# Merc 280          19.2   6 167.6
-# Mazda RX4         21.0   6 160.0
-# Mazda RX4 Wag     21.0   6 160.0
-# Hornet 4 Drive    21.4   6 258.0
-# Duster 360        14.3   8 360.0
-# Hornet Sportabout 18.7   8 360.0
-
-# Sort by cyl descending then mpg ascending
-dat2 &lt;- sort(dat, by = c("cyl", "mpg"),
-             ascending = c(FALSE, TRUE))
-dat2
-#                    mpg cyl  disp
-# Duster 360        14.3   8 360.0
-# Hornet Sportabout 18.7   8 360.0
-# Valiant           18.1   6 225.0
-# Merc 280          19.2   6 167.6
-# Mazda RX4         21.0   6 160.0
-# Mazda RX4 Wag     21.0   6 160.0
-# Hornet 4 Drive    21.4   6 258.0
-# Datsun 710        22.8   4 108.0
-# Merc 230          22.8   4 140.8
-# Merc 240D         24.4   4 146.7
-</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Sort by cyl then mpg</span></span>
+<span><span class="va">dat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">dat</span>, by <span class="op">=</span> <span class="fu"><a href="../reference/v.html">v</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dat1</span></span>
+<span><span class="co">#                    mpg cyl  disp</span></span>
+<span><span class="co"># Datsun 710        22.8   4 108.0</span></span>
+<span><span class="co"># Merc 230          22.8   4 140.8</span></span>
+<span><span class="co"># Merc 240D         24.4   4 146.7</span></span>
+<span><span class="co"># Valiant           18.1   6 225.0</span></span>
+<span><span class="co"># Merc 280          19.2   6 167.6</span></span>
+<span><span class="co"># Mazda RX4         21.0   6 160.0</span></span>
+<span><span class="co"># Mazda RX4 Wag     21.0   6 160.0</span></span>
+<span><span class="co"># Hornet 4 Drive    21.4   6 258.0</span></span>
+<span><span class="co"># Duster 360        14.3   8 360.0</span></span>
+<span><span class="co"># Hornet Sportabout 18.7   8 360.0</span></span>
+<span></span>
+<span><span class="co"># Sort by cyl descending then mpg ascending</span></span>
+<span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">dat</span>, by <span class="op">=</span> <span class="fu"><a href="../reference/v.html">v</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">mpg</span><span class="op">)</span>,</span>
+<span>             ascending <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dat2</span></span>
+<span><span class="co">#                    mpg cyl  disp</span></span>
+<span><span class="co"># Duster 360        14.3   8 360.0</span></span>
+<span><span class="co"># Hornet Sportabout 18.7   8 360.0</span></span>
+<span><span class="co"># Valiant           18.1   6 225.0</span></span>
+<span><span class="co"># Merc 280          19.2   6 167.6</span></span>
+<span><span class="co"># Mazda RX4         21.0   6 160.0</span></span>
+<span><span class="co"># Mazda RX4 Wag     21.0   6 160.0</span></span>
+<span><span class="co"># Hornet 4 Drive    21.4   6 258.0</span></span>
+<span><span class="co"># Datsun 710        22.8   4 108.0</span></span>
+<span><span class="co"># Merc 230          22.8   4 140.8</span></span>
+<span><span class="co"># Merc 240D         24.4   4 146.7</span></span></code></pre></div>
 <p>The <code><a href="../reference/sort.data.frame.html">sort.data.frame()</a></code> function also allows you to
 control whether NA values are sorted to the top or bottom. See the
-documentation for further information and more examples.</p>
+documentation for further information and more examples.<br><a href="#top">top</a></p>
 </div>
-<div id="modify-labels-on-a-data-frame" class="section level3">
+<div id="labels" class="section level3">
 <h3 class="hasAnchor">
-<a href="#modify-labels-on-a-data-frame" class="anchor"></a>Modify labels on a data frame</h3>
+<a href="#labels" class="anchor"></a>Modify labels on a data frame</h3>
 <p>While many data operations in R do not require control over the
 labels on a data frame, some types of programming do. Particularly in
 situations where you are sharing data between multiple people and
@@ -249,44 +264,45 @@ data contained in a particular column.</p>
 <p>Unfortunately, Base R does not supply an easy way to manipulate these
 labels. The only approach is to use the <code><a href="https://rdrr.io/r/base/attr.html">attr()</a></code> function to
 set the labels individually for each column. Like this:</p>
-<pre><code># Prepare data
-dat &lt;- mtcars[1:10, 1:3]
-
-# Assign labels
-attr(dat$mpg, "label") &lt;- "Miles Per Gallon"
-attr(dat$cyl, "label") &lt;- "Cylinders"
-attr(dat$disp, "label") &lt;- "Displacement"
-</code></pre>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Prepare data</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Assign labels</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">mpg</span>, <span class="st">"label"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Miles Per Gallon"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">cyl</span>, <span class="st">"label"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Cylinders"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">disp</span>, <span class="st">"label"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Displacement"</span></span></code></pre></div>
 <p>The <code><a href="../reference/labels.data.frame.html">labels.data.frame()</a></code> function is an overload to the
 Base R <code><a href="https://rdrr.io/r/base/labels.html">labels()</a></code> function that is specific to data frames.
 The function allows you to set labels for an entire data frame using a
 named list. Here is an example:</p>
-<pre><code># Prepare data
-dat &lt;- mtcars[1:10, 1:3]
-
-# Assign labels
-labels(dat) &lt;- list(mpg = "Miles Per Gallon",
-                    cyl = "Cylinders",
-                    disp = "Displacement")
-                    
-# View label attributes
-labels(dat)
-# $mpg
-# [1] "Miles Per Gallon"
-# 
-# $cyl
-# [1] "Cylinders"
-# 
-# $disp
-# [1] "Displacement"</code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Prepare data</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Assign labels</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html">labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mpg <span class="op">=</span> <span class="st">"Miles Per Gallon"</span>,</span>
+<span>                    cyl <span class="op">=</span> <span class="st">"Cylinders"</span>,</span>
+<span>                    disp <span class="op">=</span> <span class="st">"Displacement"</span><span class="op">)</span></span>
+<span>                    </span>
+<span><span class="co"># View label attributes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html">labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="co"># $mpg</span></span>
+<span><span class="co"># [1] "Miles Per Gallon"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $cyl</span></span>
+<span><span class="co"># [1] "Cylinders"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $disp</span></span>
+<span><span class="co"># [1] "Displacement"</span></span></code></pre></div>
 <p>This function makes it much easier to set and retrieve labels on a
 data frame. The labels make it easier for users to understand the data.
 This function should be included in Base R, but for some reason is
-not.</p>
+not.<br><a href="#top">top</a></p>
 </div>
-<div id="an-infix-concatenation-operator" class="section level3">
+<div id="p" class="section level3">
 <h3 class="hasAnchor">
-<a href="#an-infix-concatenation-operator" class="anchor"></a>An infix concatenation operator</h3>
+<a href="#p" class="anchor"></a>An infix concatenation operator</h3>
 <p>Most programming languages provide a built-in concatenation operator.
 R does not. Instead, it provides the <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> and
 <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> functions. While these functions do perform
@@ -295,18 +311,19 @@ operator.</p>
 <p>The <code>%p%</code> operator is an infix version of the
 <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> function. It provides the same functionality of
 <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>, but in a more compact manner. Like so:</p>
-<pre><code># Concatenation using paste0() function
-print(paste0("There are ", nrow(mtcars), " rows in the mtcars data frame"))
-# [1] "There are 32 rows in the mtcars data frame"
-
-# Concatenation using %p% operator
-print("There are " %p% nrow(mtcars) %p% " rows in the mtcars data frame")
-# [1] "There are 32 rows in the mtcars data frame"
-</code></pre>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Concatenation using paste0() function</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"There are "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>, <span class="st">" rows in the mtcars data frame"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># [1] "There are 32 rows in the mtcars data frame"</span></span>
+<span></span>
+<span><span class="co"># Concatenation using %p% operator</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"There are "</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="st">" rows in the mtcars data frame"</span><span class="op">)</span></span>
+<span><span class="co"># [1] "There are 32 rows in the mtcars data frame"</span></span></code></pre></div>
+<p><a href="#top">top</a></p>
 </div>
-<div id="an-enhanced-equality-operator" class="section level3">
+<div id="eq" class="section level3">
 <h3 class="hasAnchor">
-<a href="#an-enhanced-equality-operator" class="anchor"></a>An enhanced equality operator</h3>
+<a href="#eq" class="anchor"></a>An enhanced equality operator</h3>
 <p>The <strong>common</strong> package contains an enhanced equality
 operator. The objective of the <code>%eq%</code> operator is to return a
 TRUE or FALSE value when any two objects are compared. This enhanced
@@ -352,46 +369,47 @@ often have many attributes assigned by <code>dplyr</code> functions.</p>
 <p>While it can be advantageous to have a comparison operator that does
 not give errors when encountering a NULL or NA value, note that this
 behavior can also mask problems with your code. Therefore, use the
-<code>%eq%</code> operator with care.</p>
+<code>%eq%</code> operator with care.<br><a href="#top">top</a></p>
 </div>
-<div id="getting-the-current-path" class="section level3">
+<div id="path" class="section level3">
 <h3 class="hasAnchor">
-<a href="#getting-the-current-path" class="anchor"></a>Getting the current path</h3>
+<a href="#path" class="anchor"></a>Getting the current path</h3>
 <p>Most programming languages provide a simple way to get the path of
 the currently running program. This basic feature has been left out of
 R. The <code><a href="../reference/Sys.path.html">Sys.path()</a></code> function aims to make up for the
 oversight.</p>
-<pre><code># Get current path
-pth &lt;- Sys.path()
-
-# View path
-pth
-# [1] "C:/packages/common/vignettes/common.Rmd"</code></pre>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get current path</span></span>
+<span><span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Sys.path.html">Sys.path</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View path</span></span>
+<span><span class="va">pth</span></span>
+<span><span class="co"># [1] "C:/packages/common/vignettes/common.Rmd"</span></span></code></pre></div>
 <p>Note that this function returns the full path of the currently
 running program, including the file name and extension. This
 functionality is different from <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code>, which returns only
 the current working directory.</p>
 <p>Credit for this function goes to Andrew Simmons and the
 <strong>this.path</strong> package. The <strong>this.path</strong>
-functionality is renamed and provided here out of convenience.</p>
+functionality is renamed and provided here out of convenience.<br><a href="#top">top</a></p>
 </div>
-<div id="an-alternate-rounding-function" class="section level3">
+<div id="roundup" class="section level3">
 <h3 class="hasAnchor">
-<a href="#an-alternate-rounding-function" class="anchor"></a>An alternate rounding function</h3>
+<a href="#roundup" class="anchor"></a>An alternate rounding function</h3>
 <p>As everyone knows, the R <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function rounds to the
 nearest even. For example:</p>
-<pre><code># Prepare sample vector 
-v1 &lt;- seq(0.5,9.5,by=1)
-v1
-# [1] 0.5 1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5
-
-# Base R round function
-r1 &lt;- round(v1)
-
-# Rounds to nearest even
-r1
-# [1]  0  2  2  4  4  6  6  8  8 10
-</code></pre>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Prepare sample vector </span></span>
+<span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">9.5</span>,by<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">v1</span></span>
+<span><span class="co"># [1] 0.5 1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5</span></span>
+<span></span>
+<span><span class="co"># Base R round function</span></span>
+<span><span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">v1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Rounds to nearest even</span></span>
+<span><span class="va">r1</span></span>
+<span><span class="co"># [1]  0  2  2  4  4  6  6  8  8 10</span></span></code></pre></div>
 <p>However, humans and other software systems usually round 5 up. The
 reasons for R rounding the way it does are valid. Yet this difference in
 the way R rounds sometimes makes it difficult to compare R results to
@@ -400,31 +418,100 @@ convenient if there were another rounding function that could be used
 when trying to compare R results to SAS®.</p>
 <p>That is the purpose of the <code><a href="../reference/roundup.html">roundup()</a></code> function. Observe
 the differences in output to what was shown above:</p>
-<pre><code># Round up function
-r2 &lt;- roundup(v1)
-
-# Rounds 5 up
-r2
-# [1]  1  2  3  4  5  6  7  8  9 10
-</code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Round up function</span></span>
+<span><span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/roundup.html">roundup</a></span><span class="op">(</span><span class="va">v1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Rounds 5 up</span></span>
+<span><span class="va">r2</span></span>
+<span><span class="co"># [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
 <p>Note that the function behaves differently when rounding negative
 values.</p>
-<pre><code># Negate original vector
-v2 &lt;- -v1
-v2
-# [1] -0.5 -1.5 -2.5 -3.5 -4.5 -5.5 -6.5 -7.5 -8.5 -9.5
-
-# Rounding negative values
-r3 &lt;- roundup(v2)
-
-# Rounds away from zero
-r3
-# [1]  -1  -2  -3  -4  -5  -6  -7  -8  -9 -10</code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Negate original vector</span></span>
+<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="va">v1</span></span>
+<span><span class="va">v2</span></span>
+<span><span class="co"># [1] -0.5 -1.5 -2.5 -3.5 -4.5 -5.5 -6.5 -7.5 -8.5 -9.5</span></span>
+<span></span>
+<span><span class="co"># Rounding negative values</span></span>
+<span><span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/roundup.html">roundup</a></span><span class="op">(</span><span class="va">v2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Rounds away from zero</span></span>
+<span><span class="va">r3</span></span>
+<span><span class="co"># [1]  -1  -2  -3  -4  -5  -6  -7  -8  -9 -10</span></span></code></pre></div>
 <p>As you can see, when dealing with negative numbers, the
 <code><a href="../reference/roundup.html">roundup()</a></code> function actually rounds down. “Round away from
 zero” is the best description of this function. The rounding logic of
 the <code><a href="../reference/roundup.html">roundup()</a></code> function matches SAS® software, and can be
-used when comparing output between the two systems.</p>
+used when comparing output between the two systems.<br><a href="#top">top</a></p>
+</div>
+<div id="find" class="section level3">
+<h3 class="hasAnchor">
+<a href="#find" class="anchor"></a>File searching capability</h3>
+<p>Sometimes you know the file name of the file you are looking for, but
+do not know the exact location. It might be in the directory above your
+program, or it might be in the directory below. The
+<code><a href="../reference/file.find.html">file.find()</a></code> function provides an easy way to search for
+files you are looking for. You tell the function where to start
+searching from and what to look for, and it will begin looking in the
+base directory. If the file is not found in the base directory, it will
+expand the search above and below the base directory. The search routine
+will continue expanding the search until it finds a file that matchs the
+search criteria, or hits the limits imposed by the <code>up</code> and
+<code>down</code> parameters. Here is an example:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Look for a file named "globals.R"</span></span>
+<span><span class="va">pths</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/file.find.html">file.find</a></span><span class="op">(</span><span class="fu"><a href="../reference/Sys.path.html">Sys.path</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"globals.R"</span><span class="op">)</span></span>
+<span><span class="va">pths</span></span></code></pre></div>
+<p>The function will return a vector of full paths that meet the search
+criteria, and are within bounds of the search. If no file is found that
+meets the search criteria, the function returns a NULL.<br><a href="#top">top</a></p>
+</div>
+<div id="supsc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#supsc" class="anchor"></a>Superscripts and Subscripts</h3>
+<p>There are many occasions when you need to create a superscript or
+subscript. The UTF-8 character set provides superscript and subscript
+versions of many commonly used characters. For example, the following
+code can be used to add a superscript ‘1’ to the front of a footnote
+string:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Append superscript as UTF-8 code</span></span>
+<span><span class="va">myfoot</span> <span class="op">&lt;-</span> <span class="st">"\U00B9My footnotes"</span></span>
+<span><span class="va">myfoot</span></span>
+<span><span class="co"># [1] "¹My footnotes"</span></span></code></pre></div>
+<p>Remembering these UTF-8 codes, however, can be a challenge for most
+people. The <code><a href="../reference/supsc.html">supsc()</a></code> and <code><a href="../reference/subsc.html">subsc()</a></code> functions look
+up the superscript or subscript version of a normal character, without
+having to remember or research the proper UTF-8 code.</p>
+<p>Using these functions, we can therefore rewrite the above example as
+follows:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Append superscript using supsc() </span></span>
+<span><span class="va">myfoot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/supsc.html">supsc</a></span><span class="op">(</span><span class="st">"1"</span><span class="op">)</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="st">"My footnotes"</span></span>
+<span><span class="va">myfoot</span></span>
+<span><span class="co"># [1] "¹My footnotes"</span></span></code></pre></div>
+<p>Here are a couple more examples:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Subscript</span></span>
+<span><span class="va">str1</span> <span class="op">&lt;-</span> <span class="st">"The chemical symbol for water is H"</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="fu"><a href="../reference/subsc.html">subsc</a></span><span class="op">(</span><span class="st">"2"</span><span class="op">)</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="st">"O."</span></span>
+<span><span class="va">str1</span></span>
+<span><span class="co"># [1] "The chemical symbol for water is H₂O."</span></span>
+<span></span>
+<span><span class="co"># Mathmatical notation</span></span>
+<span><span class="va">mth</span> <span class="op">&lt;-</span> <span class="st">"x"</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="fu"><a href="../reference/supsc.html">supsc</a></span><span class="op">(</span><span class="st">"(a + 1)"</span><span class="op">)</span></span>
+<span><span class="va">mth</span></span>
+<span><span class="co"># [1] "x⁽ᵃ ⁺ ¹⁾"</span></span></code></pre></div>
+<p>Note that using the <strong>glue</strong> package, you can embed
+these functions directly in your character strings:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Embedded superscript</span></span>
+<span><span class="va">cit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"My citation{supsc('2')}"</span><span class="op">)</span></span>
+<span><span class="va">cit</span></span>
+<span><span class="co"># My citation²</span></span></code></pre></div>
+<p><a href="#top">top</a></p>
 </div>
   </div>
 

@@ -1,4 +1,4 @@
-url: https://logr.r-sassy.org
+url: https://common.r-sassy.org
 
 reference:
 - title: Base R Overloads
@@ -11,12 +11,18 @@ reference:
   contents:
   - '%p%'
   - '%eq%'
+- title: File Operations
+  desc: Functions that help with file management.
+  contents:
+  - Sys.path
+  - file.find
 - title: Other Functions
   desc: Functions that fall outside the above categories.
   contents:
-  - Sys.path
   - v
   - roundup
+  - supsc
+  - subsc
 
 navbar:
   type: inverse

@@ -1,9 +1,10 @@
-# common 1.1.0
+# common 1.0.2
 
 * Fixed bug on `v()` function when first item had more than one part.
 * Added `supsc()` and `subsc()` functions to get UTF-8 superscript and subscript
 codes from normal characters.
 * Added `file.find()` function to look for files on the file system.
+* Improved documentation
 
 # common 1.0.1
 

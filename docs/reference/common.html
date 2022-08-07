@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Combine unquoted values — v • common</title>
+<title>common: A set of useful functions — common • common</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,13 @@
 
 
 
-<meta property="og:title" content="Combine unquoted values — v" />
-<meta property="og:description" content="A function to quote and combine unquoted values.
-The function will return a vector of quoted values.  This function
-allows you to use non-standard evaluation for any parameter
-that accepts a string or vector of strings." />
+<meta property="og:title" content="common: A set of useful functions — common" />
+<meta property="og:description" content="The common package is set of useful
+functions that enhance base R.  These functions make up for
+some deficiencies in the base package.  For example,
+there are functions to sort a data frame by multiple columns,
+and manipulate data frame labels.  These are common activities,
+and can be used in almost any R program." />
 
 
 
@@ -112,57 +114,43 @@ that accepts a string or vector of strings." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Combine unquoted values</h1>
+    <h1>common: A set of useful functions</h1>
     
-    <div class="hidden name"><code>v.Rd</code></div>
+    <div class="hidden name"><code>common.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A function to quote and combine unquoted values.
-The function will return a vector of quoted values.  This function
-allows you to use non-standard evaluation for any parameter
-that accepts a string or vector of strings.</p>
+    <p>The <strong>common</strong> package is set of useful
+functions that enhance base R.  These functions make up for
+some deficiencies in the <strong>base</strong> package.  For example,
+there are functions to sort a data frame by multiple columns,
+and manipulate data frame labels.  These are common activities,
+and can be used in almost any R program.</p>
     </div>
 
-    <pre class="usage"><span><span class='fu'>v</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>...</th>
-      <td><p>One or more unquoted values.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="functions-included"><a class="anchor" href="#functions-included"></a>Functions Included</h2>
 
-    <p>A vector of quoted values.</p>
+    
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span><span class='co'># Combine unquoted values</span></span>
-<span><span class='fu'>v</span><span class='op'>(</span><span class='va'>var1</span>, <span class='va'>var2</span>, <span class='va'>var3</span><span class='op'>)</span></span>
-<span><span class='co'># [1] "var1" "var2" "var3"</span></span>
-<span></span>
-<span><span class='co'># Data frame subset</span></span>
-<span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fu'>v</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>cyl</span>, <span class='va'>disp</span><span class='op'>)</span><span class='op'>]</span></span>
-<span><span class='va'>dat</span></span>
-<span><span class='co'>#                    mpg cyl disp</span></span>
-<span><span class='co'># Mazda RX4         21.0   6  160</span></span>
-<span><span class='co'># Mazda RX4 Wag     21.0   6  160</span></span>
-<span><span class='co'># Datsun 710        22.8   4  108</span></span>
-<span><span class='co'># Hornet 4 Drive    21.4   6  258</span></span>
-<span><span class='co'># Hornet Sportabout 18.7   8  360</span></span>
-<span></span>
-<span><span class='co'># Data frame sort</span></span>
-<span><span class='va'>dat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>dat</span>, by <span class='op'>=</span> <span class='fu'>v</span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span></span>
-<span><span class='va'>dat2</span></span>
-<span><span class='co'>#                    mpg cyl disp</span></span>
-<span><span class='co'># Datsun 710        22.8   4  108</span></span>
-<span><span class='co'># Mazda RX4         21.0   6  160</span></span>
-<span><span class='co'># Mazda RX4 Wag     21.0   6  160</span></span>
-<span><span class='co'># Hornet 4 Drive    21.4   6  258</span></span>
-<span><span class='co'># Hornet Sportabout 18.7   8  360</span></span></pre>
+<p>The functions included in the <strong>common</strong> package are
+as follows:</p><ul>
+<li><p><code><a href='v.html'>v</a></code>: A generalized NSE quoting function.</p></li>
+<li><p><code><a href='sort.data.frame.html'>sort.data.frame</a></code>: An overload of the sort
+  function for data frames.</p></li>
+<li><p><code><a href='labels.data.frame.html'>labels.data.frame</a></code>: An overload of the labels function
+  for data frames.</p></li>
+<li><p><code><a href='%p%.html'>%p%</a></code>: An infix operator for <code><a href='https://rdrr.io/r/base/paste.html'>paste0()</a></code>.</p></li>
+<li><p><code><a href='%eq%.html'>%eq%</a></code>: An enhanced equality infix operator.</p></li>
+<li><p><code><a href='roundup.html'>roundup</a></code>: A rounding function that matches SAS® software.</p></li>
+<li><p><code><a href='Sys.path.html'>Sys.path</a></code>: A function to return the path of the current program.</p></li>
+<li><p><code><a href='file.find.html'>file.find</a></code>: A function to search for a file on the file system.</p></li>
+<li><p><code><a href='supsc.html'>supsc</a></code>: A function to get UTF-8 superscript characters.</p></li>
+<li><p><code><a href='subsc.html'>subsc</a></code>: A function to get UTF-8 subscript characters.</p></li>
+</ul>
+
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
