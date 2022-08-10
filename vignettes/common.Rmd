@@ -14,9 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 The **common** package is a lightweight package that contains 
-solutions for commonly encountered problems when working in Base R.
+solutions for commonly encountered problems when working in Base R. 
 
-Here is a list of the functions and a short explanation of each:{#top}
+Here is a list of the functions and a short explanation of each:
 
 - [**v()**](#v): A generalized NSE quoting function.
 - [**sort.data.frame()**](#sort): An overload to the sort function for data frames. 
@@ -373,25 +373,32 @@ the two systems.
 [top](#top)
 
 
-### File searching capability {#find}
-Sometimes you know the file name of the file you are looking for, but 
+### File search {#find}
+Sometimes you know the name of the file you are looking for, but 
 do not know the exact location.  It might be in the directory above your
-program, or it might be in the directory below.  The `file.find()`
+program, or it might be in the directory below.  It could be one level up,
+or 3 levels up.  
+
+The `file.find()`
 function provides an easy way to search for files you are looking for.
 You tell the function where to start searching from and what to look for,
-and it will begin looking in the base directory.  If the file is not 
-found in the base directory, it will expand the search above and below the 
+and it will begin looking in the base directory.  Once the base directory 
+is searched, it will expand the search above and below the 
 base directory.  The search routine will continue expanding the search
-until it finds a file that matchs the search criteria, or hits the 
+until it hits the 
 limits imposed by the `up` and `down` parameters.  Here is an example:
 ```{r eval=FALSE, echo=TRUE}
 # Look for a file named "globals.R"
-pths <- file.find(Sys.path(), "globals.R")
+pths <- file.find(getwd(), "globals.R")
+pths
+
+# Look for Rdata files three levels up, and two levels down
+pths <- file.fine(getwd(), "*.Rdata", up = 3, down = 2)
 pths
 ```
 The function will return a vector of full paths that meet the search 
 criteria, and are within bounds of the search.  If no file is 
-found that meets the search criteria, the function returns a NULL.   
+found that meets the search criteria, the function returns a NULL.  
 [top](#top)
 
 ### Superscripts and Subscripts {#supsc}

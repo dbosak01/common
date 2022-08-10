@@ -292,7 +292,97 @@ test_that("common7: equality operators are working as expected.", {
 })
 
 
+test_that("common8: file.find() base works as expected.", {
+
+  res <- file.find(".", up = 0, down = 0)
+  res
+
+  expect_equal(length(res) > 0, TRUE)
+
+
+  # Comment out from here down
+  # res1 <- file.find(".", "*.md", up = 0, down = 0)
+  #
+  # res1
+  # expect_equal(length(res1) > 0, TRUE)
+  #
+  #
+  # res2 <- file.find(".", "README.md", up = 0, down = 0)
+  #
+  # res2
+  # expect_equal(length(res2) > 0, TRUE)
+  #
+  # res3 <- file.find(".", "n*", up = 0, down = 0)
+  #
+  # res3
+  # expect_equal(length(res3) > 0, TRUE)
+  #
+  #
+  # res4 <- file.find(".", "*n*", up = 0, down = 0)
+  #
+  # res4
+  # expect_equal(length(res4) > 0, TRUE)
+  #
+  #
+  # res5 <- file.find(".", "*n*", up = -1, down = 0)
+  #
+  # res5
+  # expect_equal(is.null(res5), TRUE)
 
 
 
 
+})
+
+
+test_that("common9: get_dir_up works as expected.", {
+
+  pth <- "c:/mypath/another/andother/sourcedir"
+  res <- get_dir_up(pth, 1)
+
+  expect_equal(res, "c:/mypath/another/andother")
+
+  res <- get_dir_up(pth, 2)
+
+  expect_equal(res, "c:/mypath/another")
+
+
+  res <- get_dir_up(pth, 3)
+
+  expect_equal(res, "c:/mypath")
+
+
+})
+
+
+test_that("common8: file.find() offset works as expected.", {
+
+  res <- file.find(".", "*.R*", up = 1, down = 2)
+
+  res
+  expect_equal(is.null(res), FALSE)
+  expect_equal(length(res) > 0, TRUE)
+
+
+
+})
+
+
+# test_that("common9: get_dirs_down() works as expected.", {
+#
+#
+#   ret1 <- get_dirs_down(".", 1)
+#
+#   ret1
+#
+#   expect_equal(length(ret1) > 1, TRUE)
+#
+#
+#   ret2 <- get_dirs_down(".", 3)
+#
+#   ret2
+#
+#   expect_equal(length(ret2) > 1, TRUE)
+#
+#
+# })

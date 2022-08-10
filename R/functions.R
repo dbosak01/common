@@ -474,6 +474,199 @@ Sys.path <- function() {
 
 }
 
+#' @title Search for files
+#' @description A function to find files on the file system. The function
+#' starts from the directory specified in the \code{path} parameter,
+#' and searches outward in a radiating pattern
+#' for the file name in the \code{pattern} parameter.
+#' Results are returned as a vector of full paths in the order encountered.
+#' @details
+#' The \code{file.find} function attempts to find a file based on
+#' a full or partial file name.  The file name is passed
+#' on the \code{pattern} parameter.
+#' The \code{pattern} accepts both the single character question mark
+#' wild card (?), and the asterisk multi-character wild card (*).
+#' Searches are case-insensitive.
+#'
+#' Starting from the base path specified in the \code{path} parameter,
+#' the function searches
+#' both above and below the base path in an alternating
+#' pattern.  The function will first search the base path, then up one level,
+#' then down one level, and so on.  The boundaries of
+#' the search can be controlled by the \code{up} and \code{down} parameters.
+#'
+#' You can control whether or not you want files from the base directory
+#' included in the results.  To include these files, ensure both \code{up}
+#' and \code{down} parameters are zero or greater.  If either of these
+#' parameters is set to -1, the base path will be excluded.  For example,
+#' \code{up = 3, down = 1} will search up three levels, and down one level.
+#' \code{up = 3, down = 0} will search up three levels and not search down,
+#' but will include the base directory.  \code{up = 3, down = -1} will search
+#' up three levels, not search down, and not include the base directory in
+#' the results.
+#' @param path  The directory to start searching from.  Default is the current
+#' working directory.
+#' @param pattern A full or partial name of the file to find.  If partial,
+#' use the question mark (?) or asterisk (*) characters to indicate
+#' the missing piece. Default is NULL, which will return all files.
+#' @param up The number of levels above the base path to search. A value of
+#' zero (0) means that you do not want to search up.  A value of -1 means
+#' you do not want to include the base directory in the search results.
+#' Default is 3 levels up.
+#' @param down The number of levels below the base path to search. A value of
+#' zero (0) means that you do not want to search down.  A value of -1 means you
+#' do not want to include the base directory in the search results.
+#' Default is 1 level down.
+#' @returns A vector of one or more full file paths that met the search criteria.
+#' The paths in the vector are returned
+#' in the order of matches, according to the search algorithm.  That means
+#' the first file found will be in position one, and the last file found
+#' will be at the end of the vector. A NULL is returned if no
+#' files met the search criteria.
+#' @examples
+#' # Search for a file named "globals.R"
+#' file.find(getwd(), "globals.R")
+#'
+#' # Search for Rdata files
+#' file.find(getwd(), "*.Rdata")
+#'
+#' # Search for Rdata files up only
+#' file.find(getwd(), "*.Rdata", up = 3, down = 0)
+#'
+#' # Search for Rdata files up only, skipping the current working directory
+#' file.find(getwd(), "*.Rdata", up = 3, down = -1)
+#'
+#' @import utils
+#' @export
+file.find <- function(path = ".", pattern = NULL, up = 3, down = 1) {
+
+  if (is.null(up)) {
+    stop("The 'up' parameter cannot be NULL.")
+  }
+
+  if (up < -1) {
+    stop("The 'up' parameter cannot be less than -1.")
+  }
+
+  if (is.null(down)) {
+   stop("The 'down' parameter cannot be NULL.")
+  }
+
+  if (down < -1) {
+    stop("The 'up' parameter cannot be less than -1.")
+  }
+
+  ret <- NULL
+
+  pth <- normalizePath(path)
+
+  if (is.null(pattern))
+    srch <- NULL
+  else
+    srch <- glob2rx(pattern)
+
+
+  # Examine base directory
+  if (up > -1 & down > -1)
+    ret <- list_files(pth, srch)
+  else
+    ret <- c()
+
+  mx <- max(up, down)
+
+  # Search directories above and below
+  if (mx > 0) {
+    for (i in seq(1, mx)) {
+
+      if (i <= up) {
+
+        fls <- list_files(get_dir_up(pth, i), srch)
+        ret <- append(ret, fls)
+
+      }
+
+      if (i <= down) {
+
+        fls <- list_files(get_dirs_down(pth, i), srch)
+        ret <- append(ret, fls)
+
+      }
+    }
+  }
+
+
+  return(ret)
+
+}
+
+#' @noRd
+get_dir_up <- function(path, offset) {
+
+  ret <- path
+
+  for (i in seq(1, offset)) {
+
+    ret <- dirname(ret)
+
+  }
+
+  return(ret)
+}
+
+#' @noRd
+get_dirs_down <- function(path, offset) {
+
+ prnts <- path
+ ret <- c()
+
+ if (offset > 0) {
+
+    for (i in seq(1, offset)) {
+
+
+      lst <- list.dirs(prnts, full.names = TRUE, recursive = FALSE)
+
+      if (i == offset) {
+        ret  <- append(ret, lst)
+
+      } else {
+
+        prnts <- lst
+
+      }
+
+    }
+
+ }
+
+
+ return(ret)
+
+}
+
+#' @noRd
+list_files <- function(path = NULL, pattern = NULL){
+
+  ret <- NULL
+
+  # Get list of all files and folders that match
+  ret <- list.files(path = path, pattern = pattern, all.files = FALSE, full.names = TRUE,
+                      recursive = FALSE, ignore.case = TRUE, include.dirs = FALSE,
+                      no.. = TRUE)
+
+  # Exclude directories
+  ret <- ret[!dir.exists(ret)]
+
+  if (length(ret) == 0)
+    ret <- NULL
+
+
+  return(ret)
+
+}
+
+
+
 
 # Other Functions ---------------------------------------------------------
 
@@ -577,35 +770,4 @@ v <- function(...) {
 }
 
 
-#' @title Search for files
-#' @description A function to find files on the file system. The function
-#' starts from the directory specified in the \code{location} parameter,
-#' and searches for the file name in the \code{file_name} parameter.
-#' The \code{file_name} accepts wild cards (*).  The function searches
-#' both above and below the current directory locations.  The number of levels
-#' to search can be controlled by the \code{up} and \code{down} parameters.
-#' @param location  The directory to start searching from.  The path of the
-#' current program can be retrieved using \code{\link{Sys.path}}.
-#' @param file_name A full or partial name of the file to find.  If partial,
-#' use the asterisk (*) character to indicate the missing piece.
-#' @param up The number of levels above the location to search.
-#' @param down The number of levels below the location to search.
-#' @returns A vector of one or more full file paths that met the search criteria,
-#' or a NULL if no files met the criteria.
-#' @examples
-#' # Search for a file named "globals.R"
-#' res <- file.find(Sys.path(), "globals.R")
-#'
-#' # Search for SAS datasets
-#' res <- file.find(Sys.path(), "*.sas7bdat")
-#' @export
-file.find <- function(location, file_name, up = 3, down = 3) {
 
-  ret <- NULL
-
-
-
-
-  return(ret)
-
-}

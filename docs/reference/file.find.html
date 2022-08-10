@@ -41,11 +41,10 @@
 
 <meta property="og:title" content="Search for files — file.find" />
 <meta property="og:description" content="A function to find files on the file system. The function
-starts from the directory specified in the location parameter,
-and searches for the file name in the file_name parameter.
-The file_name accepts wild cards (*).  The function searches
-both above and below the current directory locations.  The number of levels
-to search can be controlled by the up and down parameters." />
+starts from the directory specified in the path parameter,
+and searches outward in a radiating pattern
+for the file name in the pattern parameter.
+Results are returned as a vector of full paths in the order encountered." />
 
 
 
@@ -121,49 +120,89 @@ to search can be controlled by the up and down parameters." />
 
     <div class="ref-description">
     <p>A function to find files on the file system. The function
-starts from the directory specified in the <code>location</code> parameter,
-and searches for the file name in the <code>file_name</code> parameter.
-The <code>file_name</code> accepts wild cards (*).  The function searches
-both above and below the current directory locations.  The number of levels
-to search can be controlled by the <code>up</code> and <code>down</code> parameters.</p>
+starts from the directory specified in the <code>path</code> parameter,
+and searches outward in a radiating pattern
+for the file name in the <code>pattern</code> parameter.
+Results are returned as a vector of full paths in the order encountered.</p>
     </div>
 
-    <pre class="usage"><span><span class='fu'>file.find</span><span class='op'>(</span><span class='va'>location</span>, <span class='va'>file_name</span>, up <span class='op'>=</span> <span class='fl'>3</span>, down <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span></pre>
+    <pre class="usage"><span><span class='fu'>file.find</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, pattern <span class='op'>=</span> <span class='cn'>NULL</span>, up <span class='op'>=</span> <span class='fl'>3</span>, down <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>location</th>
-      <td><p>The directory to start searching from.  The path of the
-current program can be retrieved using <code><a href='Sys.path.html'>Sys.path</a></code>.</p></td>
+      <th>path</th>
+      <td><p>The directory to start searching from.  Default is the current
+working directory.</p></td>
     </tr>
     <tr>
-      <th>file_name</th>
+      <th>pattern</th>
       <td><p>A full or partial name of the file to find.  If partial,
-use the asterisk (*) character to indicate the missing piece.</p></td>
+use the question mark (?) or asterisk (*) characters to indicate
+the missing piece. Default is NULL, which will return all files.</p></td>
     </tr>
     <tr>
       <th>up</th>
-      <td><p>The number of levels above the location to search.</p></td>
+      <td><p>The number of levels above the base path to search. A value of
+zero (0) means that you do not want to search up.  A value of -1 means
+you do not want to include the base directory in the search results.
+Default is 3 levels up.</p></td>
     </tr>
     <tr>
       <th>down</th>
-      <td><p>The number of levels below the location to search.</p></td>
+      <td><p>The number of levels below the base path to search. A value of
+zero (0) means that you do not want to search down.  A value of -1 means you
+do not want to include the base directory in the search results.
+Default is 1 level down.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector of one or more full file paths that met the search criteria,
-or a NULL if no files met the criteria.</p>
+    <p>A vector of one or more full file paths that met the search criteria.
+The paths in the vector are returned
+in the order of matches, according to the search algorithm.  That means
+the first file found will be in position one, and the last file found
+will be at the end of the vector. A NULL is returned if no
+files met the search criteria.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>file.find</code> function attempts to find a file based on
+a full or partial file name.  The file name is passed
+on the <code>pattern</code> parameter.
+The <code>pattern</code> accepts both the single character question mark
+wild card (?), and the asterisk multi-character wild card (*).
+Searches are case-insensitive.</p>
+<p>Starting from the base path specified in the <code>path</code> parameter,
+the function searches
+both above and below the base path in an alternating
+pattern.  The function will first search the base path, then up one level,
+then down one level, and so on.  The boundaries of
+the search can be controlled by the <code>up</code> and <code>down</code> parameters.</p>
+<p>You can control whether or not you want files from the base directory
+included in the results.  To include these files, ensure both <code>up</code>
+and <code>down</code> parameters are zero or greater.  If either of these
+parameters is set to -1, the base path will be excluded.  For example,
+<code>up = 3, down = 1</code> will search up three levels, and down one level.
+<code>up = 3, down = 0</code> will search up three levels and not search down,
+but will include the base directory.  <code>up = 3, down = -1</code> will search
+up three levels, not search down, and not include the base directory in
+the results.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span><span class='co'># Search for a file named "globals.R"</span></span>
-<span><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>file.find</span><span class='op'>(</span><span class='fu'><a href='Sys.path.html'>Sys.path</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"globals.R"</span><span class='op'>)</span></span>
+<span><span class='fu'>file.find</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"globals.R"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># Search for SAS datasets</span></span>
-<span><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>file.find</span><span class='op'>(</span><span class='fu'><a href='Sys.path.html'>Sys.path</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"*.sas7bdat"</span><span class='op'>)</span></span></pre>
+<span><span class='co'># Search for Rdata files</span></span>
+<span><span class='fu'>file.find</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"*.Rdata"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Search for Rdata files up only</span></span>
+<span><span class='fu'>file.find</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"*.Rdata"</span>, up <span class='op'>=</span> <span class='fl'>3</span>, down <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Search for Rdata files up only, skipping the current working directory</span></span>
+<span><span class='fu'>file.find</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"*.Rdata"</span>, up <span class='op'>=</span> <span class='fl'>3</span>, down <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

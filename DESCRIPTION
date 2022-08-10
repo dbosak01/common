@@ -29,7 +29,8 @@ Suggests:
     testthat (>= 3.0.0),
     glue
 Enhances: base
-Imports: this.path
+Imports: this.path,
+         utils
 Config/testthat/edition: 3
 RoxygenNote: 7.2.0
 VignetteBuilder: knitr
