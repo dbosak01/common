@@ -211,3 +211,54 @@ find.names <- function(x, pattern = NULL, exclude = NULL,
 
   return(ret)
 }
+
+
+#' @title Copy attributes between two data frames
+#' @description A function to copy column attributes from one
+#' data frame to another.  The function will copy all attributes attached
+#' to each column.  The column order does not matter, and the data frames
+#' do not need identical structures.
+#' @param df1 A data frame to copy attributes from.
+#' @param df2 A data frame to copy attributes to.
+#' @returns The data frame in the \code{df2} parameter, with updated
+#' attributes from \code{df1}.
+#' @examples
+#' # Prepare data
+#' dat1 <- mtcars
+#' dat2 <- mtcars
+#'
+#' # Set labels for dat1
+#' labels(dat1) <- list(mpg = "Miles Per Gallon",
+#'                      cyl = "Cylinders",
+#'                      disp = "Displacement")
+#'
+#' # Copy labels from dat1 to dat2
+#' dat2 <- copy.attributes(dat1, dat2)
+#'
+#' # View results
+#' labels(dat2)
+#' # $mpg
+#  # [1] "Miles Per Gallon"
+#  #
+#  # $cyl
+#  # [1] "Cylinders"
+#  #
+#  # $disp
+#  # [1] "Displacement"
+#' @export
+copy.attributes <- function(df1, df2) {
+
+  ret <- df2
+
+  for (nm in names(df2)) {
+
+    att <- attributes(df1[[nm]])
+    if (!is.null(att))
+      attributes(ret[[nm]]) <- att
+
+
+  }
+
+  return(ret)
+}
+

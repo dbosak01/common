@@ -1,13 +1,15 @@
 # common 1.0.2
 
-* Fixed bug on `v()` function when first item had more than one part.
-* Added `supsc()` and `subsc()` functions to get UTF-8 superscript and subscript
-codes from normal characters.
 * Added `file.find()` function to look for files on the file system.
 * Added `dir.find()` function to look for directories on the file system.
-* Added `names.find()` function to look for variable names on a data frame.
-* Restructured test and code files
-* Improved documentation
+* Added `find.names()` function to look for variable names on a data frame.
+* Added `copy.attributes()` function to copy column attributes from 
+one data frame to another.
+* Added `supsc()` and `subsc()` functions to get UTF-8 superscript and subscript
+codes from normal characters.
+* Fixed bug on `v()` function when first item had more than one part.
+* Restructured test and code files.
+* Improved documentation.
 
 # common 1.0.1
 

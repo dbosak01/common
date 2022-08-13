@@ -22,9 +22,10 @@ reference:
   contents:
   - v
   - roundup
+  - find.names
+  - copy.attributes
   - supsc
   - subsc
-  - names.find
 
 navbar:
   type: inverse

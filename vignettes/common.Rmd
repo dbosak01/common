@@ -26,8 +26,14 @@ Here is a list of the functions and a short explanation of each:
 - [**Sys.path()**](#path): A function to return the path of the currently running program.
 - [**roundup()**](#roundup): A rounding function that matches SAS® rounding.
 - [**file.find()**](#find): A function to search for a file on the file system.
+- [**dir.find()**](#dfind): A function to search for a directory on the file system.
+- [**find.names()**](#names): A function to search for variable names on a data.frame.
+- [**copy.attributes()**](#attr): A function to copy column attributes from
+one data frame to another.
 - [**supsc()**](#supsc): A function to get UTF-8 superscript characters.
 - [**subsc()**](#supsc): A function to get UTF-8 subscript characters.
+
+
 
 ### A generalized NSE quoting function {#v}
 Normally, when working in Base R, it is necessary to quote variable names
