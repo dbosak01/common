@@ -7,7 +7,13 @@
     <loc>https://common.r-sassy.org/reference/common.html</loc>
   </url>
   <url>
+    <loc>https://common.r-sassy.org/reference/dir.find.html</loc>
+  </url>
+  <url>
     <loc>https://common.r-sassy.org/reference/file.find.html</loc>
+  </url>
+  <url>
+    <loc>https://common.r-sassy.org/reference/find.names.html</loc>
   </url>
   <url>
     <loc>https://common.r-sassy.org/reference/grapes-eq-grapes.html</loc>

@@ -16,6 +16,7 @@ reference:
   contents:
   - Sys.path
   - file.find
+  - dir.find
 - title: Other Functions
   desc: Functions that fall outside the above categories.
   contents:
@@ -23,6 +24,7 @@ reference:
   - roundup
   - supsc
   - subsc
+  - names.find
 
 navbar:
   type: inverse

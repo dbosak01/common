@@ -4,6 +4,9 @@
 * Added `supsc()` and `subsc()` functions to get UTF-8 superscript and subscript
 codes from normal characters.
 * Added `file.find()` function to look for files on the file system.
+* Added `dir.find()` function to look for directories on the file system.
+* Added `names.find()` function to look for variable names on a data frame.
+* Restructured test and code files
 * Improved documentation
 
 # common 1.0.1
@@ -13,7 +16,7 @@ codes from normal characters.
 # common 0.0.9001
 
 * Add news.
-* Add readment.
+* Add readme.
 * Complete documentation.
 * Build pkgdown site.
 
