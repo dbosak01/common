@@ -122,3 +122,49 @@ test_that("other3: find.names() works as expected.", {
 })
 
 
+test_that("other4: Test that copy_attributes parameter checks work.", {
+
+  lst <- list()
+  df <- data.frame()
+
+  expect_error(copy_attributes(NULL, mtcars))
+  expect_error(copy_attributes(mtcars, NULL))
+  expect_error(copy_attributes(df, mtcars))
+  expect_error(copy_attributes(mtcars, df))
+  expect_error(copy_attributes(lst, mtcars))
+  expect_error(copy_attributes(mtcars, lst))
+
+})
+
+
+test_that("other5: Test that copy_attributes parameter checks work.", {
+
+  dat1 <- mtcars[1:10, c("mpg", "cyl", "disp")]
+  dat2 <- mtcars[1:10, c("mpg", "cyl", "disp")]
+
+
+  labels(dat1) <- list(mpg = "Fork1",
+                       cyl = "Fork2")
+
+  labels(dat2) <- list(disp = "fork3")
+
+  attr(dat1$cyl, "format") <- "myfmt"
+  attr(dat2$disp, "format") <- "myfmt2"
+  attr(dat2$cyl, "description") <- "mydesc"
+
+  res <- copy.attributes(dat1, dat2)
+
+  attributes(res$mpg)
+  attributes(res$cyl)
+  attributes(res$disp)
+
+
+  expect_equal(attributes(res$mpg)$label, "Fork1")
+  expect_equal(attributes(res$cyl)$label, "Fork2")
+  expect_equal(attributes(res$cyl)$format, "myfmt")
+  expect_equal(attributes(res$cyl)$description, "mydesc")
+  expect_equal(attributes(res$disp)$label, "fork3")
+  expect_equal(attributes(res$disp)$format, "myfmt2")
+
+
+})

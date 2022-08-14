@@ -248,15 +248,54 @@ find.names <- function(x, pattern = NULL, exclude = NULL,
 #' @export
 copy.attributes <- function(df1, df2) {
 
+  if (is.null(df1)) {
+
+    stop("Parameter df1 cannot be null.")
+  }
+
+
+  if (is.null(df2)) {
+
+    stop("Parameter df2 cannot be null.")
+  }
+
+  if (!ncol(df1) > 0) {
+    stop("Object dt1 must have at least one column.")
+
+  }
+
+  if (!ncol(df2) > 0) {
+    stop("Object dt2 must have at least one column.")
+
+  }
+
+  if (!"data.frame" %in% class(df1)) {
+
+    stop("Object df1 must be a data.frame.")
+
+  }
+
+  if (!"data.frame" %in% class(df2)) {
+
+    stop("Object df2 must be a data.frame.")
+
+  }
+
+
   ret <- df2
 
   for (nm in names(df2)) {
 
     att <- attributes(df1[[nm]])
-    if (!is.null(att))
-      attributes(ret[[nm]]) <- att
+    if (!is.null(att)) {
+     # attributes(ret[[nm]]) <- att
 
+      for (at in names(att)) {
 
+        attr(ret[[nm]], at) <- att[[at]]
+
+      }
+    }
   }
 
   return(ret)
