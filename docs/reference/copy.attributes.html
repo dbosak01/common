@@ -43,7 +43,9 @@
 <meta property="og:description" content="A function to copy column attributes from one
 data frame to another.  The function will copy all attributes attached
 to each column.  The column order does not matter, and the data frames
-do not need identical structures." />
+do not need identical structures. The matching occurs by column name,
+not position.  Any existing attributes on the target data frame
+that do not match the source data frame will be retained unaltered." />
 
 
 
@@ -121,28 +123,30 @@ do not need identical structures." />
     <p>A function to copy column attributes from one
 data frame to another.  The function will copy all attributes attached
 to each column.  The column order does not matter, and the data frames
-do not need identical structures.</p>
+do not need identical structures. The matching occurs by column name,
+not position.  Any existing attributes on the target data frame
+that do not match the source data frame will be retained unaltered.</p>
     </div>
 
-    <pre class="usage"><span><span class='fu'>copy.attributes</span><span class='op'>(</span><span class='va'>df1</span>, <span class='va'>df2</span><span class='op'>)</span></span></pre>
+    <pre class="usage"><span><span class='fu'>copy.attributes</span><span class='op'>(</span><span class='va'>source</span>, <span class='va'>target</span><span class='op'>)</span></span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>df1</th>
+      <th>source</th>
       <td><p>A data frame to copy attributes from.</p></td>
     </tr>
     <tr>
-      <th>df2</th>
+      <th>target</th>
       <td><p>A data frame to copy attributes to.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The data frame in the <code>df2</code> parameter, with updated
-attributes from <code>df1</code>.</p>
+    <p>The data frame in the <code>target</code> parameter, with updated
+attributes from <code>target</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span><span class='co'># Prepare data</span></span>

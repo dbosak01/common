@@ -26,7 +26,7 @@ Here is a list of the functions and a short explanation of each:
 - [**Sys.path()**](#path): A function to return the path of the currently running program.
 - [**roundup()**](#roundup): A rounding function that matches SAS® rounding.
 - [**file.find()**](#find): A function to search for a file on the file system.
-- [**dir.find()**](#dfind): A function to search for a directory on the file system.
+- [**dir.find()**](#find): A function to search for a directory on the file system.
 - [**find.names()**](#names): A function to search for variable names on a data.frame.
 - [**copy.attributes()**](#attr): A function to copy column attributes from
 one data frame to another.
@@ -379,7 +379,7 @@ the two systems.
 [top](#top)
 
 
-### File search {#find}
+### File and Directory search {#find}
 Sometimes you know the name of the file you are looking for, but 
 do not know the exact location.  It might be in the directory above your
 program, or it might be in the directory below.  It could be one level up,
@@ -405,7 +405,88 @@ pths
 The function will return a vector of full paths that meet the search 
 criteria, and are within bounds of the search.  If no file is 
 found that meets the search criteria, the function returns a NULL.  
+
+The `dir.find()` function works the same as `file.find()`, but for directories
+instead of files.  Note that these two function may be used together to
+perform complex searches.
 [top](#top)
+
+
+### Finding variable names {#names}
+Sometimes you have a data frame with many variables, and you 
+need to perform an operation on only some of them.  The `find.names()`
+function can help you subset these variable names. There are parameters
+to define the search criteria, provide exclusions, and a beginning and ending
+range to perform the search. Here are some simple examples:
+```{r eval=FALSE, echo=TRUE}
+# Prepare data
+dat <- mtcars
+
+# Get all names starting with "c"
+find.names(dat, pattern = "c*")
+# [1] "cyl"  "carb"
+
+# Get all names starting with "c" or "d"
+find.names(dat, pattern = c("c*", "d*"))
+# [1] "cyl"  "carb" "disp" "drat"
+
+# Get names starting with "c" or "d" from column 4 on
+find.names(dat, pattern = c("c*", "d*"), start = 4)
+# [1] "carb" "drat"
+
+```
+
+### Copying attributes between data frames {#attr}
+Base R functions that work with data frames are annoying in that they 
+often drop any attributes assigned to data frame columns. Observe:
+```{r eval=FALSE, echo=TRUE}
+# Prepare sample dataset
+dat <- mtcars[ , 1:3]
+
+# Assign some labels 
+labels(dat) <- list(mpg = "Miles Per Gallon", 
+                    cyl = "Cylinders",
+                    disp = "Displacement")
+
+# View labels
+labels(dat)
+# $mpg
+# [1] "Miles Per Gallon"
+# 
+# $cyl
+# [1] "Cylinders"
+# 
+# $disp
+# [1] "Displacement"
+
+# Subset the data
+dat2 <- subset(dat, cyl == 4)
+
+# Labels are gone!
+labels(dat2)
+# list()
+
+```
+To get the attributes back, one must copy the attributes from the original
+data frame to the subset data frame.  That is what the `copy.attributes()`
+function does.  Picking up from the example above, let's now restore the 
+attributes lost during the `subset()` operation:
+```{r eval=FALSE, echo=TRUE}
+# Restore attributes
+dat2 <- copy.attributes(dat, dat2)
+
+# Labels are back!
+labels(dat2)
+# $mpg
+# [1] "Miles Per Gallon"
+# 
+# $cyl
+# [1] "Cylinders"
+# 
+# $disp
+# [1] "Displacement"
+
+```
 
 ### Superscripts and Subscripts {#supsc}
 There are many occasions when you need to 

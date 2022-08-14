@@ -36,7 +36,7 @@ search.  Valid values are TRUE and FALSE. Default is TRUE.}
 A vector of variable names that met the search criteria.
 }
 \description{
-A function to search for names in a data.frame or tibble.
+A function to search for variable names in a data.frame or tibble.
 The function features wild card pattern matching, start and end
 boundaries, and names to exclude.
 }
@@ -57,7 +57,7 @@ find.names(mtcars, c("c*", "d*"))
 find.names(mtcars, start = "disp", end = "qsec")
 # [1] "disp" "hp"   "drat" "wt"   "qsec"
 
-# Names between that start with "c" or "d" after position 5
+# Names that start with "c" or "d" after position 5
 find.names(mtcars, c("c*", "d*"), start = 5)
 # [1] "carb" "drat"
 

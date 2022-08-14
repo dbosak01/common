@@ -38,7 +38,10 @@ A function to find directories on the file system. The function
 starts from the directory specified in the \code{path} parameter,
 and searches outward in a radiating pattern
 for the ending directory name in the \code{pattern} parameter.
+The \code{up} and \code{down} parameters define the scope of the search.
 Results are returned as a vector of full paths in the order encountered.
+This function has an advantage over \code{list.dirs} in that it can
+search both up and down the file system, and limit the scope of the search.
 }
 \details{
 The \code{dir.find} function attempts to find a directory based on

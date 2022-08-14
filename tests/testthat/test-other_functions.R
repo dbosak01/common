@@ -122,22 +122,22 @@ test_that("other3: find.names() works as expected.", {
 })
 
 
-test_that("other4: Test that copy_attributes parameter checks work.", {
+test_that("other4: Test that copy.attributes parameter checks work.", {
 
   lst <- list()
   df <- data.frame()
 
-  expect_error(copy_attributes(NULL, mtcars))
-  expect_error(copy_attributes(mtcars, NULL))
-  expect_error(copy_attributes(df, mtcars))
-  expect_error(copy_attributes(mtcars, df))
-  expect_error(copy_attributes(lst, mtcars))
-  expect_error(copy_attributes(mtcars, lst))
+  expect_error(copy.attributes(NULL, mtcars))
+  expect_error(copy.attributes(mtcars, NULL))
+  expect_error(copy.attributes(df, mtcars))
+  expect_error(copy.attributes(mtcars, df))
+  expect_error(copy.attributes(lst, mtcars))
+  expect_error(copy.attributes(mtcars, lst))
 
 })
 
 
-test_that("other5: Test that copy_attributes parameter checks work.", {
+test_that("other5: copy.attributes works as expected.", {
 
   dat1 <- mtcars[1:10, c("mpg", "cyl", "disp")]
   dat2 <- mtcars[1:10, c("mpg", "cyl", "disp")]

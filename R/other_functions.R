@@ -105,7 +105,7 @@ v <- function(...) {
 
 
 #' @title Search for names
-#' @description A function to search for names in a data.frame or tibble.
+#' @description A function to search for variable names in a data.frame or tibble.
 #' The function features wild card pattern matching, start and end
 #' boundaries, and names to exclude.
 #' @param x A data frame or tibble whose names to search.  Parameter also
@@ -138,7 +138,7 @@ v <- function(...) {
 #' find.names(mtcars, start = "disp", end = "qsec")
 #' # [1] "disp" "hp"   "drat" "wt"   "qsec"
 #'
-#' # Names between that start with "c" or "d" after position 5
+#' # Names that start with "c" or "d" after position 5
 #' find.names(mtcars, c("c*", "d*"), start = 5)
 #' # [1] "carb" "drat"
 #'
@@ -217,11 +217,13 @@ find.names <- function(x, pattern = NULL, exclude = NULL,
 #' @description A function to copy column attributes from one
 #' data frame to another.  The function will copy all attributes attached
 #' to each column.  The column order does not matter, and the data frames
-#' do not need identical structures.
-#' @param df1 A data frame to copy attributes from.
-#' @param df2 A data frame to copy attributes to.
-#' @returns The data frame in the \code{df2} parameter, with updated
-#' attributes from \code{df1}.
+#' do not need identical structures. The matching occurs by column name,
+#' not position.  Any existing attributes on the target data frame
+#' that do not match the source data frame will be retained unaltered.
+#' @param source A data frame to copy attributes from.
+#' @param target A data frame to copy attributes to.
+#' @returns The data frame in the \code{target} parameter, with updated
+#' attributes from \code{target}.
 #' @examples
 #' # Prepare data
 #' dat1 <- mtcars
@@ -246,49 +248,50 @@ find.names <- function(x, pattern = NULL, exclude = NULL,
 #  # $disp
 #  # [1] "Displacement"
 #' @export
-copy.attributes <- function(df1, df2) {
+copy.attributes <- function(source, target) {
 
-  if (is.null(df1)) {
+  if (is.null(source)) {
 
-    stop("Parameter df1 cannot be null.")
+    stop("Parameter 'source' cannot be null.")
   }
 
 
-  if (is.null(df2)) {
+  if (is.null(target)) {
 
-    stop("Parameter df2 cannot be null.")
-  }
-
-  if (!ncol(df1) > 0) {
-    stop("Object dt1 must have at least one column.")
-
-  }
-
-  if (!ncol(df2) > 0) {
-    stop("Object dt2 must have at least one column.")
-
-  }
-
-  if (!"data.frame" %in% class(df1)) {
-
-    stop("Object df1 must be a data.frame.")
-
-  }
-
-  if (!"data.frame" %in% class(df2)) {
-
-    stop("Object df2 must be a data.frame.")
-
+    stop("Parameter 'target' cannot be null.")
   }
 
 
-  ret <- df2
+  if (!"data.frame" %in% class(source)) {
 
-  for (nm in names(df2)) {
+    stop("Object 'source' must be a data.frame.")
 
-    att <- attributes(df1[[nm]])
+  }
+
+  if (!"data.frame" %in% class(target)) {
+
+    stop("Object 'target' must be a data.frame.")
+
+  }
+
+  if (!ncol(source) > 0) {
+    stop("Object 'source' must have at least one column.")
+
+  }
+
+  if (!ncol(target) > 0) {
+    stop("Object 'target' must have at least one column.")
+
+  }
+
+
+
+  ret <- target
+
+  for (nm in names(target)) {
+
+    att <- attributes(source[[nm]])
     if (!is.null(att)) {
-     # attributes(ret[[nm]]) <- att
 
       for (at in names(att)) {
 

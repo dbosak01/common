@@ -39,6 +39,9 @@ Sys.path <- function() {
 #' and searches outward in a radiating pattern
 #' for the file name in the \code{pattern} parameter.
 #' Results are returned as a vector of full paths in the order encountered.
+#' The \code{up} and \code{down} parameters define the scope of the search.
+#' This function has an advantage over \code{list.files} in that it can
+#' search both up and down the file system, and limit the scope of the search.
 #' @details
 #' The \code{file.find} function attempts to find a file based on
 #' a full or partial file name.  The file name is passed
@@ -233,7 +236,10 @@ list_files <- function(path = NULL, pattern = NULL){
 #' starts from the directory specified in the \code{path} parameter,
 #' and searches outward in a radiating pattern
 #' for the ending directory name in the \code{pattern} parameter.
+#' The \code{up} and \code{down} parameters define the scope of the search.
 #' Results are returned as a vector of full paths in the order encountered.
+#' This function has an advantage over \code{list.dirs} in that it can
+#' search both up and down the file system, and limit the scope of the search.
 #' @details
 #' The \code{dir.find} function attempts to find a directory based on
 #' a full or partial directory name.  The directory name is passed

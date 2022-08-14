@@ -38,6 +38,9 @@ starts from the directory specified in the \code{path} parameter,
 and searches outward in a radiating pattern
 for the file name in the \code{pattern} parameter.
 Results are returned as a vector of full paths in the order encountered.
+The \code{up} and \code{down} parameters define the scope of the search.
+This function has an advantage over \code{list.files} in that it can
+search both up and down the file system, and limit the scope of the search.
 }
 \details{
 The \code{file.find} function attempts to find a file based on

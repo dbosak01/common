@@ -4,22 +4,24 @@
 \alias{copy.attributes}
 \title{Copy attributes between two data frames}
 \usage{
-copy.attributes(df1, df2)
+copy.attributes(source, target)
 }
 \arguments{
-\item{df1}{A data frame to copy attributes from.}
+\item{source}{A data frame to copy attributes from.}
 
-\item{df2}{A data frame to copy attributes to.}
+\item{target}{A data frame to copy attributes to.}
 }
 \value{
-The data frame in the \code{df2} parameter, with updated
-attributes from \code{df1}.
+The data frame in the \code{target} parameter, with updated
+attributes from \code{target}.
 }
 \description{
 A function to copy column attributes from one
 data frame to another.  The function will copy all attributes attached
 to each column.  The column order does not matter, and the data frames
-do not need identical structures.
+do not need identical structures. The matching occurs by column name,
+not position.  Any existing attributes on the target data frame
+that do not match the source data frame will be retained unaltered.
 }
 \examples{
 # Prepare data
