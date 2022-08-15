@@ -8,6 +8,7 @@ one data frame to another.
 * Added `supsc()` and `subsc()` functions to get UTF-8 superscript and subscript
 codes from normal characters.
 * Fixed bug on `v()` function when first item had more than one part.
+* Fixed bug on `sort.data.frame()` that was causing it to lose column attributes.
 * Restructured test and code files.
 * Improved documentation.
 

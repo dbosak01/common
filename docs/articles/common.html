@@ -496,6 +496,10 @@ ending range to perform the search. Here are some simple examples:</p>
 <code class="sourceCode R"><span><span class="co"># Prepare data</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mtcars</span></span>
 <span></span>
+<span><span class="co"># View names</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="co"># [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear" "carb"</span></span>
+<span></span>
 <span><span class="co"># Get all names starting with "c"</span></span>
 <span><span class="fu"><a href="../reference/find.names.html">find.names</a></span><span class="op">(</span><span class="va">dat</span>, pattern <span class="op">=</span> <span class="st">"c*"</span><span class="op">)</span></span>
 <span><span class="co"># [1] "cyl"  "carb"</span></span>

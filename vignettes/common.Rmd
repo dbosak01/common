@@ -422,6 +422,10 @@ range to perform the search. Here are some simple examples:
 # Prepare data
 dat <- mtcars
 
+# View names
+names(dat)
+# [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear" "carb"
+
 # Get all names starting with "c"
 find.names(dat, pattern = "c*")
 # [1] "cyl"  "carb"

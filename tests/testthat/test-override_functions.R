@@ -153,3 +153,25 @@ test_that("override2: labels() function works as expected.", {
 
 })
 
+
+test_that("override3: Sort retains df attributes", {
+
+  # Sample data frame to sort
+  dt <- mtcars[1:10, 1:3]
+  dt
+
+  labels(dt) <- list(mpg = "Miles Per Gallon",
+                     cyl = "Cylinders",
+                     disp = "Displacement")
+
+
+  # Sorts all columns
+  dt1 <- sort.data.frame(dt, by = c("cyl"))
+  dt1
+
+  res <- labels(dt1)
+
+  res
+
+  expect_equal(length(res), 3)
+})

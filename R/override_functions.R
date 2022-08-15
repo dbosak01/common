@@ -281,7 +281,11 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
   } else {
     # Sort input dataframe
     ret <- df[ord, , drop = FALSE]
+
+    # Restore attributes
+    ret <- copy.attributes(x, ret)
   }
+
 
 
   return(ret)
