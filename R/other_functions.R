@@ -224,6 +224,7 @@ find.names <- function(x, pattern = NULL, exclude = NULL,
 #' @param target A data frame to copy attributes to.
 #' @returns The data frame in the \code{target} parameter, with updated
 #' attributes from \code{source}.
+#' @family overrides
 #' @examples
 #' # Prepare data
 #' dat1 <- mtcars

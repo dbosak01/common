@@ -18,6 +18,7 @@
 #' @param x A string to be converted to superscript.
 #' @return The superscript version of the string passed to the function,
 #' if one exists. Otherwise, a question mark will be returned.
+#' @seealso The \code{\link{subsc}} function to get subscripts.
 #' @examples
 #' # Single letter
 #' supsc("a") %p% "Footnote"

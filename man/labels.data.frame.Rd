@@ -72,3 +72,9 @@ labels(df1) <- NULL
 labels(df1)
 # list()
 }
+\seealso{
+Other overrides: 
+\code{\link{copy.attributes}()},
+\code{\link{sort.data.frame}()}
+}
+\concept{overrides}

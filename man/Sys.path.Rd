@@ -23,3 +23,9 @@ pth <- Sys.path()
 pth
 # [1] "C:/programs/myprogram.R"
 }
+\seealso{
+Other fileops: 
+\code{\link{dir.find}()},
+\code{\link{file.find}()}
+}
+\concept{fileops}

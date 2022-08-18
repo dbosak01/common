@@ -35,3 +35,6 @@ will be returned for that character.
 "H" \%p\% subsc("2") \%p\% "SO" \%p\% subsc("4")
 # [1] "H₂SO₄"
 }
+\seealso{
+The \code{\link{supsc}} function to get superscripts.
+}

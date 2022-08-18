@@ -81,3 +81,9 @@ file.find(getwd(), "*.Rdata", up = 3, down = 0)
 file.find(getwd(), "*.Rdata", up = 3, down = -1)
 
 }
+\seealso{
+Other fileops: 
+\code{\link{Sys.path}()},
+\code{\link{dir.find}()}
+}
+\concept{fileops}

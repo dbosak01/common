@@ -133,3 +133,9 @@ dt1
 # Merc 230          22.8   4 140.8
 # Merc 240D         24.4   4 146.7
 }
+\seealso{
+Other overrides: 
+\code{\link{copy.attributes}()},
+\code{\link{labels.data.frame}()}
+}
+\concept{overrides}

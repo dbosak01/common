@@ -29,6 +29,7 @@
 #' @param object A data frame or tibble.
 #' @param ... Follow-on parameters.  Required for generic function.
 #' @return A named list of labels. The labels must be quoted strings.
+#' @family overrides
 #' @aliases labels<-
 #' @examples
 #' # Take subset of data
@@ -148,6 +149,7 @@ labels.data.frame <- function(object, ...) {
 #' the function will return the sorted data frame.
 #' If the \code{index.return} parameter is TRUE, it will return a vector
 #' of row indices.
+#' @family overrides
 #' @examples
 #' # Prepare unsorted sample data
 #' dt <- mtcars[1:10, 1:3]

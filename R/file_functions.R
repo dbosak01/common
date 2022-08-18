@@ -11,6 +11,7 @@
 #' Credit for this function goes to Andrew Simmons and the
 #' \code{\link{this.path}} package.
 #' @returns The full path of the currently running program, or a NULL.
+#' @family fileops
 #' @examples
 #' # Get current path
 #' pth <- Sys.path()
@@ -85,6 +86,7 @@ Sys.path <- function() {
 #' the first file found will be in position one, and the last file found
 #' will be at the end of the vector. A NULL is returned if no
 #' files met the search criteria.
+#' @family fileops
 #' @examples
 #' # Search for a file named "globals.R"
 #' file.find(getwd(), "globals.R")
@@ -284,6 +286,7 @@ list_files <- function(path = NULL, pattern = NULL){
 #' directory found
 #' will be at the end of the vector. A NULL is returned if no
 #' directories met the search criteria.
+#' @family fileops
 #' @examples
 #' # Search for a directory named "prod"
 #' file.find(pattern = "prod")

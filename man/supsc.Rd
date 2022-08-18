@@ -41,3 +41,6 @@ supsc("1") \%p\% "Footnote"
 "x" \%p\% supsc("(a+1)")
 # "x⁽ᵃ⁺¹⁾"
 }
+\seealso{
+The \code{\link{subsc}} function to get subscripts.
+}

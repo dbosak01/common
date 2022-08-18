@@ -47,3 +47,9 @@ labels(dat2)
 # $disp
 # [1] "Displacement"
 }
+\seealso{
+Other overrides: 
+\code{\link{labels.data.frame}()},
+\code{\link{sort.data.frame}()}
+}
+\concept{overrides}
