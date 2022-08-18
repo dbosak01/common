@@ -21,6 +21,10 @@
 #'   \item \code{\link{roundup}}: A rounding function that matches SAS® software.
 #'   \item \code{\link{Sys.path}}: A function to return the path of the current program.
 #'   \item \code{\link{file.find}}: A function to search for a file on the file system.
+#'   \item \code{\link{dir.find}}: A function to search for directories on the file system.
+#'   \item \code{\link{find.names}}: A function to search for variable names on a data frame.
+#'   \item \code{\link{copy.attributes}}: A function to copy column attributes from one data
+#'   frame to another.
 #'   \item \code{\link{supsc}}: A function to get UTF-8 superscript characters.
 #'   \item \code{\link{subsc}}: A function to get UTF-8 subscript characters.
 #' }
