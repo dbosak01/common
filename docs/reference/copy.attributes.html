@@ -146,7 +146,7 @@ that do not match the source data frame will be retained unaltered.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The data frame in the <code>target</code> parameter, with updated
-attributes from <code>target</code>.</p>
+attributes from <code>source</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span><span class='co'># Prepare data</span></span>
@@ -163,7 +163,14 @@ attributes from <code>target</code>.</p>
 <span></span>
 <span><span class='co'># View results</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/labels.html'>labels</a></span><span class='op'>(</span><span class='va'>dat2</span><span class='op'>)</span></span>
-<span><span class='co'># $mpg</span></span></pre>
+<span><span class='co'># $mpg</span></span>
+<span><span class='co'># [1] "Miles Per Gallon"</span></span>
+<span><span class='co'>#</span></span>
+<span><span class='co'># $cyl</span></span>
+<span><span class='co'># [1] "Cylinders"</span></span>
+<span><span class='co'>#</span></span>
+<span><span class='co'># $disp</span></span>
+<span><span class='co'># [1] "Displacement"</span></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

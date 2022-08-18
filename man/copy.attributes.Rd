@@ -13,7 +13,7 @@ copy.attributes(source, target)
 }
 \value{
 The data frame in the \code{target} parameter, with updated
-attributes from \code{target}.
+attributes from \code{source}.
 }
 \description{
 A function to copy column attributes from one
@@ -39,4 +39,11 @@ dat2 <- copy.attributes(dat1, dat2)
 # View results
 labels(dat2)
 # $mpg
+# [1] "Miles Per Gallon"
+#
+# $cyl
+# [1] "Cylinders"
+#
+# $disp
+# [1] "Displacement"
 }

@@ -399,7 +399,7 @@ pths <- file.find(getwd(), "globals.R")
 pths
 
 # Look for Rdata files three levels up, and two levels down
-pths <- file.fine(getwd(), "*.Rdata", up = 3, down = 2)
+pths <- file.find(getwd(), "*.Rdata", up = 3, down = 2)
 pths
 ```
 The function will return a vector of full paths that meet the search 
@@ -407,7 +407,7 @@ criteria, and are within bounds of the search.  If no file is
 found that meets the search criteria, the function returns a NULL.  
 
 The `dir.find()` function works the same as `file.find()`, but for directories
-instead of files.  Note that these two function may be used together to
+instead of files.  Note that these two functions may be used together to
 perform complex searches.
 [top](#top)
 

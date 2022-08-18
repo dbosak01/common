@@ -223,7 +223,7 @@ find.names <- function(x, pattern = NULL, exclude = NULL,
 #' @param source A data frame to copy attributes from.
 #' @param target A data frame to copy attributes to.
 #' @returns The data frame in the \code{target} parameter, with updated
-#' attributes from \code{target}.
+#' attributes from \code{source}.
 #' @examples
 #' # Prepare data
 #' dat1 <- mtcars
@@ -240,13 +240,13 @@ find.names <- function(x, pattern = NULL, exclude = NULL,
 #' # View results
 #' labels(dat2)
 #' # $mpg
-#  # [1] "Miles Per Gallon"
-#  #
-#  # $cyl
-#  # [1] "Cylinders"
-#  #
-#  # $disp
-#  # [1] "Displacement"
+#' # [1] "Miles Per Gallon"
+#' #
+#' # $cyl
+#' # [1] "Cylinders"
+#' #
+#' # $disp
+#' # [1] "Displacement"
 #' @export
 copy.attributes <- function(source, target) {
 
