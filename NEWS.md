@@ -1,4 +1,4 @@
-# common 1.0.2
+# common 1.0.3
 
 * Added `file.find()` function to look for files on the file system.
 * Added `dir.find()` function to look for directories on the file system.
