@@ -46,12 +46,12 @@ Then put the following line at the top of your script:
     
 For examples and usage 
 information, please visit the **common** documentation site 
-[here](https://common.r-sassy.org/articles/common.html)
+at common.r-sassy.org/articles/common.html
 
 ### Getting Help
 
 If you need help, the first place 
-to turn to is the [common](https://common.r-sassy.org) web site.  
+to turn to is the  web site at common.r-sassy.org
 
 If you want to look at the code for the **common** package, visit the
 github page [here](https://github.com/dbosak01/common).

@@ -22,12 +22,10 @@
 #' @seealso The \code{\link{supsc}} function to get superscripts.
 #' @examples
 #' # Date string
-#' "December 5" %p% subsc("th")
-#' # [1] "December 5ₜₕ"
+#' paste0("December 5", subsc("th"))
 #'
 #' # Chemistry
-#' "H" %p% subsc("2") %p% "SO" %p% subsc("4")
-#' # [1] "H₂SO₄"
+#' paste0("H", subsc("2"), "SO", subsc("4"))
 #' @export
 subsc <- function(x) {
 

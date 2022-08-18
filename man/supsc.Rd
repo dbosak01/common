@@ -26,20 +26,16 @@ will be returned for that character.
 }
 \examples{
 # Single letter
-supsc("a") \%p\% "Footnote"
-# [1] "ᵃFootnote"
+paste0(supsc("a"), "Footnote")
 
 # Single number
-supsc("1") \%p\% "Footnote"
-# [1] "¹Footnote"
+paste0(supsc("1"), "Footnote")
 
 # Character string
-"December 5" \%p\% supsc("th")
-# [1] "December 5ᵗʰ"
+paste0("December 5", supsc("th"))
 
 # Formula
-"x" \%p\% supsc("(a+1)")
-# "x⁽ᵃ⁺¹⁾"
+paste0("x", supsc("(a+1)"))
 }
 \seealso{
 The \code{\link{subsc}} function to get subscripts.

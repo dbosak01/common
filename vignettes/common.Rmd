@@ -498,46 +498,21 @@ create a superscript or subscript. The UTF-8 character set provides
 superscript and subscript versions of many commonly used characters.
 For example, the following code can be used to add a superscript '1'
 to the front of a footnote string:
-```{r eval=FALSE, echo=TRUE}
-# Append superscript as UTF-8 code
-myfoot <- "\U00B9My footnotes"
-myfoot
-# [1] "¹My footnotes"
+<img src="../man/images/sup1.png"/>
 
-```
 Remembering these UTF-8 codes, however, can be a challenge for most people.
 The `supsc()` and `subsc()` functions look up the superscript
 or subscript version of a normal character, without having to remember
 or research the proper UTF-8 code.  
 
 Using these functions, we can therefore rewrite the above example as follows:
-```{r eval=FALSE, echo=TRUE}
-# Append superscript using supsc() 
-myfoot <- supsc("1") %p% "My footnotes"
-myfoot
-# [1] "¹My footnotes"
+<img src="../man/images/sup2.png"/>
 
-```
 Here are a couple more examples:
-```{r eval=FALSE, echo=TRUE}
-# Subscript
-str1 <- "The chemical symbol for water is H" %p% subsc("2") %p% "O."
-str1
-# [1] "The chemical symbol for water is H₂O."
+<img src="../man/images/sup3.png"/>
 
-# Mathmatical notation
-mth <- "x" %p% supsc("(a + 1)")
-mth
-# [1] "x⁽ᵃ ⁺ ¹⁾"
-```
 Note that using the **glue** package, you can embed these functions
 directly in your character strings:
-```{r eval=FALSE, echo=TRUE}
-library(glue)
+<img src="../man/images/sup4.png"/>
 
-# Embedded superscript
-cit <- glue("My citation{supsc('2')}")
-cit
-# My citation²
-```
 [top](#top)
