@@ -321,11 +321,11 @@ operator.</p>
 <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>, but in a more compact manner. Like so:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Concatenation using paste0() function</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"There are "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>, <span class="st">" rows in the mtcars data frame"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"There are "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>, <span class="st">" rows in the mtcars data frame"</span><span class="op">)</span></span>
 <span><span class="co"># [1] "There are 32 rows in the mtcars data frame"</span></span>
 <span></span>
 <span><span class="co"># Concatenation using %p% operator</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"There are "</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="st">" rows in the mtcars data frame"</span><span class="op">)</span></span>
+<span><span class="st">"There are "</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="st">" rows in the mtcars data frame"</span></span>
 <span><span class="co"># [1] "There are 32 rows in the mtcars data frame"</span></span></code></pre></div>
 <p><a href="#top">top</a></p>
 </div>
@@ -482,7 +482,7 @@ meets the search criteria, the function returns a NULL.</p>
 <p>The <code><a href="../reference/dir.find.html">dir.find()</a></code> function works the same as
 <code><a href="../reference/file.find.html">file.find()</a></code>, but for directories instead of files. Note
 that these two functions may be used together to perform complex
-searches. <a href="#top">top</a></p>
+searches.<br><a href="#top">top</a></p>
 </div>
 <div id="names" class="section level3">
 <h3 class="hasAnchor">

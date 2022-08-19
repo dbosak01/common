@@ -239,11 +239,11 @@ The `%p%` operator is an infix version of the `paste0()` function.  It provides
 the same functionality of `paste0()`, but in a more compact manner. Like so:
 ```{r eval=FALSE, echo=TRUE}
 # Concatenation using paste0() function
-print(paste0("There are ", nrow(mtcars), " rows in the mtcars data frame"))
+paste0("There are ", nrow(mtcars), " rows in the mtcars data frame")
 # [1] "There are 32 rows in the mtcars data frame"
 
 # Concatenation using %p% operator
-print("There are " %p% nrow(mtcars) %p% " rows in the mtcars data frame")
+"There are " %p% nrow(mtcars) %p% " rows in the mtcars data frame"
 # [1] "There are 32 rows in the mtcars data frame"
 
 ```
@@ -408,7 +408,7 @@ found that meets the search criteria, the function returns a NULL.
 
 The `dir.find()` function works the same as `file.find()`, but for directories
 instead of files.  Note that these two functions may be used together to
-perform complex searches.
+perform complex searches.  
 [top](#top)
 
 
