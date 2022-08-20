@@ -10,7 +10,7 @@
 <!-- badges: end -->
 
 # Introduction to **common**
-<img src='man/images/common1.png' align="left" height="138" style="margin-right:10px"/>
+<img src='man/images/common_new.png' align="left" height="138" style="margin-right:10px"/>
 
 When working in Base R, there are some situations where you stop and wonder:
 "Why isn't there a function to do that?" For example:
