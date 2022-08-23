@@ -15,10 +15,10 @@
 When working in Base R, there are some situations where you stop and wonder:
 "Why isn't there a function to do that?" For example:
 
-- Why isn't there a function in Base R to sort a data frame by multiple columns?
-- Why isn't there a function in Base R to get the path of the current program?
-- In Base R, why is there no infix operator for concatenation?
-- Why isn't there a function in Base R to add/modify data frame labels?
+<tab>- Why isn't there a function in Base R to sort a data frame by multiple columns?  
+<tab>- Why isn't there a function in Base R to get the path of the current program?  
+<tab>- In Base R, why is there no infix operator for concatenation?  
+<tab>- Why isn't there a function in Base R to add/modify data frame labels?  
 
 The answer to all of the above questions is that there should be.
 The purpose of the **common** package is to encapsulate these types of functions,
@@ -59,5 +59,11 @@ github page [here](https://github.com/dbosak01/common).
 If you encounter a bug or have a feature request, please submit an issue 
 [here](https://github.com/dbosak01/common/issues).
 
+### See Also
 
+The **common** package is part of the **sassy** meta-package. 
+The **sassy** meta-package includes several packages that help make R
+easier for everyone, especially people with a background in SAS®. 
+You can read more about the **sassy** package
+[here](https://sassy.r-sassy.org).
 
