@@ -526,13 +526,15 @@ The `symbol()` function retrieves symbols frequently used in reports and
 documentation.  This function 
 is similar to the `supsc()` and `subsc()` functions in
 that it looks up a UTF-8 character.  Instead of providing a direct 1 to 1 
-translation, however, it looks up the UTF-8 character based on a keyword.  
+translation, however, it looks up the UTF-8 character based on a keyword.
+
 For example, the 'reg' keyword looks up the registered trademark symbol.  The
 'ne' keyword looks up the symbol for not equals.  These keyword names
 follow HTML conventions.  The function supports keywords for trademarks, 
 currencies, mathematical symbols, logical symbols, Greek letters, and 
 more.  See the `symbol()` documentation for a complete list 
-of supported keywords and examples.
+of supported keywords.  
+<img src="../man/images/symbol.png">
 
 [top](#top)
 
