@@ -295,8 +295,16 @@ copy.attributes <- function(source, target) {
 
       for (at in names(att)) {
 
-        attr(ret[[nm]], at) <- att[[at]]
+        # Don't break factors
+        if ("factor" %in% class(ret[[nm]]) & at == "levels") {
 
+          if (length(att[[at]]) ==  length(attr(ret[[nm]], at)))
+            attr(ret[[nm]], at) <- att[[at]]
+
+        } else {
+
+          attr(ret[[nm]], at) <- att[[at]]
+        }
       }
     }
   }

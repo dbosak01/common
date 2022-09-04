@@ -187,3 +187,27 @@ test_that("string2: Symbol function works as expected.", {
   res
   expect_equal(res, "\U00AE")
 })
+
+test_that("other: copy.attributes() works with factor", {
+
+  dat1 <- data.frame(col1 = c(1, 2, 3),
+                     col2 = c("A", "B", "C"), stringsAsFactors = TRUE)
+
+  dat2 <- data.frame(col1 = c(1, 2, 3, 4),
+                     col2 = c("A", "B", "C", "D"), stringsAsFactors = TRUE)
+
+  labels(dat1) <- list(col1 = "Column 1",
+                       col2 = "Column 2")
+
+  res <- copy.attributes(dat1, dat2)
+
+  res
+
+  expect_equal(nrow(res), 4)
+  expect_equal(ncol(res), 2)
+  expect_equal(attr(res$col1, "label"), "Column 1")
+  expect_equal(attr(res$col2, "label"), "Column 2")
+  expect_equal("factor" %in% class(res$col2), TRUE)
+  expect_equal(attr(res$col2, "levels"), c("A", "B", "C", "D"))
+
+})
