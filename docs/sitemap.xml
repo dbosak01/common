@@ -34,10 +34,16 @@
     <loc>https://common.r-sassy.org/reference/sort.data.frame.html</loc>
   </url>
   <url>
+    <loc>https://common.r-sassy.org/reference/spaces.html</loc>
+  </url>
+  <url>
     <loc>https://common.r-sassy.org/reference/subsc.html</loc>
   </url>
   <url>
     <loc>https://common.r-sassy.org/reference/supsc.html</loc>
+  </url>
+  <url>
+    <loc>https://common.r-sassy.org/reference/symbol.html</loc>
   </url>
   <url>
     <loc>https://common.r-sassy.org/reference/Sys.path.html</loc>

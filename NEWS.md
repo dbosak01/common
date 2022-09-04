@@ -1,3 +1,9 @@
+# common 1.0.4
+
+* Added `spaces()` function to create a string of blank spaces.
+* Added `symbol()` function to get UTF-8 symbols.  
+* Fixed `copy.attributes()` so it won't break factors.
+
 # common 1.0.3
 
 * Added `file.find()` function to look for files on the file system.

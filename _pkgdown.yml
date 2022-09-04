@@ -17,6 +17,15 @@ reference:
   - Sys.path
   - file.find
   - dir.find
+
+- title: String Operations
+  desc: Functions that help with strings.
+  contents:
+  - spaces
+  - supsc
+  - subsc
+  - symbol
+
 - title: Other Functions
   desc: Functions that fall outside the above categories.
   contents:
@@ -24,8 +33,6 @@ reference:
   - roundup
   - find.names
   - copy.attributes
-  - supsc
-  - subsc
 
 navbar:
   type: inverse

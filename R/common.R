@@ -25,8 +25,10 @@
 #'   \item \code{\link{find.names}}: A function to search for variable names on a data frame.
 #'   \item \code{\link{copy.attributes}}: A function to copy column attributes from one data
 #'   frame to another.
+#'   \item \code{\link{spaces}}: A function to create a string of blank spaces.
 #'   \item \code{\link{supsc}}: A function to get UTF-8 superscript characters.
 #'   \item \code{\link{subsc}}: A function to get UTF-8 subscript characters.
+#'   \item \code{\link{symbol}}: A function to get UTF-8 symbol characters.
 #' }
 #' @docType package
 #' @name common

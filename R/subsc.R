@@ -19,7 +19,7 @@
 #' @param x A string to be converted to subscript.
 #' @return The subscript version of the string passed to the function,
 #' if one exists. Otherwise, a question mark will be returned.
-#' @seealso The \code{\link{supsc}} function to get superscripts.
+#' @family utf8
 #' @examples
 #' # Date string
 #' paste0("December 5", subsc("th"))

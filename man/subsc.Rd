@@ -34,5 +34,8 @@ paste0("December 5", subsc("th"))
 paste0("H", subsc("2"), "SO", subsc("4"))
 }
 \seealso{
-The \code{\link{supsc}} function to get superscripts.
+Other utf8: 
+\code{\link{supsc}()},
+\code{\link{symbol}()}
 }
+\concept{utf8}

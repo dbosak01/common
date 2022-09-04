@@ -286,7 +286,6 @@ copy.attributes <- function(source, target) {
   }
 
 
-
   ret <- target
 
   for (nm in names(target)) {

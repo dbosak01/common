@@ -32,6 +32,9 @@ Here is a list of the functions and a short explanation of each:
 one data frame to another.
 - [**supsc()**](#supsc): A function to get UTF-8 superscript characters.
 - [**subsc()**](#supsc): A function to get UTF-8 subscript characters.
+- [**symbol()**](#symbol): A function to lookup UTF-8 symbols.
+- [**spaces()**](#spaces): A function to create a string of blank spaces.
+
 
 
 
@@ -516,3 +519,40 @@ directly in your character strings:
 <img src="../man/images/sup4.png"/>
 
 [top](#top)
+
+
+### Symbols {#symbol}
+The `symbol()` function retrieves symbols frequently used in reports and
+documentation.  This function 
+is similar to the `supsc()` and `subsc()` functions in
+that it looks up a UTF-8 character.  Instead of providing a direct 1 to 1 
+translation, however, it looks up the UTF-8 character based on a keyword.  
+For example, the 'reg' keyword looks up the registered trademark symbol.  The
+'ne' keyword looks up the symbol for not equals.  These keyword names
+follow HTML conventions.  The function supports keywords for trademarks, 
+currencies, mathematical symbols, logical symbols, Greek letters, and 
+more.  See the `symbol()` documentation for a complete list 
+of supported keywords and examples.
+
+[top](#top)
+
+### Spaces {#spaces}
+It sometimes happens that you need to separate some strings by a certain
+number of blank spaces.  This operation is often done in Base R as follows:
+```{r eval=FALSE, echo=TRUE}
+# Separate two strings by 25 spaces
+str <- paste0("Left", paste0(rep(" ", 25), collapse = ""), "Right", collapse = "")
+str
+# [1] "Left                         Right"
+
+```
+However, the above code is rather clumsy. The `spaces()` function 
+(plus the `%p%` operator also found in this package) can clean up
+this type of task for you significantly.  Observe:
+```{r eval=FALSE, echo=TRUE}
+# Separate two strings by 25 spaces
+str <- "Left" %p% spaces(25) %p% "Right"
+str
+# [1] "Left                         Right"
+```
+

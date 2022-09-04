@@ -38,5 +38,8 @@ paste0("December 5", supsc("th"))
 paste0("x", supsc("(a+1)"))
 }
 \seealso{
-The \code{\link{subsc}} function to get subscripts.
+Other utf8: 
+\code{\link{subsc}()},
+\code{\link{symbol}()}
 }
+\concept{utf8}

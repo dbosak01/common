@@ -168,3 +168,22 @@ test_that("other5: copy.attributes works as expected.", {
 
 
 })
+
+test_that("string1: Spaces function works as expected", {
+
+
+  res <- spaces(25)
+
+  expect_equal(nchar(res), 25)
+
+})
+
+
+test_that("string2: Symbol function works as expected.", {
+
+  res <- symbol("reg")
+
+
+  res
+  expect_equal(res, "\U00AE")
+})
