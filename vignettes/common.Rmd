@@ -38,7 +38,7 @@ one data frame to another.
 
 
 
-### A generalized NSE quoting function {#v}
+## A generalized NSE quoting function {#v}
 Normally, when working in Base R, it is necessary to quote variable names
 when passing them into a function or operator.  For example, observe
 the R subset brackets:
@@ -110,7 +110,7 @@ dat2
 ```
 [top](#top)
 
-### Sort a data frame {#sort}
+## Sort a data frame {#sort}
 Base R provides sort and order functions that work adequately on vectors. 
 For data frames, the options are more limited.  In particular, if you want to sort
 a data frame by multiple columns, there are no functions in Base R to do it.
@@ -183,7 +183,7 @@ values are sorted to the top or bottom.  See the documentation for further
 information and more examples.   
 [top](#top)
 
-### Modify labels on a data frame {#labels}
+## Modify labels on a data frame {#labels}
 While many data operations in R do not require control over the labels
 on a data frame, some types of programming do. Particularly in situations
 where you are sharing data between multiple people and groups, the column
@@ -232,7 +232,7 @@ frame.  The labels make it easier for users to understand the data.
 This function should be included in Base R, but for some reason is not.   
 [top](#top)
 
-### An infix concatenation operator {#p}
+## An infix concatenation operator {#p}
 Most programming languages provide a built-in concatenation operator.  R does
 not. Instead, it provides the `paste()` and `paste0()` functions.  While 
 these functions do perform concatenation adequately, it is sometimes more convenient
@@ -252,7 +252,7 @@ paste0("There are ", nrow(mtcars), " rows in the mtcars data frame")
 ```
 [top](#top)
 
-### An enhanced equality operator {#eq}
+## An enhanced equality operator {#eq}
 The **common** package contains an enhanced equality operator.  The 
 objective of the `%eq%` operator is to return a TRUE or FALSE value when
 any two objects are compared.  This enhanced equality operator is useful
@@ -303,7 +303,7 @@ mask problems with your code.  Therefore, use the `%eq%` operator
 with care.   
 [top](#top)
 
-### Getting the current path {#path}
+## Getting the current path {#path}
 Most programming languages provide a simple way to get the path of the
 currently running program. This basic feature has been left out of R.  The 
 `Sys.path()` function aims to make up for the oversight.
@@ -324,7 +324,7 @@ Credit for this function goes to Andrew Simmons and the **this.path** package.
 The **this.path** functionality is renamed and provided here out of convenience.   
 [top](#top)
 
-### An alternate rounding function {#roundup}
+## An alternate rounding function {#roundup}
 As everyone knows, the R `round()` function rounds to the nearest even.
 For example: 
 ```{r eval=FALSE, echo=TRUE}
@@ -382,7 +382,7 @@ the two systems.
 [top](#top)
 
 
-### File and Directory search {#find}
+## File and Directory search {#find}
 Sometimes you know the name of the file you are looking for, but 
 do not know the exact location.  It might be in the directory above your
 program, or it might be in the directory below.  It could be one level up,
@@ -415,7 +415,7 @@ perform complex searches.
 [top](#top)
 
 
-### Finding variable names {#names}
+## Finding variable names {#names}
 Sometimes you have a data frame with many variables, and you 
 need to perform an operation on only some of them.  The `find.names()`
 function can help you subset these variable names. There are parameters
@@ -443,7 +443,7 @@ find.names(dat, pattern = c("c*", "d*"), start = 4)
 
 ```
 
-### Copying attributes between data frames {#attr}
+## Copying attributes between data frames {#attr}
 Base R functions that work with data frames are annoying in that they 
 often drop any attributes assigned to data frame columns. Observe:
 ```{r eval=FALSE, echo=TRUE}
@@ -495,7 +495,7 @@ labels(dat2)
 
 ```
 
-### Superscripts and Subscripts {#supsc}
+## Superscripts and Subscripts {#supsc}
 There are many occasions when you need to 
 create a superscript or subscript. The UTF-8 character set provides
 superscript and subscript versions of many commonly used characters.
@@ -521,7 +521,7 @@ directly in your character strings:
 [top](#top)
 
 
-### Symbols {#symbol}
+## Special Symbols {#symbol}
 The `symbol()` function retrieves symbols frequently used in reports and
 documentation.  This function 
 is similar to the `supsc()` and `subsc()` functions in
@@ -538,7 +538,7 @@ of supported keywords.
 
 [top](#top)
 
-### Spaces {#spaces}
+## Repeating spaces {#spaces}
 It sometimes happens that you need to separate some strings by a certain
 number of blank spaces.  This operation is often done in Base R as follows:
 ```{r eval=FALSE, echo=TRUE}

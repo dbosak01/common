@@ -134,9 +134,9 @@ lookup UTF-8 symbols.</li>
 <a href="#spaces"><strong>spaces()</strong></a>: A function to
 create a string of blank spaces.</li>
 </ul>
-<div id="v" class="section level3">
-<h3 class="hasAnchor">
-<a href="#v" class="anchor"></a>A generalized NSE quoting function</h3>
+<div id="v" class="section level2">
+<h2 class="hasAnchor">
+<a href="#v" class="anchor"></a>A generalized NSE quoting function</h2>
 <p>Normally, when working in Base R, it is necessary to quote variable
 names when passing them into a function or operator. For example,
 observe the R subset brackets:</p>
@@ -203,9 +203,9 @@ Observe:</p>
 <span><span class="co"># Merc 280          19.2   6 167.6</span></span></code></pre></div>
 <p><a href="#top">top</a></p>
 </div>
-<div id="sort" class="section level3">
-<h3 class="hasAnchor">
-<a href="#sort" class="anchor"></a>Sort a data frame</h3>
+<div id="sort" class="section level2">
+<h2 class="hasAnchor">
+<a href="#sort" class="anchor"></a>Sort a data frame</h2>
 <p>Base R provides sort and order functions that work adequately on
 vectors. For data frames, the options are more limited. In particular,
 if you want to sort a data frame by multiple columns, there are no
@@ -274,9 +274,9 @@ direction for each sort variable. Here is an example:</p>
 control whether NA values are sorted to the top or bottom. See the
 documentation for further information and more examples.<br><a href="#top">top</a></p>
 </div>
-<div id="labels" class="section level3">
-<h3 class="hasAnchor">
-<a href="#labels" class="anchor"></a>Modify labels on a data frame</h3>
+<div id="labels" class="section level2">
+<h2 class="hasAnchor">
+<a href="#labels" class="anchor"></a>Modify labels on a data frame</h2>
 <p>While many data operations in R do not require control over the
 labels on a data frame, some types of programming do. Particularly in
 situations where you are sharing data between multiple people and
@@ -321,9 +321,9 @@ data frame. The labels make it easier for users to understand the data.
 This function should be included in Base R, but for some reason is
 not.<br><a href="#top">top</a></p>
 </div>
-<div id="p" class="section level3">
-<h3 class="hasAnchor">
-<a href="#p" class="anchor"></a>An infix concatenation operator</h3>
+<div id="p" class="section level2">
+<h2 class="hasAnchor">
+<a href="#p" class="anchor"></a>An infix concatenation operator</h2>
 <p>Most programming languages provide a built-in concatenation operator.
 R does not. Instead, it provides the <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> and
 <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> functions. While these functions do perform
@@ -342,9 +342,9 @@ operator.</p>
 <span><span class="co"># [1] "There are 32 rows in the mtcars data frame"</span></span></code></pre></div>
 <p><a href="#top">top</a></p>
 </div>
-<div id="eq" class="section level3">
-<h3 class="hasAnchor">
-<a href="#eq" class="anchor"></a>An enhanced equality operator</h3>
+<div id="eq" class="section level2">
+<h2 class="hasAnchor">
+<a href="#eq" class="anchor"></a>An enhanced equality operator</h2>
 <p>The <strong>common</strong> package contains an enhanced equality
 operator. The objective of the <code>%eq%</code> operator is to return a
 TRUE or FALSE value when any two objects are compared. This enhanced
@@ -392,9 +392,9 @@ not give errors when encountering a NULL or NA value, note that this
 behavior can also mask problems with your code. Therefore, use the
 <code>%eq%</code> operator with care.<br><a href="#top">top</a></p>
 </div>
-<div id="path" class="section level3">
-<h3 class="hasAnchor">
-<a href="#path" class="anchor"></a>Getting the current path</h3>
+<div id="path" class="section level2">
+<h2 class="hasAnchor">
+<a href="#path" class="anchor"></a>Getting the current path</h2>
 <p>Most programming languages provide a simple way to get the path of
 the currently running program. This basic feature has been left out of
 R. The <code><a href="../reference/Sys.path.html">Sys.path()</a></code> function aims to make up for the
@@ -414,9 +414,9 @@ the current working directory.</p>
 <strong>this.path</strong> package. The <strong>this.path</strong>
 functionality is renamed and provided here out of convenience.<br><a href="#top">top</a></p>
 </div>
-<div id="roundup" class="section level3">
-<h3 class="hasAnchor">
-<a href="#roundup" class="anchor"></a>An alternate rounding function</h3>
+<div id="roundup" class="section level2">
+<h2 class="hasAnchor">
+<a href="#roundup" class="anchor"></a>An alternate rounding function</h2>
 <p>As everyone knows, the R <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function rounds to the
 nearest even. For example:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -466,9 +466,9 @@ zero” is the best description of this function. The rounding logic of
 the <code><a href="../reference/roundup.html">roundup()</a></code> function matches SAS® software, and can be
 used when comparing output between the two systems.<br><a href="#top">top</a></p>
 </div>
-<div id="find" class="section level3">
-<h3 class="hasAnchor">
-<a href="#find" class="anchor"></a>File and Directory search</h3>
+<div id="find" class="section level2">
+<h2 class="hasAnchor">
+<a href="#find" class="anchor"></a>File and Directory search</h2>
 <p>Sometimes you know the name of the file you are looking for, but do
 not know the exact location. It might be in the directory above your
 program, or it might be in the directory below. It could be one level
@@ -497,9 +497,9 @@ meets the search criteria, the function returns a NULL.</p>
 that these two functions may be used together to perform complex
 searches.<br><a href="#top">top</a></p>
 </div>
-<div id="names" class="section level3">
-<h3 class="hasAnchor">
-<a href="#names" class="anchor"></a>Finding variable names</h3>
+<div id="names" class="section level2">
+<h2 class="hasAnchor">
+<a href="#names" class="anchor"></a>Finding variable names</h2>
 <p>Sometimes you have a data frame with many variables, and you need to
 perform an operation on only some of them. The <code><a href="../reference/find.names.html">find.names()</a></code>
 function can help you subset these variable names. There are parameters
@@ -525,9 +525,9 @@ ending range to perform the search. Here are some simple examples:</p>
 <span><span class="fu"><a href="../reference/find.names.html">find.names</a></span><span class="op">(</span><span class="va">dat</span>, pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c*"</span>, <span class="st">"d*"</span><span class="op">)</span>, start <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co"># [1] "carb" "drat"</span></span></code></pre></div>
 </div>
-<div id="attr" class="section level3">
-<h3 class="hasAnchor">
-<a href="#attr" class="anchor"></a>Copying attributes between data frames</h3>
+<div id="attr" class="section level2">
+<h2 class="hasAnchor">
+<a href="#attr" class="anchor"></a>Copying attributes between data frames</h2>
 <p>Base R functions that work with data frames are annoying in that they
 often drop any attributes assigned to data frame columns. Observe:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -576,9 +576,9 @@ example above, let’s now restore the attributes lost during the
 <span><span class="co"># $disp</span></span>
 <span><span class="co"># [1] "Displacement"</span></span></code></pre></div>
 </div>
-<div id="supsc" class="section level3">
-<h3 class="hasAnchor">
-<a href="#supsc" class="anchor"></a>Superscripts and Subscripts</h3>
+<div id="supsc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#supsc" class="anchor"></a>Superscripts and Subscripts</h2>
 <p>There are many occasions when you need to create a superscript or
 subscript. The UTF-8 character set provides superscript and subscript
 versions of many commonly used characters. For example, the following
@@ -597,9 +597,9 @@ these functions directly in your character strings:
 <img src="../man/images/sup4.png"></p>
 <p><a href="#top">top</a></p>
 </div>
-<div id="symbol" class="section level3">
-<h3 class="hasAnchor">
-<a href="#symbol" class="anchor"></a>Symbols</h3>
+<div id="symbol" class="section level2">
+<h2 class="hasAnchor">
+<a href="#symbol" class="anchor"></a>Special Symbols</h2>
 <p>The <code><a href="../reference/symbol.html">symbol()</a></code> function retrieves symbols frequently used
 in reports and documentation. This function is similar to the
 <code><a href="../reference/supsc.html">supsc()</a></code> and <code><a href="../reference/subsc.html">subsc()</a></code> functions in that it looks
@@ -613,9 +613,9 @@ letters, and more. See the <code><a href="../reference/symbol.html">symbol()</a>
 complete list of supported keywords.<br><img src="../man/images/symbol.png"></p>
 <p><a href="#top">top</a></p>
 </div>
-<div id="spaces" class="section level3">
-<h3 class="hasAnchor">
-<a href="#spaces" class="anchor"></a>Spaces</h3>
+<div id="spaces" class="section level2">
+<h2 class="hasAnchor">
+<a href="#spaces" class="anchor"></a>Repeating spaces</h2>
 <p>It sometimes happens that you need to separate some strings by a
 certain number of blank spaces. This operation is often done in Base R
 as follows:</p>
@@ -637,7 +637,9 @@ can clean up this type of task for you significantly. Observe:</p>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
