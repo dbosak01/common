@@ -97,8 +97,13 @@ v <- function(...) {
   # Convert list to vector
   vars_c <- unlist(vars_c)
 
-  # Add names if available
-  names(vars_c) <- ...names()
+  nms <- names(vars)
+  if (!is.null(nms) & length(nms) - 1 == length(vars_c)) {
+
+    # Add names if available
+    names(vars_c) <- names(vars)[seq(2, length(vars))]
+
+  }
 
   return(vars_c)
 

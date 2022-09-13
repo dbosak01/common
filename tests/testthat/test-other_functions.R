@@ -233,4 +233,5 @@ test_that("other7: v() function names work as expected.", {
   expect_equal(res[[3]], "A")
   expect_equal(names(res), c("", "", "spork", "hammy", "other"))
 
+
 })
