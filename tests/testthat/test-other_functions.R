@@ -1,5 +1,32 @@
 
 
+# String Functions --------------------------------------------------------
+
+
+test_that("string1: Spaces function works as expected", {
+
+
+  res <- spaces(25)
+
+  expect_equal(nchar(res), 25)
+
+})
+
+
+test_that("string2: Symbol function works as expected.", {
+
+  res <- symbol("reg")
+
+
+  res
+  expect_equal(res, "\U00AE")
+})
+
+
+# Other Functions ---------------------------------------------------------
+
+
+
 test_that("other1: v() function works", {
 
   res <- v(a, b, c)
@@ -169,26 +196,8 @@ test_that("other5: copy.attributes works as expected.", {
 
 })
 
-test_that("string1: Spaces function works as expected", {
 
-
-  res <- spaces(25)
-
-  expect_equal(nchar(res), 25)
-
-})
-
-
-test_that("string2: Symbol function works as expected.", {
-
-  res <- symbol("reg")
-
-
-  res
-  expect_equal(res, "\U00AE")
-})
-
-test_that("other: copy.attributes() works with factor", {
+test_that("other6: copy.attributes() works with factor", {
 
   dat1 <- data.frame(col1 = c(1, 2, 3),
                      col2 = c("A", "B", "C"), stringsAsFactors = TRUE)
@@ -209,5 +218,19 @@ test_that("other: copy.attributes() works with factor", {
   expect_equal(attr(res$col2, "label"), "Column 2")
   expect_equal("factor" %in% class(res$col2), TRUE)
   expect_equal(attr(res$col2, "levels"), c("A", "B", "C", "D"))
+
+})
+
+test_that("other7: v() function names work as expected.", {
+
+  res <- v(fork, bork, spork = A, hammy = c(1, 2, 3), other = c("A", "B", "C"))
+
+  res
+
+  expect_equal(length(res), 5)
+  expect_equal(res[[1]], "fork")
+  expect_equal(res[[2]], "bork")
+  expect_equal(res[[3]], "A")
+  expect_equal(names(res), c("", "", "spork", "hammy", "other"))
 
 })

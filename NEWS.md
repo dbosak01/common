@@ -3,6 +3,7 @@
 * Added `spaces()` function to create a string of blank spaces.
 * Added `symbol()` function to get UTF-8 symbols.  
 * Fixed `copy.attributes()` so it won't break factors.
+* Added names to `v()` function output values.
 
 # common 1.0.3
 

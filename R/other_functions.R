@@ -97,6 +97,8 @@ v <- function(...) {
   # Convert list to vector
   vars_c <- unlist(vars_c)
 
+  # Add names if available
+  names(vars_c) <- ...names()
 
   return(vars_c)
 
