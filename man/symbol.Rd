@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{symbol}
 \alias{symbol}
-\title{Gets a UTF-8 symbol character}
+\title{Gets UTF-8 symbol characters}
 \usage{
 symbol(keyword)
 }
@@ -17,9 +17,12 @@ The requested UTF-8 symbol character or characters.
 \description{
 The \code{symbol} function gets UTF-8 symbol characters. You
 can call this function to look up trademarks, Greek letters,
-and mathematical symbols.  The function uses HTML entity
+and mathematical operators.  The function uses HTML entity
 keywords to indicate which symbol to return.  You may pass more than
-one keyword in a single call to get a combined result.
+one keyword in a single call to get a combined result.  Any characters not
+recognized as a keyword will be left alone.  Characters surrounded by
+square brackets ([]) will be subscripted.  Characters surrounded by square
+brackets and prefixed with an up arrow (^[]) will be superscripted.
 }
 \section{Keywords}{
 
@@ -35,28 +38,29 @@ The following symbol keywords are available:
   notni, nsub, nsup, or, sub, sup, xcap, xcup, xvee, xwedge
   \item \strong{Greek uppercase letters}: Alpha, Beta, Gamma, Delta, Epsilon,
   Zeta, Eta, Theta, Iota, Kappa, Lambda, Mu, Nu, Xi, Omicron, Pi, Rho,
-  Sigma, Tau, Upsilon, Phi, Chi, Psi, Omega.
+  Sigma, Tau, Upsilon, Phi, Chi, Psi, Omega
   \item \strong{Greek lowercase letters}: alpha, beta, gamma, delta, epsilon,
   zeta, eta, theta, iota, kappa, lambda, mu, nu, xi, omicron, pi, rho,
-  sigma, tau, upsilon, phi, chi, psi, omega.
+  sigma, tau, upsilon, phi, chi, psi, omega
+  \item \strong{Arrows}: rarr, larr, barr, uarr, darr, harr, rArr, lArr, uArr, dArr, hArr
   \item \strong{Other Symbols}: dagger, ddagger, deg, permil, pertenk, sect
   }
 }
 
 \examples{
 # Trademark symbol
-paste0("My Company", symbol("trade"))
+symbol("My Companytrade")
 
 # Registered Trademark symbol
-paste0("My Company", symbol("reg"))
+symbol("My Companyreg")
 
-# Dagger symbol
-paste0("My footnotes", symbol("dagger"))
+# Dagger symbol concatenated
+paste0(symbol("dagger"), "My footnotes")
 
-# Alpha prime
-symbol("alpha") \%p\% supsc("1")
+# Alpha squared
+symbol("alpha^[2]")
 
-# Combined Symbols
+# Greek Symbols
 symbol("SigmaPsiZeta")
 
 # Useful Math Symbols
@@ -64,6 +68,9 @@ symbol("asymp ge le ne plusmn empty fnof radic sum")
 
 # Useful Logical Symbols
 symbol("forall isin notin cup cap and or")
+
+# Chemistry
+symbol("2H[2] + O[2] barr 2H[2]O")
 }
 \seealso{
 Other utf8: 

@@ -23,6 +23,49 @@ test_that("string2: Symbol function works as expected.", {
 })
 
 
+test_that("string3: Symbol superscripts and subscripts work as expected.", {
+
+
+  tst <- "here^[1] is"
+
+  res <- symbol(tst)
+
+  res
+  expect_equal(res, "here\U00B9 is")
+
+
+  tst <- "here[1] is"
+
+  res <- symbol(tst)
+
+  res
+  expect_equal(res, "here\U2081 is")
+
+
+  tst <- "here[13] is^[12] & reg trade"
+
+  res <- symbol(tst)
+
+  res
+  expect_equal(1, 1)
+
+
+  res <- symbol("rarr larr barr uarr darr harr lArr uArr rArr dArr hArr")
+
+  res
+
+  expect_equal(1, 1)
+
+
+  res <- symbol("2H[2] + O[1] barr 2H[3]O")
+
+  res
+
+  expect_equal(1, 1)
+
+})
+
+
 # Other Functions ---------------------------------------------------------
 
 

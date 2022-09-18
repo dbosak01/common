@@ -5,14 +5,17 @@
 
 
 #' @title
-#' Gets a UTF-8 symbol character
+#' Gets UTF-8 symbol characters
 #' @encoding UTF-8
 #' @description
 #' The \code{symbol} function gets UTF-8 symbol characters. You
 #' can call this function to look up trademarks, Greek letters,
-#' and mathematical symbols.  The function uses HTML entity
+#' and mathematical operators.  The function uses HTML entity
 #' keywords to indicate which symbol to return.  You may pass more than
-#' one keyword in a single call to get a combined result.
+#' one keyword in a single call to get a combined result.  Any characters not
+#' recognized as a keyword will be left alone.  Characters surrounded by
+#' square brackets ([]) will be subscripted.  Characters surrounded by square
+#' brackets and prefixed with an up arrow (^[]) will be superscripted.
 #' @section Keywords:
 #' The following symbol keywords are available:
 #' \itemize{
@@ -26,10 +29,11 @@
 #'   notni, nsub, nsup, or, sub, sup, xcap, xcup, xvee, xwedge
 #'   \item \strong{Greek uppercase letters}: Alpha, Beta, Gamma, Delta, Epsilon,
 #'   Zeta, Eta, Theta, Iota, Kappa, Lambda, Mu, Nu, Xi, Omicron, Pi, Rho,
-#'   Sigma, Tau, Upsilon, Phi, Chi, Psi, Omega.
+#'   Sigma, Tau, Upsilon, Phi, Chi, Psi, Omega
 #'   \item \strong{Greek lowercase letters}: alpha, beta, gamma, delta, epsilon,
 #'   zeta, eta, theta, iota, kappa, lambda, mu, nu, xi, omicron, pi, rho,
-#'   sigma, tau, upsilon, phi, chi, psi, omega.
+#'   sigma, tau, upsilon, phi, chi, psi, omega
+#'   \item \strong{Arrows}: rarr, larr, barr, uarr, darr, harr, rArr, lArr, uArr, dArr, hArr
 #'   \item \strong{Other Symbols}: dagger, ddagger, deg, permil, pertenk, sect
 #'   }
 #' @param keyword A symbol keyword. This keyword follows HTML conventions. See
@@ -38,18 +42,18 @@
 #' @family utf8
 #' @examples
 #' # Trademark symbol
-#' paste0("My Company", symbol("trade"))
+#' symbol("My Companytrade")
 #'
 #' # Registered Trademark symbol
-#' paste0("My Company", symbol("reg"))
+#' symbol("My Companyreg")
 #'
-#' # Dagger symbol
-#' paste0("My footnotes", symbol("dagger"))
+#' # Dagger symbol concatenated
+#' paste0(symbol("dagger"), "My footnotes")
 #'
-#' # Alpha prime
-#' symbol("alpha") %p% supsc("1")
+#' # Alpha squared
+#' symbol("alpha^[2]")
 #'
-#' # Combined Symbols
+#' # Greek Symbols
 #' symbol("SigmaPsiZeta")
 #'
 #' # Useful Math Symbols
@@ -57,11 +61,32 @@
 #'
 #' # Useful Logical Symbols
 #' symbol("forall isin notin cup cap and or")
+#'
+#' # Chemistry
+#' symbol("2H[2] + O[2] barr 2H[2]O")
 #' @export
 symbol <- function(keyword) {
 
 
   ret <- keyword
+
+  # Superscripts
+  res <- regexec("\\^\\[.+?\\]", ret)
+  while (res[[1]] > 0) {
+    tmp1 <- substr(ret, res[[1]], res[[1]] + attr(res[[1]], "match.length") - 1)
+    tmp2 <- substr(ret, res[[1]] + 2, res[[1]] + attr(res[[1]], "match.length") - 2)
+    ret <- gsub(tmp1, supsc(tmp2), ret, fixed = TRUE)
+    res <- regexec("\\^\\[.+?\\]", ret)
+  }
+
+  # Subscripts
+  res <- regexec("\\[.+?\\]", ret)
+  while (res[[1]] > 0) {
+    tmp1 <- substr(ret, res[[1]], res[[1]] + attr(res[[1]], "match.length") - 1)
+    tmp2 <- substr(ret, res[[1]] + 1, res[[1]] + attr(res[[1]], "match.length") - 2)
+    ret <- gsub(tmp1, subsc(tmp2), ret, fixed = TRUE)
+    res <- regexec("\\[.+?\\]", ret)
+  }
 
   # Trademark and Copyright
   ret <- gsub("trade", "\U2122", ret, fixed = TRUE)
@@ -186,6 +211,20 @@ symbol <- function(keyword) {
   ret <- gsub("radic", "\U221A", ret, fixed = TRUE)
   ret <- gsub("sime", "\U2243", ret, fixed = TRUE)
   ret <- gsub("sum", "\U2211", ret, fixed = TRUE)
+
+  # Arrows - rarr, larr, barr, uarr, darr, harr, rArr, lArr,
+  # uArr, dArr, hArr
+  ret <- gsub("rarr", "\U2192", ret, fixed = TRUE)
+  ret <- gsub("larr", "\U2190", ret, fixed = TRUE)
+  ret <- gsub("barr", "\U21C6", ret, fixed = TRUE)
+  ret <- gsub("uarr", "\U2191", ret, fixed = TRUE)
+  ret <- gsub("darr", "\U2193", ret, fixed = TRUE)
+  ret <- gsub("harr", "\U2194", ret, fixed = TRUE)
+  ret <- gsub("lArr", "\U21D0", ret, fixed = TRUE)
+  ret <- gsub("uArr", "\U21D1", ret, fixed = TRUE)
+  ret <- gsub("rArr", "\U21D2", ret, fixed = TRUE)
+  ret <- gsub("dArr", "\U21D3", ret, fixed = TRUE)
+  ret <- gsub("hArr", "\U21D4", ret, fixed = TRUE)
 
   # More logical
   ret <- gsub("and", "\U2227", ret, fixed = TRUE)

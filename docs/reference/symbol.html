@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gets a UTF-8 symbol character — symbol • common</title>
+<title>Gets UTF-8 symbol characters — symbol • common</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,12 +48,15 @@
   
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Gets a UTF-8 symbol character — symbol" />
+<meta property="og:title" content="Gets UTF-8 symbol characters — symbol" />
 <meta property="og:description" content="The symbol function gets UTF-8 symbol characters. You
 can call this function to look up trademarks, Greek letters,
-and mathematical symbols.  The function uses HTML entity
+and mathematical operators.  The function uses HTML entity
 keywords to indicate which symbol to return.  You may pass more than
-one keyword in a single call to get a combined result." />
+one keyword in a single call to get a combined result.  Any characters not
+recognized as a keyword will be left alone.  Characters surrounded by
+square brackets ([]) will be subscripted.  Characters surrounded by square
+brackets and prefixed with an up arrow (^[]) will be superscripted." />
 <meta property="og:image" content="https://common.r-sassy.org/logo.png" />
 
 
@@ -123,7 +126,7 @@ one keyword in a single call to get a combined result." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gets a UTF-8 symbol character</h1>
+    <h1>Gets UTF-8 symbol characters</h1>
     
     <div class="hidden name"><code>symbol.Rd</code></div>
     </div>
@@ -131,9 +134,12 @@ one keyword in a single call to get a combined result." />
     <div class="ref-description">
     <p>The <code>symbol</code> function gets UTF-8 symbol characters. You
 can call this function to look up trademarks, Greek letters,
-and mathematical symbols.  The function uses HTML entity
+and mathematical operators.  The function uses HTML entity
 keywords to indicate which symbol to return.  You may pass more than
-one keyword in a single call to get a combined result.</p>
+one keyword in a single call to get a combined result.  Any characters not
+recognized as a keyword will be left alone.  Characters surrounded by
+square brackets ([]) will be subscripted.  Characters surrounded by square
+brackets and prefixed with an up arrow (^[]) will be superscripted.</p>
     </div>
 
     <pre class="usage"><span><span class='fu'>symbol</span><span class='op'>(</span><span class='va'>keyword</span><span class='op'>)</span></span></pre>
@@ -166,10 +172,11 @@ the <strong>Keywords</strong> section for a complete list of all supported keywo
   notni, nsub, nsup, or, sub, sup, xcap, xcup, xvee, xwedge</p></li>
 <li><p><strong>Greek uppercase letters</strong>: Alpha, Beta, Gamma, Delta, Epsilon,
   Zeta, Eta, Theta, Iota, Kappa, Lambda, Mu, Nu, Xi, Omicron, Pi, Rho,
-  Sigma, Tau, Upsilon, Phi, Chi, Psi, Omega.</p></li>
+  Sigma, Tau, Upsilon, Phi, Chi, Psi, Omega</p></li>
 <li><p><strong>Greek lowercase letters</strong>: alpha, beta, gamma, delta, epsilon,
   zeta, eta, theta, iota, kappa, lambda, mu, nu, xi, omicron, pi, rho,
-  sigma, tau, upsilon, phi, chi, psi, omega.</p></li>
+  sigma, tau, upsilon, phi, chi, psi, omega</p></li>
+<li><p><strong>Arrows</strong>: rarr, larr, barr, uarr, darr, harr, rArr, lArr, uArr, dArr, hArr</p></li>
 <li><p><strong>Other Symbols</strong>: dagger, ddagger, deg, permil, pertenk, sect</p></li>
 </ul>
 
@@ -181,25 +188,28 @@ the <strong>Keywords</strong> section for a complete list of all supported keywo
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span><span class='co'># Trademark symbol</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"My Company"</span>, <span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"trade"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"My Companytrade"</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='co'># Registered Trademark symbol</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"My Company"</span>, <span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"reg"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"My Companyreg"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># Dagger symbol</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"My footnotes"</span>, <span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"dagger"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='co'># Dagger symbol concatenated</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"dagger"</span><span class='op'>)</span>, <span class='st'>"My footnotes"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># Alpha prime</span></span>
-<span><span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"alpha"</span><span class='op'>)</span> <span class='op'><a href='%p%.html'>%p%</a></span> <span class='fu'><a href='supsc.html'>supsc</a></span><span class='op'>(</span><span class='st'>"1"</span><span class='op'>)</span></span>
+<span><span class='co'># Alpha squared</span></span>
+<span><span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"alpha^[2]"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># Combined Symbols</span></span>
+<span><span class='co'># Greek Symbols</span></span>
 <span><span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"SigmaPsiZeta"</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='co'># Useful Math Symbols</span></span>
 <span><span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"asymp ge le ne plusmn empty fnof radic sum"</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='co'># Useful Logical Symbols</span></span>
-<span><span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"forall isin notin cup cap and or"</span><span class='op'>)</span></span></pre>
+<span><span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"forall isin notin cup cap and or"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Chemistry</span></span>
+<span><span class='fu'>symbol</span><span class='op'>(</span><span class='st'>"2H[2] + O[2] barr 2H[2]O"</span><span class='op'>)</span></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
