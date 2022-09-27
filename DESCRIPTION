@@ -1,7 +1,7 @@
 Package: common
 Type: Package
 Title: Solutions for Common Problems in Base R
-Version: 1.0.4
+Version: 1.0.5
 Authors@R: c(
     person(given = "David",
            family = "Bosak",
@@ -22,6 +22,8 @@ Description: Contains functions for solving commonly encountered problems while
     supplement to Base R, and will be useful for almost any R user.
 License: CC0
 Encoding: UTF-8
+URL: https://common.r-sassy.org
+BugReports: https://github.com/dbosak01/common/issues
 Depends: R (>= 3.6.0)
 Suggests: 
     knitr,

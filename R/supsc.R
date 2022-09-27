@@ -114,7 +114,7 @@ supother <- function(oth) {
   else if (oth == "/")
     ret <- "\U141F"  #"\U2E0D"
   else if (oth == "*")
-    ret <- "\U20F0"  #"⃰"
+    ret <- "\U20F0"
   else if (oth == " ")
     ret <- "\U2009"
   else

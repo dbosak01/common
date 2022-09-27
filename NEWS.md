@@ -1,3 +1,7 @@
+# common 1.0.5
+
+* CRAN fixes.
+
 # common 1.0.4
 
 * Added `spaces()` function to create a string of blank spaces.
