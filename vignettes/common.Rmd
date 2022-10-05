@@ -320,8 +320,6 @@ Note that this function returns the full path of the currently running
 program, including the file name and extension.  This functionality is different from
 `getwd()`, which returns only the current working directory.  
 
-Credit for this function goes to Andrew Simmons and the **this.path** package.
-The **this.path** functionality is renamed and provided here out of convenience.   
 [top](#top)
 
 ## An alternate rounding function {#roundup}
