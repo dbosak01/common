@@ -10,7 +10,8 @@
 #' @description A function that rounds positive numbers up when the last digit
 #' is a 5.  For negative numbers ending in 5, the function actually rounds down.
 #' "Round away from zero" is the most accurate description of this function.
-#' @param x A vector of values to round.
+#' @param x A vector of values to round.  Also accepts a data frame. In the
+#' case of a data frame, the function will round all numeric columns.
 #' @param digits A number of decimal places to round to. Default is zero.
 #' @returns The rounded data vector.
 #' @examples

@@ -7,7 +7,8 @@
 roundup(x, digits = 0)
 }
 \arguments{
-\item{x}{A vector of values to round.}
+\item{x}{A vector of values to round.  Also accepts a data frame. In the
+case of a data frame, the function will round all numeric columns.}
 
 \item{digits}{A number of decimal places to round to. Default is zero.}
 }
