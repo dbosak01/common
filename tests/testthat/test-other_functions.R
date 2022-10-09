@@ -132,6 +132,8 @@ test_that("other2: roundup() function works as expected.", {
 
   expect_error(roundup("1"))
   expect_error(roundup(NULL))
+
+
 })
 
 
@@ -275,6 +277,34 @@ test_that("other7: v() function names work as expected.", {
   expect_equal(res[[2]], "bork")
   expect_equal(res[[3]], "A")
   expect_equal(names(res), c("", "", "spork", "hammy", "other"))
+
+
+})
+
+test_that("other8: roundup() function works on dataframes.", {
+
+  res <- roundup(mtcars)
+
+  res
+
+  expect_equal(res$mpg[3], 23)
+
+  res <- roundup(mtcars, 1)
+
+  res
+
+  expect_equal(res$wt[3], 2.3)
+
+
+
+  res <- roundup(iris)
+
+  res
+
+  expect_equal(res$Sepal.Width[1], 4)
+
+
+
 
 
 })

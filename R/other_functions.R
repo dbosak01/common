@@ -29,9 +29,35 @@
 #' @export
 roundup <- function(x, digits = 0) {
 
-  if (!is.numeric(x)) {
-    stop("Input value must be numeric.")
+  if (any(class(x) %in% "data.frame")) {
+
+    ret <- x
+
+    for(i in seq_len(ncol(x))) {
+
+      if (is.numeric(ret[[i]]) & is.factor(ret[[i]]) == FALSE)
+        ret[[i]] <- rup(ret[[i]], digits)
+    }
+
+
+  } else {
+
+
+    if (!is.numeric(x)) {
+      stop("Input value must be numeric.")
+    }
+
+
+    ret <- rup(x, digits)
   }
+
+
+
+  return(ret)
+}
+
+
+rup <- function(x, digits = 0) {
 
   posneg = sign(x)
   z = abs(x)*10^digits
@@ -41,6 +67,7 @@ roundup <- function(x, digits = 0) {
   ret <- z*posneg
 
   return(ret)
+
 }
 
 
