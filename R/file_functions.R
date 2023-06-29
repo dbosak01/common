@@ -17,10 +17,7 @@
 #' @export
 Sys.path <- function() {
 
-  ppth <- NULL
-  tryCatch({
-    ppth <- this.path::this.path()
-  }, error = function(e) { ppth <- NULL})
+  ppth <- Sys.path.internal()
 
   return(ppth)
 
