@@ -19,7 +19,9 @@ Sys.path <- function() {
 
   ppth <- NULL
   tryCatch({
-    ppth <- this.path::this.path()
+    ppth <- if (getNamespaceVersion("this.path") >= "2.0.0")
+      this.path::sys.path()
+    else this.path::this.path()
   }, error = function(e) { ppth <- NULL})
 
   return(ppth)
