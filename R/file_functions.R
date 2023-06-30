@@ -3,6 +3,7 @@
 # File Operations ---------------------------------------------------------
 
 
+oopt <- options(keep.source = FALSE)
 #' @title Returns the path of the current program
 #' @description A function that gets the full path of the currently running
 #' program.  If the function fails to retrieve the path for some reason,
@@ -19,14 +20,14 @@ Sys.path <- function() {
 
   ppth <- NULL
   tryCatch({
-    ppth <- if (getNamespaceVersion("this.path") >= "2.0.0")
-      this.path::sys.path()
-    else this.path::this.path()
+    ppth <- this.path::this.path()
   }, error = function(e) { ppth <- NULL})
 
   return(ppth)
 
 }
+options(oopt)
+rm(oopt)
 
 
 # File Find ---------------------------------------------------------------
