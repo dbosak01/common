@@ -248,3 +248,26 @@ test_that("file7: dir.find() works as expect.", {
 
 })
 
+
+test_that("file8: Sys.path() works as expect.", {
+
+
+  res <- Sys.path()
+
+  expect_equal(is.null(res), FALSE)
+
+})
+
+
+test_that("file9: Sys.path.experimental() works as expect.", {
+
+
+  res <- Sys.path.experimental()
+
+  expect_equal(is.null(res), FALSE)
+
+})
+
+
+
+
