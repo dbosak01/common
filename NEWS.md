@@ -1,6 +1,6 @@
 # common 1.0.8
 
-* Remove dependency on this.path().
+* Remove dependency on this.path(). 
 
 # common 1.0.7
 

@@ -3,25 +3,6 @@
 # File Operations ---------------------------------------------------------
 
 
-# @title Returns the path of the current program
-# @description A function that gets the full path of the currently running
-# program.  If the function fails to retrieve the path for some reason,
-# it will return a NULL.  The function takes no parameters.
-# @returns The full path of the currently running program, or a NULL.
-# @family fileops
-# @examples
-# # Get current path
-# pth <- Sys.path()
-# pth
-# # [1] "C:/programs/myprogram.R"
-# export
-# Sys.path_back <- function() {
-#
-#   ppth <- Sys.path.internal()
-#
-#   return(ppth)
-#
-# }
 
 
 # File Find ---------------------------------------------------------------

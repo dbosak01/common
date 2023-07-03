@@ -1,5 +1,24 @@
 
 
+# @title Returns the path of the current program
+# @description A function that gets the full path of the currently running
+# program.  If the function fails to retrieve the path for some reason,
+# it will return a NULL.  The function takes no parameters.
+# @returns The full path of the currently running program, or a NULL.
+# @family fileops
+# @examples
+# # Get current path
+# pth <- Sys.path()
+# pth
+# # [1] "C:/programs/myprogram.R"
+# export
+# Sys.path_back <- function() {
+#
+#   ppth <- Sys.path.internal()
+#
+#   return(ppth)
+#
+# }
 
 
 # Sys.path.internal <- function() {
@@ -218,21 +237,39 @@ Sys.path <- function() {
         .Platform$OS.type == "unix"    && .Platform$GUI == "X11")
     {
 
-      # Parse command line to pull out file argument
-      argv <- paste(commandArgs(), collapse = " ")
-      startpos <- regexpr("--args", argv, fixed = TRUE)
-      if (startpos > 0) {
-        argv <- substr(argv, 1, startpos - 1)
+      # VSCode doesn't set .Platform$GUI.  So put handler here.
+      if (Sys.getenv("TERM_PROGRAM") == "vscode") {
+
+        tryCatch({
+
+          context <- rstudioapi::getSourceEditorContext()
+
+          ret <- context[["path"]]
+
+        }, error = function(e) {ret <- NULL})
+
+        if (debug)
+          message("vscode call found:" %p% ret)
+
+      } else {
+
+        # Parse command line to pull out file argument
+        argv <- paste(commandArgs(), collapse = " ")
+        startpos <- regexpr("--args", argv, fixed = TRUE)
+        if (startpos > 0) {
+          argv <- substr(argv, 1, startpos - 1)
+
+        }
+
+        ret <- trimws(sub("--file=", "", argv, fixed = TRUE))
+
+        if (length(ret) == 0)
+          ret <- NULL
+
+        if (debug)
+          message("Shell call found:" %p% ret)
 
       }
-
-      ret <- trimws(sub("--file=", "", argv, fixed = TRUE))
-
-      if (length(ret) == 0)
-        ret <- NULL
-
-      if (debug)
-        message("Shell call found:" %p% ret)
 
     }
 

@@ -26,7 +26,8 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     glue, 
-    box
+    box,
+    rstudioapi
 Enhances: base
 Imports: utils
 Config/testthat/edition: 3
