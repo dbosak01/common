@@ -2,30 +2,30 @@
 
 
 
-Sys.path.internal <- function() {
-
-  ppth <- NULL
-
-  tryCatch({
-
-    # if (utils::packageVersion("this.path")  >= "2.0.0")
-    #   ppth <- this.path::sys.path()
-    # else {
-      ppth <- this.path::this.path()
-
-    # }
-
-  }, error = function(e) { ppth <- NULL})
-
-
-  return(ppth)
-
-}
-
-
+# Sys.path.internal <- function() {
+#
+#   ppth <- NULL
+#
+#   tryCatch({
+#
+#     # if (utils::packageVersion("this.path")  >= "2.0.0")
+#     #   ppth <- this.path::sys.path()
+#     # else {
+#       ppth <- this.path::this.path()
+#
+#     # }
+#
+#   }, error = function(e) { ppth <- NULL})
+#
+#
+#   return(ppth)
+#
+# }
 
 
-#' @title EXPERIMENTAL: Returns the path of the current program
+
+
+#' @title Returns the path of the current program
 #' @description A function that gets the full path of the currently running
 #' program.  If the function fails to retrieve the path for some reason,
 #' it will return a NULL.  The function takes no parameters.
@@ -33,11 +33,11 @@ Sys.path.internal <- function() {
 #' @family fileops
 #' @examples
 #' # Get current path
-#' pth <- Sys.path.experimental()
+#' pth <- Sys.path()
 #' pth
 #' # [1] "C:/programs/myprogram.R"
 #' @export
-Sys.path.experimental <- function() {
+Sys.path <- function() {
 
   ret <- NULL
 

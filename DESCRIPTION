@@ -28,8 +28,7 @@ Suggests:
     glue, 
     box
 Enhances: base
-Imports: this.path (< 2.0),
-         utils
+Imports: utils
 Config/testthat/edition: 3
 RoxygenNote: 7.2.1
 VignetteBuilder: knitr

@@ -15,7 +15,6 @@ reference:
   desc: Functions that help with file management.
   contents:
   - Sys.path
-  - Sys.path.experimental
   - file.find
   - dir.find
 
