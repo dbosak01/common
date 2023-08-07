@@ -31,5 +31,6 @@
 #'   \item \code{\link{symbol}}: A function to get UTF-8 symbol characters.
 #' }
 #' @docType package
+#' @keywords internal
 #' @name common
 NULL

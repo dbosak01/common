@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,19 +40,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">common</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.8</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"></ul>
 <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/common.html">Get started</a>
 </li>
@@ -61,7 +57,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
 <li>
-  <a href="https://github.com/dbosak01/common/">
+  <a href="https://github.com/dbosak01/common/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -76,13 +72,13 @@
 
       
 
-      </header><script src="common_files/header-attrs-2.14/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>common</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dbosak01/common/blob/master/vignettes/common.Rmd"><code>vignettes/common.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dbosak01/common/blob/HEAD/vignettes/common.Rmd" class="external-link"><code>vignettes/common.Rmd</code></a></small>
       <div class="hidden name"><code>common.Rmd</code></div>
 
     </div>
@@ -105,7 +101,7 @@ to the sort function for data frames.</li>
 overload to the labels function for data frames.</li>
 <li>
 <a href="#p"><strong>%p%</strong></a>: An infix operator for the
-<code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> function.</li>
+<code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code> function.</li>
 <li>
 <a href="#eq"><strong>%eq%</strong></a>: An enhanced equality
 operator.</li>
@@ -140,38 +136,38 @@ lookup UTF-8 symbols.</li>
 <a href="#spaces"><strong>spaces()</strong></a>: A function to
 create a string of blank spaces.</li>
 </ul>
-<div id="v" class="section level2">
-<h2 class="hasAnchor">
-<a href="#v" class="anchor"></a>A generalized NSE quoting function</h2>
+<div class="section level2">
+<h2 id="v">A generalized NSE quoting function<a class="anchor" aria-label="anchor" href="#v"></a>
+</h2>
 <p>Normally, when working in Base R, it is necessary to quote variable
 names when passing them into a function or operator. For example,
 observe the R subset brackets:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable names passed to subset are quoted</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> , <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"disp"</span>)]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View results</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dat</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                   mpg cyl  disp</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Mazda RX4         <span class="fl">21.0</span>   <span class="dv">6</span> <span class="fl">160.0</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Mazda RX4 Wag     <span class="fl">21.0</span>   <span class="dv">6</span> <span class="fl">160.0</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Datsun <span class="dv">710</span>        <span class="fl">22.8</span>   <span class="dv">4</span> <span class="fl">108.0</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Hornet <span class="dv">4</span> Drive    <span class="fl">21.4</span>   <span class="dv">6</span> <span class="fl">258.0</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Hornet Sportabout <span class="fl">18.7</span>   <span class="dv">8</span> <span class="fl">360.0</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Valiant           <span class="fl">18.1</span>   <span class="dv">6</span> <span class="fl">225.0</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Duster <span class="dv">360</span>        <span class="fl">14.3</span>   <span class="dv">8</span> <span class="fl">360.0</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Merc 240D         <span class="fl">24.4</span>   <span class="dv">4</span> <span class="fl">146.7</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Merc <span class="dv">230</span>          <span class="fl">22.8</span>   <span class="dv">4</span> <span class="fl">140.8</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Merc <span class="dv">280</span>          <span class="fl">19.2</span>   <span class="dv">6</span> <span class="fl">167.6</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Variable names passed to subset are quoted</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> , <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"disp"</span>)]</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># View results</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>dat</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>                   mpg cyl  disp</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>Mazda RX4         <span class="fl">21.0</span>   <span class="dv">6</span> <span class="fl">160.0</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>Mazda RX4 Wag     <span class="fl">21.0</span>   <span class="dv">6</span> <span class="fl">160.0</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>Datsun <span class="dv">710</span>        <span class="fl">22.8</span>   <span class="dv">4</span> <span class="fl">108.0</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>Hornet <span class="dv">4</span> Drive    <span class="fl">21.4</span>   <span class="dv">6</span> <span class="fl">258.0</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>Hornet Sportabout <span class="fl">18.7</span>   <span class="dv">8</span> <span class="fl">360.0</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>Valiant           <span class="fl">18.1</span>   <span class="dv">6</span> <span class="fl">225.0</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>Duster <span class="dv">360</span>        <span class="fl">14.3</span>   <span class="dv">8</span> <span class="fl">360.0</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>Merc 240D         <span class="fl">24.4</span>   <span class="dv">4</span> <span class="fl">146.7</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>Merc <span class="dv">230</span>          <span class="fl">22.8</span>   <span class="dv">4</span> <span class="fl">140.8</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>Merc <span class="dv">280</span>          <span class="fl">19.2</span>   <span class="dv">6</span> <span class="fl">167.6</span></span></code></pre></div>
 <p>Some Base R functions and almost all <strong>tidyverse</strong>
 functions use Non-standard Evaluation (NSE) when passing variable names.
 This style of evaluation allows the user to type variables without using
 quotation marks or other methods of resolution.</p>
 <p>Picking up from the previous example, let’s now subset the
 <code>dat</code> data frame created above using the
-<code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> function, which uses NSE:</p>
+<code><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset()</a></code> function, which uses NSE:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># No quotes on "cyl" using subset() function</span></span>
-<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">cyl</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">cyl</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View results</span></span>
 <span><span class="va">dt</span></span>
@@ -209,9 +205,9 @@ Observe:</p>
 <span><span class="co"># Merc 280          19.2   6 167.6</span></span></code></pre></div>
 <p><a href="#top">top</a></p>
 </div>
-<div id="sort" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sort" class="anchor"></a>Sort a data frame</h2>
+<div class="section level2">
+<h2 id="sort">Sort a data frame<a class="anchor" aria-label="anchor" href="#sort"></a>
+</h2>
 <p>Base R provides sort and order functions that work adequately on
 vectors. For data frames, the options are more limited. In particular,
 if you want to sort a data frame by multiple columns, there are no
@@ -222,7 +218,7 @@ suggestion:</p>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Get sort order</span></span>
-<span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="st">'order'</span>, <span class="va">dat</span><span class="op">[</span> ,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cyl"</span>, <span class="st">"mpg"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="st">'order'</span>, <span class="va">dat</span><span class="op">[</span> ,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cyl"</span>, <span class="st">"mpg"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Sort data</span></span>
 <span><span class="va">dat</span><span class="op">[</span><span class="va">ord</span>, <span class="op">]</span></span>
@@ -242,12 +238,12 @@ function for data frames, and b) the method illustrated above provides
 no way to control the sort order of the variables involved. They are all
 sorted ascending.</p>
 <p>The <code><a href="../reference/sort.data.frame.html">sort.data.frame()</a></code> function is an overload to the
-generic <code><a href="https://rdrr.io/r/base/sort.html">sort()</a></code> function that is tailored for data frames.
+generic <code><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort()</a></code> function that is tailored for data frames.
 It allows you to sort by multiple columns, and control the sort
 direction for each sort variable. Here is an example:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Sort by cyl then mpg</span></span>
-<span><span class="va">dat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">dat</span>, by <span class="op">=</span> <span class="fu"><a href="../reference/v.html">v</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">dat</span>, by <span class="op">=</span> <span class="fu"><a href="../reference/v.html">v</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">dat1</span></span>
 <span><span class="co">#                    mpg cyl  disp</span></span>
 <span><span class="co"># Datsun 710        22.8   4 108.0</span></span>
@@ -262,8 +258,8 @@ direction for each sort variable. Here is an example:</p>
 <span><span class="co"># Hornet Sportabout 18.7   8 360.0</span></span>
 <span></span>
 <span><span class="co"># Sort by cyl descending then mpg ascending</span></span>
-<span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">dat</span>, by <span class="op">=</span> <span class="fu"><a href="../reference/v.html">v</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">mpg</span><span class="op">)</span>,</span>
-<span>             ascending <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">dat</span>, by <span class="op">=</span> <span class="fu"><a href="../reference/v.html">v</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">mpg</span><span class="op">)</span>,</span>
+<span>             ascending <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">dat2</span></span>
 <span><span class="co">#                    mpg cyl  disp</span></span>
 <span><span class="co"># Duster 360        14.3   8 360.0</span></span>
@@ -280,27 +276,27 @@ direction for each sort variable. Here is an example:</p>
 control whether NA values are sorted to the top or bottom. See the
 documentation for further information and more examples.<br><a href="#top">top</a></p>
 </div>
-<div id="labels" class="section level2">
-<h2 class="hasAnchor">
-<a href="#labels" class="anchor"></a>Modify labels on a data frame</h2>
+<div class="section level2">
+<h2 id="labels">Modify labels on a data frame<a class="anchor" aria-label="anchor" href="#labels"></a>
+</h2>
 <p>While many data operations in R do not require control over the
 labels on a data frame, some types of programming do. Particularly in
 situations where you are sharing data between multiple people and
 groups, the column labels can provide valuable information about the
 data contained in a particular column.</p>
 <p>Unfortunately, Base R does not supply an easy way to manipulate these
-labels. The only approach is to use the <code><a href="https://rdrr.io/r/base/attr.html">attr()</a></code> function to
+labels. The only approach is to use the <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr()</a></code> function to
 set the labels individually for each column. Like this:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Prepare data</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Assign labels</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">mpg</span>, <span class="st">"label"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Miles Per Gallon"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">cyl</span>, <span class="st">"label"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Cylinders"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">disp</span>, <span class="st">"label"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Displacement"</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">mpg</span>, <span class="st">"label"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Miles Per Gallon"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">cyl</span>, <span class="st">"label"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Cylinders"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">disp</span>, <span class="st">"label"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Displacement"</span></span></code></pre></div>
 <p>The <code><a href="../reference/labels.data.frame.html">labels.data.frame()</a></code> function is an overload to the
-Base R <code><a href="https://rdrr.io/r/base/labels.html">labels()</a></code> function that is specific to data frames.
+Base R <code><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels()</a></code> function that is specific to data frames.
 The function allows you to set labels for an entire data frame using a
 named list. Here is an example:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -308,12 +304,12 @@ named list. Here is an example:</p>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Assign labels</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html">labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mpg <span class="op">=</span> <span class="st">"Miles Per Gallon"</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mpg <span class="op">=</span> <span class="st">"Miles Per Gallon"</span>,</span>
 <span>                    cyl <span class="op">=</span> <span class="st">"Cylinders"</span>,</span>
 <span>                    disp <span class="op">=</span> <span class="st">"Displacement"</span><span class="op">)</span></span>
 <span>                    </span>
 <span><span class="co"># View label attributes</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html">labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
 <span><span class="co"># $mpg</span></span>
 <span><span class="co"># [1] "Miles Per Gallon"</span></span>
 <span><span class="co"># </span></span>
@@ -327,30 +323,30 @@ data frame. The labels make it easier for users to understand the data.
 This function should be included in Base R, but for some reason is
 not.<br><a href="#top">top</a></p>
 </div>
-<div id="p" class="section level2">
-<h2 class="hasAnchor">
-<a href="#p" class="anchor"></a>An infix concatenation operator</h2>
+<div class="section level2">
+<h2 id="p">An infix concatenation operator<a class="anchor" aria-label="anchor" href="#p"></a>
+</h2>
 <p>Most programming languages provide a built-in concatenation operator.
-R does not. Instead, it provides the <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> and
-<code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> functions. While these functions do perform
+R does not. Instead, it provides the <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste()</a></code> and
+<code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code> functions. While these functions do perform
 concatenation adequately, it is sometimes more convenient to have an
 operator.</p>
 <p>The <code>%p%</code> operator is an infix version of the
-<code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> function. It provides the same functionality of
-<code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>, but in a more compact manner. Like so:</p>
+<code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code> function. It provides the same functionality of
+<code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code>, but in a more compact manner. Like so:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Concatenation using paste0() function</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"There are "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>, <span class="st">" rows in the mtcars data frame"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"There are "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>, <span class="st">" rows in the mtcars data frame"</span><span class="op">)</span></span>
 <span><span class="co"># [1] "There are 32 rows in the mtcars data frame"</span></span>
 <span></span>
 <span><span class="co"># Concatenation using %p% operator</span></span>
-<span><span class="st">"There are "</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="st">" rows in the mtcars data frame"</span></span>
+<span><span class="st">"There are "</span> <span class="op"><a href="../reference/grapes-p-grapes.html">%p%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-p-grapes.html">%p%</a></span> <span class="st">" rows in the mtcars data frame"</span></span>
 <span><span class="co"># [1] "There are 32 rows in the mtcars data frame"</span></span></code></pre></div>
 <p><a href="#top">top</a></p>
 </div>
-<div id="eq" class="section level2">
-<h2 class="hasAnchor">
-<a href="#eq" class="anchor"></a>An enhanced equality operator</h2>
+<div class="section level2">
+<h2 id="eq">An enhanced equality operator<a class="anchor" aria-label="anchor" href="#eq"></a>
+</h2>
 <p>The <strong>common</strong> package contains an enhanced equality
 operator. The objective of the <code>%eq%</code> operator is to return a
 TRUE or FALSE value when any two objects are compared. This enhanced
@@ -366,41 +362,41 @@ often have many attributes assigned by <code>dplyr</code> functions.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Comparing of NULLs and NA</span></span>
-<span><span class="cn">NULL</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="cn">NULL</span>        <span class="co"># TRUE</span></span>
-<span><span class="cn">NULL</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="cn">NA</span>          <span class="co"># FALSE</span></span>
-<span><span class="cn">NA</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="cn">NA</span>            <span class="co"># TRUE</span></span>
-<span><span class="fl">1</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="cn">NULL</span>           <span class="co"># FALSE</span></span>
-<span><span class="fl">1</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="cn">NA</span>             <span class="co"># FALSE</span></span>
+<span><span class="cn">NULL</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="cn">NULL</span>        <span class="co"># TRUE</span></span>
+<span><span class="cn">NULL</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="cn">NA</span>          <span class="co"># FALSE</span></span>
+<span><span class="cn">NA</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="cn">NA</span>            <span class="co"># TRUE</span></span>
+<span><span class="fl">1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="cn">NULL</span>           <span class="co"># FALSE</span></span>
+<span><span class="fl">1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="cn">NA</span>             <span class="co"># FALSE</span></span>
 <span></span>
 <span><span class="co"># Comparing of atomic values</span></span>
-<span><span class="fl">1</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="fl">1</span>              <span class="co"># TRUE</span></span>
-<span><span class="st">"one"</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="st">"one"</span>      <span class="co"># TRUE</span></span>
-<span><span class="fl">1</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="st">"one"</span>          <span class="co"># FALSE</span></span>
-<span><span class="fl">1</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>     <span class="co"># FALSE</span></span>
+<span><span class="fl">1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="fl">1</span>              <span class="co"># TRUE</span></span>
+<span><span class="st">"one"</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="st">"one"</span>      <span class="co"># TRUE</span></span>
+<span><span class="fl">1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="st">"one"</span>          <span class="co"># FALSE</span></span>
+<span><span class="fl">1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>     <span class="co"># FALSE</span></span>
 <span></span>
 <span><span class="co"># Comparing of vectors</span></span>
-<span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span></span>
-<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span></span>
-<span><span class="va">v1</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="va">v1</span>            <span class="co"># TRUE</span></span>
-<span><span class="va">v1</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="va">v2</span>            <span class="co"># FALSE</span></span>
+<span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span></span>
+<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span></span>
+<span><span class="va">v1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="va">v1</span>            <span class="co"># TRUE</span></span>
+<span><span class="va">v1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="va">v2</span>            <span class="co"># FALSE</span></span>
 <span></span>
 <span><span class="co"># Comparing of data frames</span></span>
-<span><span class="va">mtcars</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="va">mtcars</span>    <span class="co"># TRUE</span></span>
-<span><span class="va">mtcars</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="va">iris</span>      <span class="co"># FALSE</span></span>
-<span><span class="va">iris</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="va">iris</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,<span class="op">]</span> <span class="co"># FALSE</span></span>
+<span><span class="va">mtcars</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="va">mtcars</span>    <span class="co"># TRUE</span></span>
+<span><span class="va">mtcars</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="va">iris</span>      <span class="co"># FALSE</span></span>
+<span><span class="va">iris</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="va">iris</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,<span class="op">]</span> <span class="co"># FALSE</span></span>
 <span></span>
 <span><span class="co"># Mixing it up </span></span>
-<span><span class="va">mtcars</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="cn">NULL</span>      <span class="co"># FALSE</span></span>
-<span><span class="va">v1</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="cn">NA</span>            <span class="co"># FALSE</span></span>
-<span><span class="fl">1</span> <span class="op"><a href="../reference/%eq%.html">%eq%</a></span> <span class="va">v1</span>             <span class="co"># FALSE</span></span></code></pre></div>
+<span><span class="va">mtcars</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="cn">NULL</span>      <span class="co"># FALSE</span></span>
+<span><span class="va">v1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="cn">NA</span>            <span class="co"># FALSE</span></span>
+<span><span class="fl">1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="va">v1</span>             <span class="co"># FALSE</span></span></code></pre></div>
 <p>While it can be advantageous to have a comparison operator that does
 not give errors when encountering a NULL or NA value, note that this
 behavior can also mask problems with your code. Therefore, use the
 <code>%eq%</code> operator with care.<br><a href="#top">top</a></p>
 </div>
-<div id="path" class="section level2">
-<h2 class="hasAnchor">
-<a href="#path" class="anchor"></a>Getting the current path</h2>
+<div class="section level2">
+<h2 id="path">Getting the current path<a class="anchor" aria-label="anchor" href="#path"></a>
+</h2>
 <p>Most programming languages provide a simple way to get the path of
 the currently running program. This basic feature has been left out of
 R. The <code><a href="../reference/Sys.path.html">Sys.path()</a></code> function aims to make up for the
@@ -414,23 +410,23 @@ oversight.</p>
 <span><span class="co"># [1] "C:/packages/common/vignettes/common.Rmd"</span></span></code></pre></div>
 <p>Note that this function returns the full path of the currently
 running program, including the file name and extension. This
-functionality is different from <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code>, which returns only
+functionality is different from <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>, which returns only
 the current working directory.</p>
 <p><a href="#top">top</a></p>
 </div>
-<div id="roundup" class="section level2">
-<h2 class="hasAnchor">
-<a href="#roundup" class="anchor"></a>An alternate rounding function</h2>
-<p>As everyone knows, the R <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function rounds to the
+<div class="section level2">
+<h2 id="roundup">An alternate rounding function<a class="anchor" aria-label="anchor" href="#roundup"></a>
+</h2>
+<p>As everyone knows, the R <code><a href="https://rdrr.io/r/base/Round.html" class="external-link">round()</a></code> function rounds to the
 nearest even. For example:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Prepare sample vector </span></span>
-<span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">9.5</span>,by<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">9.5</span>,by<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">v1</span></span>
 <span><span class="co"># [1] 0.5 1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5</span></span>
 <span></span>
 <span><span class="co"># Base R round function</span></span>
-<span><span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">v1</span><span class="op">)</span></span>
+<span><span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">v1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Rounds to nearest even</span></span>
 <span><span class="va">r1</span></span>
@@ -470,9 +466,9 @@ zero” is the best description of this function. The rounding logic of
 the <code><a href="../reference/roundup.html">roundup()</a></code> function matches SAS® software, and can be
 used when comparing output between the two systems.<br><a href="#top">top</a></p>
 </div>
-<div id="find" class="section level2">
-<h2 class="hasAnchor">
-<a href="#find" class="anchor"></a>File and Directory search</h2>
+<div class="section level2">
+<h2 id="find">File and Directory search<a class="anchor" aria-label="anchor" href="#find"></a>
+</h2>
 <p>Sometimes you know the name of the file you are looking for, but do
 not know the exact location. It might be in the directory above your
 program, or it might be in the directory below. It could be one level
@@ -487,11 +483,11 @@ continue expanding the search until it hits the limits imposed by the
 example:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Look for a file named "globals.R"</span></span>
-<span><span class="va">pths</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/file.find.html">file.find</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"globals.R"</span><span class="op">)</span></span>
+<span><span class="va">pths</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/file.find.html">file.find</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"globals.R"</span><span class="op">)</span></span>
 <span><span class="va">pths</span></span>
 <span></span>
 <span><span class="co"># Look for Rdata files three levels up, and two levels down</span></span>
-<span><span class="va">pths</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/file.find.html">file.find</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"*.Rdata"</span>, up <span class="op">=</span> <span class="fl">3</span>, down <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">pths</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/file.find.html">file.find</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"*.Rdata"</span>, up <span class="op">=</span> <span class="fl">3</span>, down <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">pths</span></span></code></pre></div>
 <p>The function will return a vector of full paths that meet the search
 criteria, and are within bounds of the search. If no file is found that
@@ -501,9 +497,9 @@ meets the search criteria, the function returns a NULL.</p>
 that these two functions may be used together to perform complex
 searches.<br><a href="#top">top</a></p>
 </div>
-<div id="names" class="section level2">
-<h2 class="hasAnchor">
-<a href="#names" class="anchor"></a>Finding variable names</h2>
+<div class="section level2">
+<h2 id="names">Finding variable names<a class="anchor" aria-label="anchor" href="#names"></a>
+</h2>
 <p>Sometimes you have a data frame with many variables, and you need to
 perform an operation on only some of them. The <code><a href="../reference/find.names.html">find.names()</a></code>
 function can help you subset these variable names. There are parameters
@@ -514,7 +510,7 @@ ending range to perform the search. Here are some simple examples:</p>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mtcars</span></span>
 <span></span>
 <span><span class="co"># View names</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
 <span><span class="co"># [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear" "carb"</span></span>
 <span></span>
 <span><span class="co"># Get all names starting with "c"</span></span>
@@ -522,16 +518,16 @@ ending range to perform the search. Here are some simple examples:</p>
 <span><span class="co"># [1] "cyl"  "carb"</span></span>
 <span></span>
 <span><span class="co"># Get all names starting with "c" or "d"</span></span>
-<span><span class="fu"><a href="../reference/find.names.html">find.names</a></span><span class="op">(</span><span class="va">dat</span>, pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c*"</span>, <span class="st">"d*"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/find.names.html">find.names</a></span><span class="op">(</span><span class="va">dat</span>, pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c*"</span>, <span class="st">"d*"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># [1] "cyl"  "carb" "disp" "drat"</span></span>
 <span></span>
 <span><span class="co"># Get names starting with "c" or "d" from column 4 on</span></span>
-<span><span class="fu"><a href="../reference/find.names.html">find.names</a></span><span class="op">(</span><span class="va">dat</span>, pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c*"</span>, <span class="st">"d*"</span><span class="op">)</span>, start <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/find.names.html">find.names</a></span><span class="op">(</span><span class="va">dat</span>, pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c*"</span>, <span class="st">"d*"</span><span class="op">)</span>, start <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co"># [1] "carb" "drat"</span></span></code></pre></div>
 </div>
-<div id="attr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#attr" class="anchor"></a>Copying attributes between data frames</h2>
+<div class="section level2">
+<h2 id="attr">Copying attributes between data frames<a class="anchor" aria-label="anchor" href="#attr"></a>
+</h2>
 <p>Base R functions that work with data frames are annoying in that they
 often drop any attributes assigned to data frame columns. Observe:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -539,12 +535,12 @@ often drop any attributes assigned to data frame columns. Observe:</p>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Assign some labels </span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html">labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mpg <span class="op">=</span> <span class="st">"Miles Per Gallon"</span>, </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mpg <span class="op">=</span> <span class="st">"Miles Per Gallon"</span>, </span>
 <span>                    cyl <span class="op">=</span> <span class="st">"Cylinders"</span>,</span>
 <span>                    disp <span class="op">=</span> <span class="st">"Displacement"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View labels</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html">labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
 <span><span class="co"># $mpg</span></span>
 <span><span class="co"># [1] "Miles Per Gallon"</span></span>
 <span><span class="co"># </span></span>
@@ -555,22 +551,22 @@ often drop any attributes assigned to data frame columns. Observe:</p>
 <span><span class="co"># [1] "Displacement"</span></span>
 <span></span>
 <span><span class="co"># Subset the data</span></span>
-<span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">cyl</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">cyl</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Labels are gone!</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html">labels</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">)</span></span>
 <span><span class="co"># list()</span></span></code></pre></div>
 <p>To get the attributes back, one must copy the attributes from the
 original data frame to the subset data frame. That is what the
 <code><a href="../reference/copy.attributes.html">copy.attributes()</a></code> function does. Picking up from the
 example above, let’s now restore the attributes lost during the
-<code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> operation:</p>
+<code><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset()</a></code> operation:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Restore attributes</span></span>
 <span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/copy.attributes.html">copy.attributes</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">dat2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Labels are back!</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html">labels</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">)</span></span>
 <span><span class="co"># $mpg</span></span>
 <span><span class="co"># [1] "Miles Per Gallon"</span></span>
 <span><span class="co"># </span></span>
@@ -580,9 +576,9 @@ example above, let’s now restore the attributes lost during the
 <span><span class="co"># $disp</span></span>
 <span><span class="co"># [1] "Displacement"</span></span></code></pre></div>
 </div>
-<div id="supsc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#supsc" class="anchor"></a>Superscripts and Subscripts</h2>
+<div class="section level2">
+<h2 id="supsc">Superscripts and Subscripts<a class="anchor" aria-label="anchor" href="#supsc"></a>
+</h2>
 <p>There are many occasions when you need to create a superscript or
 subscript. The UTF-8 character set provides superscript and subscript
 versions of many commonly used characters. For example, the following
@@ -601,9 +597,9 @@ these functions directly in your character strings:
 <img src="../man/images/sup4.png"></p>
 <p><a href="#top">top</a></p>
 </div>
-<div id="symbol" class="section level2">
-<h2 class="hasAnchor">
-<a href="#symbol" class="anchor"></a>Special Symbols</h2>
+<div class="section level2">
+<h2 id="symbol">Special Symbols<a class="anchor" aria-label="anchor" href="#symbol"></a>
+</h2>
 <p>The <code><a href="../reference/symbol.html">symbol()</a></code> function retrieves symbols frequently used
 in reports and documentation. This function is similar to the
 <code><a href="../reference/supsc.html">supsc()</a></code> and <code><a href="../reference/subsc.html">subsc()</a></code> functions in that it looks
@@ -617,15 +613,15 @@ letters, and more. See the <code><a href="../reference/symbol.html">symbol()</a>
 complete list of supported keywords.<br><img src="../man/images/symbol.png"></p>
 <p><a href="#top">top</a></p>
 </div>
-<div id="spaces" class="section level2">
-<h2 class="hasAnchor">
-<a href="#spaces" class="anchor"></a>Repeating spaces</h2>
+<div class="section level2">
+<h2 id="spaces">Repeating spaces<a class="anchor" aria-label="anchor" href="#spaces"></a>
+</h2>
 <p>It sometimes happens that you need to separate some strings by a
 certain number of blank spaces. This operation is often done in Base R
 as follows:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Separate two strings by 25 spaces</span></span>
-<span><span class="va">str</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Left"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">" "</span>, <span class="fl">25</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, <span class="st">"Right"</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="va">str</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Left"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">" "</span>, <span class="fl">25</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, <span class="st">"Right"</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span><span class="va">str</span></span>
 <span><span class="co"># [1] "Left                         Right"</span></span></code></pre></div>
 <p>However, the above code is rather clumsy. The <code><a href="../reference/spaces.html">spaces()</a></code>
@@ -633,7 +629,7 @@ function (plus the <code>%p%</code> operator also found in this package)
 can clean up this type of task for you significantly. Observe:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Separate two strings by 25 spaces</span></span>
-<span><span class="va">str</span> <span class="op">&lt;-</span> <span class="st">"Left"</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="fu"><a href="../reference/spaces.html">spaces</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span> <span class="op"><a href="../reference/%p%.html">%p%</a></span> <span class="st">"Right"</span></span>
+<span><span class="va">str</span> <span class="op">&lt;-</span> <span class="st">"Left"</span> <span class="op"><a href="../reference/grapes-p-grapes.html">%p%</a></span> <span class="fu"><a href="../reference/spaces.html">spaces</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-p-grapes.html">%p%</a></span> <span class="st">"Right"</span></span>
 <span><span class="va">str</span></span>
 <span><span class="co"># [1] "Left                         Right"</span></span></code></pre></div>
 </div>
@@ -650,11 +646,13 @@ can clean up this type of task for you significantly. Observe:</p>
 
 
       <footer><div class="copyright">
-  <p>Developed by David Bosak.</p>
+  <p></p>
+<p>Developed by David Bosak.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -662,6 +660,8 @@ can clean up this type of task for you significantly. Observe:</p>
 
   
 
+
+  
 
   </body>
 </html>

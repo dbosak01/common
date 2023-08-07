@@ -38,6 +38,7 @@ navbar:
   type: inverse
   structure:
     right: [home, intro, reference, news, github]
+    left: []
 
 
 

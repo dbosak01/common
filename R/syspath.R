@@ -11,28 +11,21 @@
 # pth <- Sys.path()
 # pth
 # # [1] "C:/programs/myprogram.R"
-# export
-# Sys.path_back <- function() {
+# @import this.path
+# @export
+# Sys.path <- function() {
 #
-#   ppth <- Sys.path.internal()
-#
-#   return(ppth)
-#
-# }
-
-
-# Sys.path.internal <- function() {
 #
 #   ppth <- NULL
 #
 #   tryCatch({
 #
-#     # if (utils::packageVersion("this.path")  >= "2.0.0")
-#     #   ppth <- this.path::sys.path()
-#     # else {
-#       ppth <- this.path::this.path()
+#     if (utils::packageVersion("this.path")  >= "2.0.0")
+#       ppth <- do.call("sys.path", list())
+#     else {
+#       ppth <- do.call("this.path", list())
 #
-#     # }
+#     }
 #
 #   }, error = function(e) { ppth <- NULL})
 #
@@ -40,7 +33,6 @@
 #   return(ppth)
 #
 # }
-
 
 
 
@@ -262,6 +254,7 @@ Sys.path <- function() {
         }
 
         ret <- trimws(sub("--file=", "", argv, fixed = TRUE))
+        ret <- trimws(sub("-f ", "", argv, fixed = TRUE))
 
         if (length(ret) == 0)
           ret <- NULL

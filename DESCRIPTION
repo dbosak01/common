@@ -31,5 +31,5 @@ Suggests:
 Enhances: base
 Imports: utils
 Config/testthat/edition: 3
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr

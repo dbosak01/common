@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://common.r-sassy.org/404.html</loc>
+  </url>
+  <url>
+    <loc>https://common.r-sassy.org/articles/archive/common-faq.html</loc>
+  </url>
+  <url>
+    <loc>https://common.r-sassy.org/articles/common-faq.html</loc>
+  </url>
+  <url>
+    <loc>https://common.r-sassy.org/articles/common.html</loc>
+  </url>
+  <url>
+    <loc>https://common.r-sassy.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://common.r-sassy.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://common.r-sassy.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://common.r-sassy.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://common.r-sassy.org/news/index.html</loc>
   </url>
   <url>
     <loc>https://common.r-sassy.org/reference/common.html</loc>
@@ -23,6 +47,9 @@
   </url>
   <url>
     <loc>https://common.r-sassy.org/reference/grapes-p-grapes.html</loc>
+  </url>
+  <url>
+    <loc>https://common.r-sassy.org/reference/index.html</loc>
   </url>
   <url>
     <loc>https://common.r-sassy.org/reference/labels.data.frame.html</loc>
@@ -50,8 +77,5 @@
   </url>
   <url>
     <loc>https://common.r-sassy.org/reference/v.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/articles/common.html</loc>
   </url>
 </urlset>

@@ -28,6 +28,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -40,19 +42,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">common</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.8</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"></ul>
 <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/common.html">Get started</a>
 </li>
@@ -63,7 +59,7 @@
   <a href="news/index.html">Changelog</a>
 </li>
 <li>
-  <a href="https://github.com/dbosak01/common/">
+  <a href="https://github.com/dbosak01/common/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -83,56 +79,35 @@
 
 
 <!-- badges: end -->
-<div id="introduction-to-common" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#introduction-to-common" class="anchor"></a>Introduction to <strong>common</strong>
+<div class="section level1">
+<div class="page-header"><h1 id="introduction-to-common">Introduction to <strong>common</strong>
+<a class="anchor" aria-label="anchor" href="#introduction-to-common"></a>
 </h1></div>
-<p><img src="man/images/common_new.png" align="left" height="138" style="margin-right:10px"></p>
-<p>When working in Base R, there are some situations where you stop and
-wonder: “Why isn’t there a function to do that?” For example:</p>
-<p><tab>- Why isn’t there a function in Base R to sort a data frame by
-multiple columns?<br><tab>- Why isn’t there a function in Base R to get the path of the
-current program?<br><tab>- In Base R, why is there no infix operator for
-concatenation?<br><tab>- Why isn’t there a function in Base R to add/modify data frame
-labels?</tab></tab></tab></tab></p>
-<p>The answer to all of the above questions is that there should be. The
-purpose of the <strong>common</strong> package is to encapsulate these
-types of functions, and provide them to R users in a lightweight
-package. These functions are particularly useful for package developers,
-who might want to add these capabilities to their package without
-creating dependencies on <strong>tidyverse</strong>.</p>
-<p>If you have ideas for more <strong>common</strong> functions, please
-submit your suggestion to the github <a href="https://github.com/dbosak01/common/issues">issue list</a>.</p>
-<div id="installation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h3>
-<p>The easiest way to install the <strong>common</strong> package is to
-run the following command from your R console:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"common"</span>)</span></code></pre></div>
+<p><img src="man/images/common_new.png" align="left" height="138" style="margin-right:10px;height:138px"></p>
+<p>When working in Base R, there are some situations where you stop and wonder: “Why isn’t there a function to do that?” For example:</p>
+<p><tab>- Why isn’t there a function in Base R to sort a data frame by multiple columns?<br><tab>- Why isn’t there a function in Base R to get the path of the current program?<br><tab>- In Base R, why is there no infix operator for concatenation?<br><tab>- Why isn’t there a function in Base R to add/modify data frame labels?</tab></tab></tab></tab></p>
+<p>The answer to all of the above questions is that there should be. The purpose of the <strong>common</strong> package is to encapsulate these types of functions, and provide them to R users in a lightweight package. These functions are particularly useful for package developers, who might want to add these capabilities to their package without creating dependencies on <strong>tidyverse</strong>.</p>
+<p>If you have ideas for more <strong>common</strong> functions, please submit your suggestion to the github <a href="https://github.com/dbosak01/common/issues" class="external-link">issue list</a>.</p>
+<div class="section level3">
+<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
+<p>The easiest way to install the <strong>common</strong> package is to run the following command from your R console:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"common"</span>)</span></code></pre></div>
 <p>Then put the following line at the top of your script:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(common)</span></code></pre></div>
-<p>For examples and usage information, please visit the
-<strong>common</strong> documentation site at
-common.r-sassy.org/articles/common.html</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(common)</span></code></pre></div>
+<p>For examples and usage information, please visit the <strong>common</strong> documentation site at common.r-sassy.org/articles/common.html</p>
 </div>
-<div id="getting-help" class="section level3">
-<h3 class="hasAnchor">
-<a href="#getting-help" class="anchor"></a>Getting Help</h3>
-<p>If you need help, the first place to turn to is the web site at
-common.r-sassy.org</p>
-<p>If you want to look at the code for the <strong>common</strong>
-package, visit the github page <a href="https://github.com/dbosak01/common">here</a>.</p>
-<p>If you encounter a bug or have a feature request, please submit an
-issue <a href="https://github.com/dbosak01/common/issues">here</a>.</p>
+<div class="section level3">
+<h3 id="getting-help">Getting Help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h3>
+<p>If you need help, the first place to turn to is the web site at common.r-sassy.org</p>
+<p>If you want to look at the code for the <strong>common</strong> package, visit the github page <a href="https://github.com/dbosak01/common" class="external-link">here</a>.</p>
+<p>If you encounter a bug or have a feature request, please submit an issue <a href="https://github.com/dbosak01/common/issues" class="external-link">here</a>.</p>
 </div>
-<div id="see-also" class="section level3">
-<h3 class="hasAnchor">
-<a href="#see-also" class="anchor"></a>See Also</h3>
-<p>The <strong>common</strong> package is part of the
-<strong>sassy</strong> meta-package. The <strong>sassy</strong>
-meta-package includes several packages that help make R easier for
-everyone, especially people with a background in SAS®. You can read more
-about the <strong>sassy</strong> package <a href="https://sassy.r-sassy.org">here</a>.</p>
+<div class="section level3">
+<h3 id="see-also">See Also<a class="anchor" aria-label="anchor" href="#see-also"></a>
+</h3>
+<p>The <strong>common</strong> package is part of the <strong>sassy</strong> meta-package. The <strong>sassy</strong> meta-package includes several packages that help make R easier for everyone, especially people with a background in SAS®. You can read more about the <strong>sassy</strong> package <a href="https://sassy.r-sassy.org" class="external-link">here</a>.</p>
 </div>
 </div>
 
@@ -140,51 +115,61 @@ about the <strong>sassy</strong> package <a href="https://sassy.r-sassy.org">her
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=common">https://​cloud.r-project.org/​package=common</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/dbosak01/common/">https://​github.com/​dbosak01/​common/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/dbosak01/common/issues">https://​github.com/​dbosak01/​common/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=common" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/dbosak01/common/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/dbosak01/common/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>CC0</small></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>David Bosak <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing common</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=common"><img src="https://www.r-pkg.org/badges/version/common" alt="common version"></a></li>
-<li><a href="https://cran.r-project.org/package=common"><img src="https://img.shields.io/badge/lifecycle-stable-blue.svg" alt="common lifecycle"></a></li>
-<li><a href="https://cran.r-project.org/package=common"><img src="https://cranlogs.r-pkg.org/badges/common" alt="common downloads"></a></li>
-<li><a href="https://cran.r-project.org/package=common"><img src="https://cranlogs.r-pkg.org/badges/grand-total/common" alt="common total downloads"></a></li>
-<li><a href="https://github.com/dbosak01/common/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/dbosak01/common/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li>David Bosak <br><small class="roles"> Author, maintainer </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=common" class="external-link"><img src="https://www.r-pkg.org/badges/version/common" alt="common version"></a></li>
+<li><a href="https://cran.r-project.org/package=common" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-blue.svg" alt="common lifecycle"></a></li>
+<li><a href="https://cran.r-project.org/package=common" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/common" alt="common downloads"></a></li>
+<li><a href="https://cran.r-project.org/package=common" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/common" alt="common total downloads"></a></li>
+<li><a href="https://github.com/dbosak01/common/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/dbosak01/common/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by David Bosak.</p>
+  <p></p>
+<p>Developed by David Bosak.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -192,6 +177,8 @@ about the <strong>sassy</strong> package <a href="https://sassy.r-sassy.org">her
 
   
 
+
+  
 
   </body>
 </html>
