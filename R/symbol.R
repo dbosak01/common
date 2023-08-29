@@ -22,7 +22,7 @@
 #'   \item \strong{Trademark and Copyright}: copy, reg, trade
 #'   \item \strong{Financial}: cent, euro, pound, rupee, ruble, yen, yuan
 #'   \item \strong{Mathmatical}: asymp, bcong, cong, coprod, empty, fnof,
-#'    ge, int, Int, le, ncong, ne, not, part, plusmn,
+#'    ge, int, Int, infin, le, ncong, ne, not, part, plusmn,
 #'    prod, radic, sime, sum
 #'   \item \strong{Logical}: and, cap, cup, comp, cuvee, cuwed, exist,
 #'   forall, fork, isin, nexist, ni, notin,
@@ -202,6 +202,7 @@ symbol <- function(keyword) {
   ret <- gsub("ge", "\U2265", ret, fixed = TRUE)
   ret <- gsub("int", "\U222B", ret, fixed = TRUE)
   ret <- gsub("Int", "\U222C", ret, fixed = TRUE)
+  ret <- gsub("infin", "\U221E", ret, fixed = TRUE)
   ret <- gsub("le", "\U2264", ret, fixed = TRUE)
   ret <- gsub("ne", "\U2260", ret, fixed = TRUE)
   ret <- gsub("not", "\U00AC", ret, fixed = TRUE)

@@ -32,5 +32,6 @@
 #' }
 #' @docType package
 #' @keywords internal
+#' @aliases common-package
 #' @name common
 NULL

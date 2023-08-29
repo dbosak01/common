@@ -1,3 +1,8 @@
+# common 1.0.9
+
+* Fix for CRAN.
+* Added infinity symbol "infin" keyword to `symbol()` function.
+
 # common 1.0.8
 
 * Remove dependency on this.path(). 

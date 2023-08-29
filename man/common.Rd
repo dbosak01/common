@@ -4,6 +4,7 @@
 \encoding{UTF-8}
 \name{common}
 \alias{common}
+\alias{common-package}
 \title{common: A set of useful functions}
 \description{
 The \strong{common} package is set of useful
