@@ -2,6 +2,8 @@
 
 * Fix for CRAN.
 * Added infinity symbol "infin" keyword to `symbol()` function.
+* Added `changed()` function to identify grouping boundaries.
+* Fixed bug on sort that was causing factors to be ignored in some circumstances.
 
 # common 1.0.8
 

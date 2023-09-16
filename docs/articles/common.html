@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">common</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.9</span>
       </span>
     </div>
 
@@ -135,6 +135,9 @@ lookup UTF-8 symbols.</li>
 <li>
 <a href="#spaces"><strong>spaces()</strong></a>: A function to
 create a string of blank spaces.</li>
+<li>
+<a href="#changed"><strong>changed()</strong></a>: A function to
+identify changed values in a vector or data frame.</li>
 </ul>
 <div class="section level2">
 <h2 id="v">A generalized NSE quoting function<a class="anchor" aria-label="anchor" href="#v"></a>
@@ -605,10 +608,10 @@ in reports and documentation. This function is similar to the
 <code><a href="../reference/supsc.html">supsc()</a></code> and <code><a href="../reference/subsc.html">subsc()</a></code> functions in that it looks
 up a UTF-8 character. Instead of providing a direct 1 to 1 translation,
 however, it looks up the UTF-8 character based on a keyword.</p>
-<p>For example, the ‘reg’ keyword looks up the registered trademark
-symbol. The ‘ne’ keyword looks up the symbol for not equals. These
-keyword names follow HTML conventions. The function supports keywords
-for trademarks, currencies, mathematical symbols, logical symbols, Greek
+<p>For example, the ’regkeyword looks up the registered trademark
+symbol. The ’nekeyword looks up the symbol for not equals. These keyword
+names follow HTML conventions. The function supports keywords for
+trademarks, currencies, mathematical symbols, logical symbols, Greek
 letters, and more. See the <code><a href="../reference/symbol.html">symbol()</a></code> documentation for a
 complete list of supported keywords.<br><img src="../man/images/symbol.png"></p>
 <p><a href="#top">top</a></p>
@@ -632,6 +635,82 @@ can clean up this type of task for you significantly. Observe:</p>
 <span><span class="va">str</span> <span class="op">&lt;-</span> <span class="st">"Left"</span> <span class="op"><a href="../reference/grapes-p-grapes.html">%p%</a></span> <span class="fu"><a href="../reference/spaces.html">spaces</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-p-grapes.html">%p%</a></span> <span class="st">"Right"</span></span>
 <span><span class="va">str</span></span>
 <span><span class="co"># [1] "Left                         Right"</span></span></code></pre></div>
+<p><a href="#top">top</a></p>
+</div>
+<div class="section level2">
+<h2 id="changed">Identify changed values<a class="anchor" aria-label="anchor" href="#changed"></a>
+</h2>
+<p>Base R has a <code><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated()</a></code> function that can be used to
+identify grouping boundaries in a vector. But this function also
+performs a <code><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique()</a></code> operation on the vector, such that not
+all boundaries return a TRUE value. Observe the following:</p>
+<pre><code><span><span class="co"># Create sample vector</span></span>
+<span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Identify duplicated values</span></span>
+<span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated</a></span><span class="op">(</span><span class="va">v1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View duplicated results</span></span>
+<span><span class="va">res1</span></span>
+<span><span class="co"># [1] TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE</span></span></code></pre>
+<p>Notice that the “1” at position nine does not return TRUE.</p>
+<p>Now lets run the same vector through the <code><a href="../reference/changed.html">changed()</a></code>
+function:</p>
+<pre><code><span><span class="co"># Identify changed values</span></span>
+<span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/changed.html">changed</a></span><span class="op">(</span><span class="va">v1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View changed results</span></span>
+<span><span class="va">res2</span></span>
+<span><span class="co"># [1] TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE</span></span></code></pre>
+<p>This time, the <code><a href="../reference/changed.html">changed()</a></code> function identified each time
+the vector changed value, whether or not the value had appeared
+previously.</p>
+<p>This function can also be used on data frames:</p>
+<pre><code><span><span class="co"># Create sample data frame</span></span>
+<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span><span class="op">)</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View original data frame</span></span>
+<span><span class="va">dat</span></span>
+<span><span class="co">#    v1 v2</span></span>
+<span><span class="co"># 1   1  A</span></span>
+<span><span class="co"># 2   1  A</span></span>
+<span><span class="co"># 3   1  A</span></span>
+<span><span class="co"># 4   2  A</span></span>
+<span><span class="co"># 5   2  A</span></span>
+<span><span class="co"># 6   3  A</span></span>
+<span><span class="co"># 7   3  B</span></span>
+<span><span class="co"># 8   3  B</span></span>
+<span><span class="co"># 9   1  B</span></span>
+<span><span class="co"># 10  1  B</span></span>
+<span></span>
+<span><span class="co"># Get changed values for each column</span></span>
+<span><span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/changed.html">changed</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View results</span></span>
+<span><span class="va">res3</span></span>
+<span><span class="co">#    v1.changed v2.changed</span></span>
+<span><span class="co"># 1        TRUE       TRUE</span></span>
+<span><span class="co"># 2       FALSE      FALSE</span></span>
+<span><span class="co"># 3       FALSE      FALSE</span></span>
+<span><span class="co"># 4        TRUE      FALSE</span></span>
+<span><span class="co"># 5       FALSE      FALSE</span></span>
+<span><span class="co"># 6        TRUE      FALSE</span></span>
+<span><span class="co"># 7       FALSE       TRUE</span></span>
+<span><span class="co"># 8       FALSE      FALSE</span></span>
+<span><span class="co"># 9        TRUE      FALSE</span></span>
+<span><span class="co"># 10      FALSE      FALSE</span></span></code></pre>
+<p>If you wish to return a single indicator vector for the combination
+of all columns, use the “simplify” option.</p>
+<pre><code><span><span class="co"># Get changed values for each column</span></span>
+<span><span class="va">res4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/changed.html">changed</a></span><span class="op">(</span><span class="va">dat</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View results</span></span>
+<span><span class="va">res4</span></span>
+<span><span class="co"># [1]  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE</span></span></code></pre>
+<p>The above vector returns a TRUE when either the “v1” or “v2” value
+changes.</p>
+<p><a href="#top">top</a></p>
 </div>
   </div>
 
