@@ -304,7 +304,192 @@ test_that("other8: roundup() function works on dataframes.", {
   expect_equal(res$Sepal.Width[1], 4)
 
 
+})
+
+test_that("other9: changedv() function works as expected.", {
+
+  v1 <- c(1, 1, 1, 2, 2, 3, 3, 3, 1, 1)
+
+  res <- changedv(v1)
+
+  res
+
+  expect_equal(res, c(TRUE, FALSE, FALSE, TRUE, FALSE,
+                      TRUE, FALSE, FALSE, TRUE, FALSE))
+
+  res2 <- duplicated(v1)
+
+  expect_equal(all(res != res2), FALSE)
+
+})
+
+
+test_that("other10: compint() works as expected.", {
+
+  v1 <- c(1, 1, 2, NA, 3,  3, NA)
+  v2 <- c(1, 2, 2, NA, NA, 3, 1)
+
+
+  res <- compint(v1, v2)
+
+  res
+
+  expect_equal(res, c(TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE))
+})
+
+
+test_that("other11: changedv() reversed works as expected.", {
+
+  v1 <- c(1, 1, 1, 2, 2, 3, 3, 3, 1, 1)
+
+  res <- changedv(v1, reverse = TRUE)
+
+  res
+
+  expect_equal(res, c(F, F, TRUE, FALSE, T,
+                      F, FALSE, TRUE, FALSE, T))
+
+
+})
+
+test_that("other12: changedv() with NA works as expected.", {
+
+  v1 <- c(1, 1, 1, 2, 2, 3, NA, 3, 1, 1)
+
+  res <- changedv(v1)
+
+  res
+
+  expect_equal(res, c(TRUE, FALSE, FALSE, TRUE, FALSE,
+                      TRUE, TRUE, TRUE, TRUE, FALSE))
 
 
 
 })
+
+
+test_that("other13: changed() function with df works as expected.", {
+
+  v1 <- c(1, 1, 1, 1, 1, 3, 3, 3, 3, 3)
+  v2 <- c(1, 1, 1, 2, 2, 3, 3, 3, 1, 1)
+
+  df <- data.frame(v1, v2)
+
+  res <- changed(df)
+
+  res
+
+  expect_equal(res$v1.changed, c(TRUE, FALSE, FALSE, FALSE, FALSE,
+                         TRUE, FALSE, FALSE, FALSE, FALSE))
+
+  expect_equal(res$v2.changed, c(TRUE, FALSE, FALSE, TRUE, FALSE,
+                         TRUE, FALSE, FALSE, TRUE, FALSE))
+
+})
+
+
+test_that("other14: collapsedf() function works as expected.", {
+
+  v1 <- c(1, 1, 1, 1, 1, 3, 3, 3, 3, 3)
+  v2 <- c(1, 1, 1, 2, 2, 2, 3, 3, 1, 1)
+  v3 <- c(1, 1, 2, 2, 2, 2, 2, 2, 2, 2)
+
+  v1 <- changedv(v1)
+  v2 <- changedv(v2)
+  v3 <- changedv(v3)
+
+  df <- data.frame(v1, v2, v3)
+
+  res <- collapsedf(df)
+
+
+  expect_equal(res, c(T, F, T, T, F, T, T, F, T, F))
+})
+
+test_that("other15: changed() function with simplify works as expected.", {
+
+  v1 <- c(1, 1, 1, 1, 1, 3, 3, 3, 3, 3)
+  v2 <- c(1, 1, 1, 2, 2, 2, 3, 3, 1, 1)
+  v3 <- c(1, 1, 2, 2, 2, 2, 2, 2, 2, 2)
+
+  df <- data.frame(v1, v2, v3)
+
+  res <- changed(df, simplify = TRUE)
+
+  res
+
+  expect_equal(res, c(T, F, T, T, F, T, T, F, T, F))
+
+})
+
+test_that("other16: changed() function with df character works as expected.", {
+
+  v1 <- c(1, 1, 1, 1, 1, 3, 3, 3, 3, 3)
+  v2 <- c("A", "A", "A", "B", "B", "C", "C", "C", "A", "A")
+
+  df <- data.frame(v1, v2)
+
+  res <- changed(df)
+
+  res
+
+  expect_equal(res$v1.changed, c(TRUE, FALSE, FALSE, FALSE, FALSE,
+                                 TRUE, FALSE, FALSE, FALSE, FALSE))
+
+  expect_equal(res$v2.changed, c(TRUE, FALSE, FALSE, TRUE, FALSE,
+                                 TRUE, FALSE, FALSE, TRUE, FALSE))
+
+})
+
+
+test_that("other17: changed() function with simplify works as expected.", {
+
+  v1 <- c(1, 1, 1, 1, 1, 3, 3, 3, 3, 3)
+  v2 <- c("A", "A", "A", "B", "B", "C", "C", "C", "A", "A")
+  v3 <- c(1.1, 1.1, 2.1, 2.1, 2.1, 2.1, 2.1, 2.1, 2.1, 2.1)
+
+  df <- data.frame(v1, v2, v3)
+
+  res <- changed(df, simplify = TRUE)
+
+  res
+
+  expect_equal(res, c(T, F, T, T, F, T, F, F, T, F))
+
+})
+
+
+test_that("other18: changed() function with reverse works as expected.", {
+
+  v1 <- c(1, 1, 1, 1, 1, 3, 3, 3, 3, 3)
+  v2 <- c("A", "A", "A", "B", "B", "C", "C", "C", "A", "A")
+  v3 <- c(as.Date("2023-01-01"), as.Date("2023-01-01"),
+          as.Date("2023-01-02"), as.Date("2023-01-02"), as.Date("2023-01-02"),
+          as.Date("2023-01-02"), as.Date("2023-01-02"), as.Date("2023-01-02"),
+          as.Date("2023-01-02"), as.Date("2023-01-02"))
+
+  df <- data.frame(v1, v2, v3)
+
+  res <- changed(df$v2, reverse = TRUE)
+
+  res
+
+  expect_equal(res, c(F, F, T, F, T, F, F, T, F, T))
+
+  res <- changed(df, reverse = TRUE)
+
+  res
+
+  expect_equal(res$v1.changed[1], FALSE)
+  expect_equal(res$v1.changed[10], TRUE)
+  expect_equal(res$v3.changed[1], FALSE)
+  expect_equal(res$v3.changed[2], TRUE)
+  expect_equal(res$v3.changed[10], TRUE)
+
+  res1 <- changed(df, reverse = TRUE, simplify = TRUE)
+
+  expect_equal(res1, c(F, T, T, F, T, F, F, T, F, T))
+
+})
+
+

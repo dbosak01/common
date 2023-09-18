@@ -33,6 +33,7 @@ reference:
   - roundup
   - find.names
   - copy.attributes
+  - changed
 
 navbar:
   type: inverse

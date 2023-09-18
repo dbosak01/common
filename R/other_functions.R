@@ -347,3 +347,212 @@ copy.attributes <- function(source, target) {
   return(ret)
 }
 
+
+# Changed Functions -------------------------------------------------------
+
+
+
+#' @title Identify changed values
+#' @description The \code{changed} function identifies changes in a vector or
+#' data frame.  The function is used to locate grouping boundaries. It will
+#' return a TRUE each time the current value is different from the previous
+#' value.  The \code{changed} function is similar to the Base R \code{duplicated}
+#' function, except \code{changed} the function will return TRUE even if
+#' the changed value is not unique.
+#' @details
+#' For a data frame,
+#' by default, the function will return another data frame with an equal
+#' number of change indicator columns. The column names
+#' will be the original column names, with a ".changed" suffix.
+#'
+#' To collapse
+#' the multiple change indicators into one vector, use the "simplify" option.
+#' In this case, the returned vector will essentially be an "or" operation
+#' across all columns.
+#' @param x A vector of values in which to identify changed values.
+#' Also accepts a data frame. In the case of a data frame, the function
+#' will use all columns. Input data can be any data type.
+#' @param reverse Reverse the direction of the scan to identify the last
+#' value in a group instead of the first.
+#' @param simplify If the input data to the function is a data frame,
+#' the simplify option will return a single vector of indicator values
+#' instead of a data frame of indicator values.
+#' @returns A vector of TRUE or FALSE values indicating the grouping boundaries
+#' of the vector or data frame.
+#' @examples
+#' # Create sample vector
+#' v1 <- c(1, 1, 1, 2, 2, 3, 3, 3, 1, 1)
+#'
+#' # Identify changed values
+#' res1 <- changed(v1)
+#'
+#' # View results
+#' res1
+#' # [1] TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE
+#'
+#' # Create sample data frame
+#' v2 <- c("A", "A", "A", "A", "A", "A", "B", "B", "B", "B")
+#' dat <- data.frame(v1, v2)
+#'
+#' # View original data frame
+#' dat
+#' #    v1 v2
+#' # 1   1  A
+#' # 2   1  A
+#' # 3   1  A
+#' # 4   2  A
+#' # 5   2  A
+#' # 6   3  A
+#' # 7   3  B
+#' # 8   3  B
+#' # 9   1  B
+#' # 10  1  B
+#'
+#' # Get changed values for each column
+#' res2 <- changed(dat)
+#'
+#' # View results
+#' res2
+#' #    v1.changed v2.changed
+#' # 1        TRUE       TRUE
+#' # 2       FALSE      FALSE
+#' # 3       FALSE      FALSE
+#' # 4        TRUE      FALSE
+#' # 5       FALSE      FALSE
+#' # 6        TRUE      FALSE
+#' # 7       FALSE       TRUE
+#' # 8       FALSE      FALSE
+#' # 9        TRUE      FALSE
+#' # 10      FALSE      FALSE
+#'
+#' # Get changed values for all columns
+#' res3 <- changed(dat, simplify = TRUE)
+#'
+#' # View results
+#' res3
+#' # [1] TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE
+#'
+#' # Get last items in each group instead of first
+#' res4 <- changed(dat, reverse = TRUE)
+#'
+#' # View results
+#' res4
+#' #    v1.changed v2.changed
+#' # 1       FALSE      FALSE
+#' # 2       FALSE      FALSE
+#' # 3        TRUE      FALSE
+#' # 4       FALSE      FALSE
+#' # 5        TRUE      FALSE
+#' # 6       FALSE       TRUE
+#' # 7       FALSE      FALSE
+#' # 8        TRUE      FALSE
+#' # 9       FALSE      FALSE
+#' # 10       TRUE       TRUE
+#' @export
+changed <- function(x, reverse = FALSE, simplify = FALSE) {
+
+  ret <- NULL
+
+  if (!is.null(x)) {
+    if (is.data.frame(x)) {
+
+      retv <- list()
+
+      for (i in seq_len(length(x))) {
+
+        retv[[i]] <- changedv(x[[i]], reverse)
+      }
+
+      ret <- as.data.frame(retv)
+      names(ret) <- paste0(names(x), ".changed")
+
+      if (simplify) {
+        ret <- collapsedf(ret)
+      }
+
+    } else {
+
+      ret <- changedv(x, reverse)
+    }
+
+  }
+
+  return(ret)
+}
+
+# Vector version
+changedv <- function(x, reverse = FALSE) {
+
+
+  vect <- x
+  if (reverse == TRUE) {
+
+    vect <- rev(x)
+  }
+
+  # Create lag vector
+  vect_lag <- c(NA, vect[seq(1, length(vect) - 1)])
+
+  # Identify changes
+  ret<- ifelse(compint(vect, vect_lag), FALSE, TRUE)
+
+  ret[1] <- TRUE
+
+  if (reverse == TRUE) {
+
+    ret <- rev(ret)
+  }
+
+  return(ret)
+}
+
+
+compint <- Vectorize(function(x, y) {
+
+  ret <- FALSE
+
+  if (all(is.na(x) & is.na(y))) {
+    ret <- TRUE
+  } else if (all(is.na(x) | is.na(y))) {
+
+    ret <- FALSE
+
+  } else if (all(x == y)) {
+
+    ret <- TRUE
+  }
+
+  return(ret)
+
+}, USE.NAMES = FALSE, SIMPLIFY = TRUE)
+
+
+
+collapsedf <- function(df) {
+
+  ret <- df
+
+  if (!is.null(df)) {
+
+    if (length(df) > 1) {
+
+      ret <- df[[1]]
+      for (i in seq(2, length(df))) {
+
+        ret <- collapse(ret, df[[i]])
+
+      }
+    }
+
+  }
+
+  return(ret)
+}
+
+collapse <- function(x, y) {
+
+  ret <- x | y
+
+  return(ret)
+
+}
