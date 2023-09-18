@@ -175,3 +175,23 @@ test_that("override3: Sort retains df attributes", {
 
   expect_equal(length(res), 3)
 })
+
+
+test_that("override4: Sort of two factors works as expected.", {
+
+  prtsp <- prt
+
+  prtsp$enrollment[4] <- NA
+  prtsp$sex[2] <- NA
+  prtsp$sex <- factor(prtsp$sex, levels = c("girls", "boys"))
+  prtsp$enrollment <- factor(prtsp$enrollment, levels = c("yes", "no"))
+
+
+  res <- sort(prtsp, by = c("sex", "enrollment"))
+
+  res
+
+  expect_equal(unique(as.character(res$sex)), c("girls", "boys", NA))
+  expect_equal(unique(as.character(res$enrollment)), c("yes", "no", NA))
+
+})

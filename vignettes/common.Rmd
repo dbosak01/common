@@ -560,7 +560,7 @@ str
 [top](#top)
 
 ## Identify changed values {#changed}
-Base R has a `duplicated()` function that can be used to identify grouping boundaries
+Base R has a `duplicated()` function that is sometimes used to identify grouping boundaries
 in a vector.  But this function also performs a `unique()` operation on 
 the vector, such that not all boundaries return a TRUE value.
 Observe the following:
@@ -640,6 +640,28 @@ res4
 ```
 The above vector returns a TRUE when either the "v1" or "v2" value 
 changes.
+
+The "reverse" option identifies the last items in a group instead of the 
+first:
+```
+# Find last items in each group
+res3 <- changed(dat, reverse = TRUE)
+
+# View results
+res3
+#    v1.changed v2.changed
+# 1       FALSE      FALSE
+# 2       FALSE      FALSE
+# 3        TRUE      FALSE
+# 4       FALSE      FALSE
+# 5        TRUE      FALSE
+# 6       FALSE       TRUE
+# 7       FALSE      FALSE
+# 8        TRUE      FALSE
+# 9       FALSE      FALSE
+# 10       TRUE       TRUE
+
+```
 
 
 [top](#top)

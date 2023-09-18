@@ -640,8 +640,8 @@ can clean up this type of task for you significantly. Observe:</p>
 <div class="section level2">
 <h2 id="changed">Identify changed values<a class="anchor" aria-label="anchor" href="#changed"></a>
 </h2>
-<p>Base R has a <code><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated()</a></code> function that can be used to
-identify grouping boundaries in a vector. But this function also
+<p>Base R has a <code><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated()</a></code> function that is sometimes
+used to identify grouping boundaries in a vector. But this function also
 performs a <code><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique()</a></code> operation on the vector, such that not
 all boundaries return a TRUE value. Observe the following:</p>
 <pre><code><span><span class="co"># Create sample vector</span></span>
@@ -710,6 +710,24 @@ of all columns, use the “simplify” option.</p>
 <span><span class="co"># [1]  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE</span></span></code></pre>
 <p>The above vector returns a TRUE when either the “v1” or “v2” value
 changes.</p>
+<p>The “reverse” option identifies the last items in a group instead of
+the first:</p>
+<pre><code><span><span class="co"># Find last items in each group</span></span>
+<span><span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/changed.html">changed</a></span><span class="op">(</span><span class="va">dat</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View results</span></span>
+<span><span class="va">res3</span></span>
+<span><span class="co">#    v1.changed v2.changed</span></span>
+<span><span class="co"># 1       FALSE      FALSE</span></span>
+<span><span class="co"># 2       FALSE      FALSE</span></span>
+<span><span class="co"># 3        TRUE      FALSE</span></span>
+<span><span class="co"># 4       FALSE      FALSE</span></span>
+<span><span class="co"># 5        TRUE      FALSE</span></span>
+<span><span class="co"># 6       FALSE       TRUE</span></span>
+<span><span class="co"># 7       FALSE      FALSE</span></span>
+<span><span class="co"># 8        TRUE      FALSE</span></span>
+<span><span class="co"># 9       FALSE      FALSE</span></span>
+<span><span class="co"># 10       TRUE       TRUE</span></span></code></pre>
 <p><a href="#top">top</a></p>
 </div>
   </div>

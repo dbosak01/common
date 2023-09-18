@@ -383,18 +383,11 @@ copy.attributes <- function(source, target) {
 #' # Create sample vector
 #' v1 <- c(1, 1, 1, 2, 2, 3, 3, 3, 1, 1)
 #'
-#' # Identify duplicated values
-#' res1 <- !duplicated(v1)
-#'
-#' # View duplicated results
-#' res1
-#' # [1] TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE
-#'
 #' # Identify changed values
-#' res2 <- changed(v1)
+#' res1 <- changed(v1)
 #'
-#' # View changed results
-#' res2
+#' # View results
+#' res1
 #' # [1] TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE
 #'
 #' # Create sample data frame
@@ -416,10 +409,10 @@ copy.attributes <- function(source, target) {
 #' # 10  1  B
 #'
 #' # Get changed values for each column
-#' res3 <- changed(dat)
+#' res2 <- changed(dat)
 #'
 #' # View results
-#' res3
+#' res2
 #' #    v1.changed v2.changed
 #' # 1        TRUE       TRUE
 #' # 2       FALSE      FALSE
@@ -433,11 +426,28 @@ copy.attributes <- function(source, target) {
 #' # 10      FALSE      FALSE
 #'
 #' # Get changed values for all columns
-#' res4 <- changed(dat, simplify = TRUE)
+#' res3 <- changed(dat, simplify = TRUE)
+#'
+#' # View results
+#' res3
+#' # [1] TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE
+#'
+#' # Get last items in each group instead of first
+#' res4 <- changed(dat, reverse = TRUE)
 #'
 #' # View results
 #' res4
-#' # [1] TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE
+#' #    v1.changed v2.changed
+#' # 1       FALSE      FALSE
+#' # 2       FALSE      FALSE
+#' # 3        TRUE      FALSE
+#' # 4       FALSE      FALSE
+#' # 5        TRUE      FALSE
+#' # 6       FALSE       TRUE
+#' # 7       FALSE      FALSE
+#' # 8        TRUE      FALSE
+#' # 9       FALSE      FALSE
+#' # 10       TRUE       TRUE
 #' @export
 changed <- function(x, reverse = FALSE, simplify = FALSE) {
 
@@ -487,6 +497,11 @@ changedv <- function(x, reverse = FALSE) {
   ret<- ifelse(compint(vect, vect_lag), FALSE, TRUE)
 
   ret[1] <- TRUE
+
+  if (reverse == TRUE) {
+
+    ret <- rev(ret)
+  }
 
   return(ret)
 }

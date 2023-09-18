@@ -346,8 +346,8 @@ test_that("other11: changedv() reversed works as expected.", {
 
   res
 
-  expect_equal(res, c(TRUE, FALSE, TRUE, FALSE, FALSE,
-                      TRUE, FALSE, TRUE, FALSE, FALSE))
+  expect_equal(res, c(F, F, TRUE, FALSE, T,
+                      F, FALSE, TRUE, FALSE, T))
 
 
 })
@@ -422,7 +422,7 @@ test_that("other15: changed() function with simplify works as expected.", {
 
 })
 
-test_that("other13: changed() function with df character works as expected.", {
+test_that("other16: changed() function with df character works as expected.", {
 
   v1 <- c(1, 1, 1, 1, 1, 3, 3, 3, 3, 3)
   v2 <- c("A", "A", "A", "B", "B", "C", "C", "C", "A", "A")
@@ -442,7 +442,7 @@ test_that("other13: changed() function with df character works as expected.", {
 })
 
 
-test_that("other15: changed() function with simplify works as expected.", {
+test_that("other17: changed() function with simplify works as expected.", {
 
   v1 <- c(1, 1, 1, 1, 1, 3, 3, 3, 3, 3)
   v2 <- c("A", "A", "A", "B", "B", "C", "C", "C", "A", "A")
@@ -459,7 +459,7 @@ test_that("other15: changed() function with simplify works as expected.", {
 })
 
 
-test_that("other15: changed() function with dates works as expected.", {
+test_that("other18: changed() function with reverse works as expected.", {
 
   v1 <- c(1, 1, 1, 1, 1, 3, 3, 3, 3, 3)
   v2 <- c("A", "A", "A", "B", "B", "C", "C", "C", "A", "A")
@@ -470,11 +470,25 @@ test_that("other15: changed() function with dates works as expected.", {
 
   df <- data.frame(v1, v2, v3)
 
-  res <- changed(df, simplify = TRUE)
+  res <- changed(df$v2, reverse = TRUE)
 
   res
 
-  expect_equal(res, c(T, F, T, T, F, T, F, F, T, F))
+  expect_equal(res, c(F, F, T, F, T, F, F, T, F, T))
+
+  res <- changed(df, reverse = TRUE)
+
+  res
+
+  expect_equal(res$v1.changed[1], FALSE)
+  expect_equal(res$v1.changed[10], TRUE)
+  expect_equal(res$v3.changed[1], FALSE)
+  expect_equal(res$v3.changed[2], TRUE)
+  expect_equal(res$v3.changed[10], TRUE)
+
+  res1 <- changed(df, reverse = TRUE, simplify = TRUE)
+
+  expect_equal(res1, c(F, T, T, F, T, F, F, T, F, T))
 
 })
 

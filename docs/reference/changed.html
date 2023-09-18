@@ -112,18 +112,11 @@ across all columns.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># Create sample vector</span></span>
 <span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Identify duplicated values</span></span>
-<span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated</a></span><span class="op">(</span><span class="va">v1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># View duplicated results</span></span>
-<span><span class="va">res1</span></span>
-<span><span class="co"># [1] TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE</span></span>
-<span></span>
 <span><span class="co"># Identify changed values</span></span>
-<span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">changed</span><span class="op">(</span><span class="va">v1</span><span class="op">)</span></span>
+<span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">changed</span><span class="op">(</span><span class="va">v1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># View changed results</span></span>
-<span><span class="va">res2</span></span>
+<span><span class="co"># View results</span></span>
+<span><span class="va">res1</span></span>
 <span><span class="co"># [1] TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE</span></span>
 <span></span>
 <span><span class="co"># Create sample data frame</span></span>
@@ -145,10 +138,10 @@ across all columns.</p>
 <span><span class="co"># 10  1  B</span></span>
 <span></span>
 <span><span class="co"># Get changed values for each column</span></span>
-<span><span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu">changed</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">changed</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View results</span></span>
-<span><span class="va">res3</span></span>
+<span><span class="va">res2</span></span>
 <span><span class="co">#    v1.changed v2.changed</span></span>
 <span><span class="co"># 1        TRUE       TRUE</span></span>
 <span><span class="co"># 2       FALSE      FALSE</span></span>
@@ -162,11 +155,28 @@ across all columns.</p>
 <span><span class="co"># 10      FALSE      FALSE</span></span>
 <span></span>
 <span><span class="co"># Get changed values for all columns</span></span>
-<span><span class="va">res4</span> <span class="op">&lt;-</span> <span class="fu">changed</span><span class="op">(</span><span class="va">dat</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu">changed</span><span class="op">(</span><span class="va">dat</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View results</span></span>
+<span><span class="va">res3</span></span>
+<span><span class="co"># [1] TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE</span></span>
+<span></span>
+<span><span class="co"># Get last items in each group instead of first</span></span>
+<span><span class="va">res4</span> <span class="op">&lt;-</span> <span class="fu">changed</span><span class="op">(</span><span class="va">dat</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View results</span></span>
 <span><span class="va">res4</span></span>
-<span><span class="co"># [1] TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE</span></span></code></pre></div>
+<span><span class="co">#    v1.changed v2.changed</span></span>
+<span><span class="co"># 1       FALSE      FALSE</span></span>
+<span><span class="co"># 2       FALSE      FALSE</span></span>
+<span><span class="co"># 3        TRUE      FALSE</span></span>
+<span><span class="co"># 4       FALSE      FALSE</span></span>
+<span><span class="co"># 5        TRUE      FALSE</span></span>
+<span><span class="co"># 6       FALSE       TRUE</span></span>
+<span><span class="co"># 7       FALSE      FALSE</span></span>
+<span><span class="co"># 8        TRUE      FALSE</span></span>
+<span><span class="co"># 9       FALSE      FALSE</span></span>
+<span><span class="co"># 10       TRUE       TRUE</span></span></code></pre></div>
     </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
