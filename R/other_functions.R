@@ -357,7 +357,7 @@ copy.attributes <- function(source, target) {
 #' data frame.  The function is used to locate grouping boundaries. It will
 #' return a TRUE each time the current value is different from the previous
 #' value.  The \code{changed} function is similar to the Base R \code{duplicated}
-#' function, except \code{changed} the function will return TRUE even if
+#' function, except the \code{changed} function will return TRUE even if
 #' the changed value is not unique.
 #' @details
 #' For a data frame,
@@ -378,7 +378,9 @@ copy.attributes <- function(source, target) {
 #' the simplify option will return a single vector of indicator values
 #' instead of a data frame of indicator values.
 #' @returns A vector of TRUE or FALSE values indicating the grouping boundaries
-#' of the vector or data frame.
+#' of the vector or data frame.  If the input data is a data frame and the
+#' "simplify" parameter is FALSE, the return value will be a data frame
+#' of logical vectors describing changed values for each column.
 #' @examples
 #' # Create sample vector
 #' v1 <- c(1, 1, 1, 2, 2, 3, 3, 3, 1, 1)
