@@ -37,8 +37,6 @@ one data frame to another.
 - [**changed()**](#changed): A function to identify changed values in a vector or data frame.
 
 
-
-
 ## A generalized NSE quoting function {#v}
 Normally, when working in Base R, it is necessary to quote variable names
 when passing them into a function or operator.  For example, observe
