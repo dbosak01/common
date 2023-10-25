@@ -1,7 +1,7 @@
 Package: common
 Type: Package
 Title: Solutions for Common Problems in Base R
-Version: 1.0.9
+Version: 1.1.0
 Authors@R: c(
     person(given = "David",
            family = "Bosak",
