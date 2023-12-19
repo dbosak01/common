@@ -493,7 +493,11 @@ changedv <- function(x, reverse = FALSE) {
   }
 
   # Create lag vector
-  vect_lag <- c(NA, vect[seq(1, length(vect) - 1)])
+  if (length(vect) > 1) {
+    vect_lag <- c(NA, vect[seq(1, length(vect) - 1)])
+  } else {
+    vect_lag <- c(NA)
+  }
 
   # Identify changes
   ret<- ifelse(compint(vect, vect_lag), FALSE, TRUE)

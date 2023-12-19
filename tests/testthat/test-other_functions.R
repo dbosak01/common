@@ -493,3 +493,31 @@ test_that("other18: changed() function with reverse works as expected.", {
 })
 
 
+
+test_that("other19: changed() one value works as expected.", {
+
+  dat <- "fork"
+
+
+  res <- changed(dat)
+
+  res
+
+  expect_equal(length(res), 1)
+  expect_equal(res, TRUE)
+
+  res2 <- changed(NULL)
+
+  expect_equal(is.null(res2), TRUE)
+
+  res3 <- changed(dat, reverse = TRUE)
+
+  res3
+
+  expect_equal(length(res), 1)
+  expect_equal(res, TRUE)
+
+
+})
+
+
