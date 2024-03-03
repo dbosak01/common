@@ -143,7 +143,7 @@ test_that("file5: get_matching_dirs() works as expected.", {
 
 })
 
-test_that("file6: list_dirs() works as expect.", {
+test_that("file6: list_dirs() works as expected.", {
 
   res <- list_dirs(".", "fork")
 
@@ -177,7 +177,7 @@ test_that("file6: list_dirs() works as expect.", {
 })
 
 
-test_that("file7: dir.find() works as expect.", {
+test_that("file7: dir.find() works as expected.", {
 
   res <- dir.find()
 
@@ -249,7 +249,7 @@ test_that("file7: dir.find() works as expect.", {
 })
 
 
-test_that("file8: Sys.path() works as expect.", {
+test_that("file8: Sys.path() works as expected.", {
 
 
   res <- Sys.path()
@@ -259,15 +259,145 @@ test_that("file8: Sys.path() works as expect.", {
 })
 
 
-# test_that("file9: Sys.path.experimental() works as expect.", {
-#
-#
-#   res <- Sys.path.experimental()
-#
-#   expect_equal(is.null(res), FALSE)
-#
-# })
+
+test_that("file9: source.all() no params works as expected.", {
 
 
+  orig <- getwd()
+
+  pth <- file.path(dirname(Sys.path()), "programs")
+
+  setwd(pth)
+
+  res <- suppressWarnings(source.all())
+
+  res
+
+  expect_equal(nrow(res), 4)
+
+
+  setwd(orig)
+
+})
+
+
+test_that("file10: source.all() path works as expected.", {
+
+
+  pth <- file.path(dirname(Sys.path()), "programs")
+
+  res <- suppressWarnings(source.all(pth))
+
+  res
+
+  expect_equal(nrow(res), 4)
+  expect_equal(res$Status, c(0, 0, 1, 0))
+
+})
+
+
+test_that("file11: source.all() pattern works as expected.", {
+
+
+  pth <- file.path(dirname(Sys.path()), "programs")
+
+  res <- source.all(pth, pattern = c("program1", "program4.R"))
+
+  res
+
+  expect_equal(nrow(res), 2)
+  expect_equal(res$Filename, c("program1.R", "program4.R"))
+
+
+  res2 <- source.all(pth, pattern = c("*1", "*4"))
+
+  res2
+
+  expect_equal(nrow(res), 2)
+  expect_equal(res$Filename, c("program1.R", "program4.R"))
+
+})
+
+
+test_that("file12: source.all() exclude works as expected.", {
+
+
+  pth <- file.path(dirname(Sys.path()), "programs")
+
+  res <- source.all(pth, pattern = "program*", exclude = c("*2", "*3"))
+
+  res
+
+  expect_equal(nrow(res), 2)
+  expect_equal(res$Filename, c("program1.R", "program4.R"))
+
+})
+
+
+test_that("file13: source.all() attributes work as expected.", {
+
+
+  pth <- file.path(dirname(Sys.path()), "programs")
+
+  res <- source.all(pth, pattern = "program*", exclude = c("*2", "*3"))
+
+  res
+
+
+  ats <- attributes(res)
+
+  expect_equal(ats$path, pth)
+
+  expect_equal(ats$pattern, "program*.R")
+
+  expect_equal(ats$exclude, c("*2", "*3"))
+
+})
+
+
+test_that("file14: source.all() isolate works as expected.", {
+
+
+  if (dev) {
+
+    pth <- file.path(dirname(Sys.path()), "programs")
+
+
+    if ("myfunc" %in% names(globalenv())) {
+
+      rm("myfunc", envir = globalenv())
+    }
+
+    res <- source.all(pth, pattern = "program1", isolate = FALSE)
+
+    res
+
+    hasfunc <- "myfunc" %in% names(globalenv())
+
+    expect_equal(nrow(res), 1)
+    expect_equal(hasfunc, TRUE)
+
+    if (hasfunc) {
+
+      rm("myfunc", envir = globalenv())
+
+    }
+
+    mynewenv <- new.env()
+
+    res <- source.all(pth, pattern = "program1", isolate = mynewenv)
+
+    res
+
+    hasfunc <- "myfunc" %in% names(mynewenv)
+
+    expect_equal(hasfunc, TRUE)
+
+  } else {
+
+    expect_equal(TRUE, TRUE)
+  }
+
+})
 
 

@@ -29,9 +29,10 @@
 #'   \item \code{\link{supsc}}: A function to get UTF-8 superscript characters.
 #'   \item \code{\link{subsc}}: A function to get UTF-8 subscript characters.
 #'   \item \code{\link{symbol}}: A function to get UTF-8 symbol characters.
+#'   \item \code{\link{changed}}: A function to create a string of spaces.
+#'   \item \code{\link{source.all}}: A function to source an entire directory of R programs.
 #' }
-#' @docType package
 #' @keywords internal
 #' @aliases common-package
 #' @name common
-NULL
+"_PACKAGE"

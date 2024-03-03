@@ -17,6 +17,7 @@ reference:
   - Sys.path
   - file.find
   - dir.find
+  - source.all
 
 - title: String Operations
   desc: Functions that help with strings.

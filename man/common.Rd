@@ -37,7 +37,27 @@ as follows:
   \item \code{\link{supsc}}: A function to get UTF-8 superscript characters.
   \item \code{\link{subsc}}: A function to get UTF-8 subscript characters.
   \item \code{\link{symbol}}: A function to get UTF-8 symbol characters.
+  \item \code{\link{changed}}: A function to create a string of spaces.
+  \item \code{\link{source.all}}: A function to source an entire directory of R programs.
 }
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://common.r-sassy.org}
+  \item \url{https://github.com/dbosak01/common}
+  \item Report bugs at \url{https://github.com/dbosak01/common/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: David Bosak \email{dbosak01@gmail.com}
+
+Other contributors:
+\itemize{
+  \item Duong Tran \email{trand000@aol.com} [contributor]
+}
+
+}
 \keyword{internal}

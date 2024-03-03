@@ -387,3 +387,231 @@ get_matching_dirs <- function(dirs, srch = NULL) {
   return(ret)
 
 }
+
+
+
+# Source All --------------------------------------------------------------
+
+#' @title Source all programs in a directory
+#' @description A function to source all programs in a specified directory.
+#' The function will run each R program file in the directory, and then
+#' return a data frame of results of the run.
+#' @details
+#' The \code{source.all} function attempts to run all programs in a directory.
+#' This function is useful for batch runs.  It has parameters to control
+#' which programs are run or not run.  By default, the function will run
+#' all programs in the working directory.  You can use the "pattern" and
+#' "exclude" parameters to specify individual program names, or wild card matches.
+#' Inclusion and exclusion patterns are case-insensitive.
+#'
+#' Note that the function will run all programs, regardless of any errors.
+#' Errors will be indicated in the "Status" and "Message" columns of the result
+#' dataset.
+#' @section Result Dataset:
+#' The \code{source.all} function returns a dataset showing the results of the
+#' source operation. There will be one row for each program executed. The
+#' return dataset has the following columns:
+#' \itemize{
+#'   \item{\strong{Filename}: The name of the program.}
+#'   \item{\strong{StartTime}: The date and time execution started.}
+#'   \item{\strong{EndTime}: The date and time execution ended.}
+#'   \item{\strong{Status}: A 0 or 1 value indicating wether the program returned
+#'   without errors. A zero (0) value indicated that no errors occured.}
+#'   \item{\strong{Message}: If errors are returned from the program, they
+#'   will be shown in this column.}
+#' }
+#' In addition to the information shown above, the results dataset will have
+#' attributes assigned with the parameter values passed to the function. Those
+#' attributes can be observed with the Base R \code{attributes()} function.
+#' @section Source Isolation:
+#' Multiple programs running in the same environment have a risk of conflicting
+#' variables or data. Variables created by the first program can possibly interfere
+#' with the running of the next program.  Or they could conflict with variables
+#' in the global environment. To avoid such conflicts, each program
+#' is run in its own environment by default. \code{isolate = TRUE} starts each program
+#' with a clean workspace, and is the best choice for running programs in
+#' batch.
+#'
+#' There may be situations, however, where you do not want to isolate the
+#' source calls.  For example, if you are loading functions from a utility
+#' library, you may actually wanted them loaded into the global environment
+#' so they can by accessed by you or your programs.  In this case, set the
+#' "isolate" parameter to FALSE.
+#'
+#' Lastly, there may be situations where you want to intentionally share an
+#' environment, or extract values create by the running programs.
+#' In this case, you can instantiate a new environment
+#' yourself, and pass that to the "isolate" parameter instead of TRUE or FALSE.
+#' Note that this environment will be shared by all programs, but will not have
+#' access to the global environment.
+#' @param path  The directory to source programs from.  Default is the current
+#' working directory.
+#' @param pattern A full or partial name of the programs to source.  If partial,
+#' use the question mark (?) or asterisk (*) characters to indicate
+#' the missing piece(s). Default is NULL, which will return all programs.
+#' You may pass multiple patterns as a vector.  In that case, the function
+#' will perform an "or" operation on each pattern. Note that it is not necessary
+#' to include the ".R" file extension in your patterns. It is assumed that all
+#' source files have a ".R" extension.
+#' @param exclude A vector of patterns to exclude from the included programs.
+#' The exclusion patterns can be the names of specific programs or a wild card
+#' exclusion. The asterisk (*)
+#' and question mark (?) characters may be used to indicate partial matches.
+#' Similar to the "pattern" parameter, the ".R" file extension can be ignored.
+#' @param isolate Whether to isolate each source call to its own environment.
+#' Valid values are TRUE, FALSE, or an environment to run in.  If the isolate
+#' parameter is FALSE, the programs will run in the global environment. Default
+#' is TRUE.
+#' @returns A data frame of the results of the source operation. The
+#' data frame will show each file sourced, the time started, the time ended,
+#' the status, and any error messages. The status value is either 0 (no errors)
+#' or 1 (errors).
+#' @family fileops
+#' @examples
+#' # Create temp directory
+#' tmp <- tempdir()
+#'
+#' # Write program 1
+#' p1 <- file(file.path(tmp, "prog1.R"))
+#' writeLines("print('Hello from program 1')", p1)
+#' close(p1)
+#'
+#' # Write program 2
+#' p2 <- file(file.path(tmp, "prog2.R"))
+#' writeLines("stop('Error from program 2')", p2)
+#' close(p2)
+#'
+#' # Write program 3
+#' p3 <- file(file.path(tmp, "prog3.R"))
+#' writeLines("print('Hello from program 3')", p3)
+#' close(p3)
+#'
+#' # Run all programs
+#' res <- source.all(tmp)
+#' # [1] "Hello from program 1"
+#' # [1] "Hello from program 3"
+#'
+#' # View results
+#' res
+#' #   Filename           StartTime             EndTime Status              Message
+#' # 1  prog1.R 2024-03-03 17:20:14 2024-03-03 17:20:14      0              Success
+#' # 2  prog2.R 2024-03-03 17:20:14 2024-03-03 17:20:14      1 Error from program 2
+#' # 3  prog3.R 2024-03-03 17:20:14 2024-03-03 17:20:14      0              Success
+#' @export
+source.all <- function(path = ".", pattern = NULL, exclude = NULL,
+                       isolate = TRUE) {
+
+
+  if (!dir.exists(path)) {
+
+    stop(paste("Specified path does not exist:", path))
+  }
+
+  # Append .R extension if not supplied
+  if (is.null(pattern)) {
+    pattern <- "*.R"
+
+  } else {
+
+    mpt <- grepl(".r", tolower(pattern), fixed = TRUE)
+    if (any(mpt == FALSE)) {
+      for (i in seq_len(length(mpt))) {
+        if (mpt[i] == FALSE) {
+          pattern[i] <- paste0(pattern[i], ".R")
+        }
+      }
+    }
+  }
+
+  fnms <- c()
+  # If there are multiple patterns, search for each one
+  for (i in seq_len(length(pattern))) {
+
+    tnms <- file.find(path, pattern = pattern[i], up = 0, down = 0)
+
+    fnms <- append(fnms, tnms)
+
+  }
+
+  # Remove any duplicates
+  fnms <- unique(fnms)
+
+  # Perform exclusions
+  if (!is.null(fnms) & !is.null(exclude)) {
+
+    excl <- glob2rx(exclude)
+
+    for (ex in excl) {
+      tmpnms <- fnms
+      fnms <- c()
+      for (j in seq_len(length(tmpnms))) {
+        bnm <- basename(tmpnms[j])
+        tnm <- substring(bnm, 1, nchar(bnm) - 2)
+
+        if (!grepl(ex, tnm, ignore.case = TRUE)) {
+          fnms <- append(fnms, tmpnms[j])
+        }
+      }
+    }
+
+  }
+
+  # Create vars for return dataset
+  nms <- c()
+  st <- c()
+  en <- c()
+  stat <- c()
+  msgs <- c()
+
+  for (fnm in fnms) {
+
+    # Create new environment for each program
+    if (is.environment(isolate)) {
+      e <- isolate
+    } else if (isolate == FALSE) {
+      e <- globalenv()
+    } else {
+      e <- new.env()
+    }
+
+    # Capture program name and start time
+    nms <- append(nms, basename(fnm))
+    st <- append(st, Sys.time())
+
+    # Run each program
+    tres <- tryCatch({
+      sys.source(fnm, envir = e)
+      #print(warnings())
+      NULL
+    }, error = function(cond) {
+       geterrmessage()
+    })
+
+    # Capture status and any errors
+    if (!is.null(tres)) {
+      stat <- append(stat, 1)
+      msgs <- append(msgs, paste0(tres, collapse="\n"))
+    } else {
+      stat <- append(stat, 0)
+      msgs <- append(msgs, "Success")
+    }
+
+    # Capture end time
+    en <- append(en, Sys.time())
+
+  }
+
+  # Construct return data
+  ret <- data.frame(Filename = nms, StartTime = st,
+                    EndTime = en, Status = stat,
+                    Message = msgs, stringsAsFactors = FALSE)
+
+
+  attr(ret, "path") <- path
+  attr(ret, "pattern") <- pattern
+  attr(ret, "exclude") <- exclude
+
+  return(ret)
+}
+
+

@@ -23,6 +23,7 @@ pth
 \seealso{
 Other fileops: 
 \code{\link{dir.find}()},
-\code{\link{file.find}()}
+\code{\link{file.find}()},
+\code{\link{source.all}()}
 }
 \concept{fileops}

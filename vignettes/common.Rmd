@@ -35,6 +35,7 @@ one data frame to another.
 - [**symbol()**](#symbol): A function to lookup UTF-8 symbols.
 - [**spaces()**](#spaces): A function to create a string of blank spaces.
 - [**changed()**](#changed): A function to identify changed values in a vector or data frame.
+- [**source.all()**](#sourceall): A function to source an entire directory of R programs.
 
 
 ## A generalized NSE quoting function {#v}
@@ -562,7 +563,7 @@ Base R has a `duplicated()` function that is sometimes used to identify grouping
 in a vector.  But this function also performs a `unique()` operation on 
 the vector, such that not all boundaries return a TRUE value.
 Observe the following:
-```
+```{r eval=FALSE, echo=TRUE}
 # Create sample vector
 v1 <- c(1, 1, 1, 2, 2, 3, 3, 3, 1, 1)
 
@@ -577,7 +578,7 @@ res1
 Notice that the "1" at position nine does not return TRUE.  
 
 Now lets run the same vector through the `changed()` function:
-```
+```{r eval=FALSE, echo=TRUE}
 # Identify changed values
 res2 <- changed(v1)
 
@@ -590,7 +591,7 @@ This time, the `changed()` function identified each time the vector changed
 value, whether or not the value had appeared previously.  
 
 This function can also be used on data frames:
-```
+```{r eval=FALSE, echo=TRUE}
 # Create sample data frame
 v2 <- c("A", "A", "A", "A", "A", "A", "B", "B", "B", "B")
 dat <- data.frame(v1, v2)
@@ -628,7 +629,7 @@ res3
 ```
 If you wish to return a single indicator vector for the combination of 
 all columns, use the "simplify" option.
-```
+```{r eval=FALSE, echo=TRUE}
 # Get changed values for each column
 res4 <- changed(dat, simplify = TRUE)
 
@@ -641,7 +642,7 @@ changes.
 
 The "reverse" option identifies the last items in a group instead of the 
 first:
-```
+```{r eval=FALSE, echo=TRUE}
 # Find last items in each group
 res3 <- changed(dat, reverse = TRUE)
 
@@ -660,6 +661,27 @@ res3
 # 10       TRUE       TRUE
 
 ```
+
+[top](#top)
+
+## Source a directory of programs {#sourceall}
+Base R has a `source()` function to run a specified program. What if you want
+to run an entire directory full of programs?  Base R does not have 
+a built-in way to do this.  The `source.all()` function
+fills this need.  
+
+The function allows you to run many programs in batch. 
+You can point the function to a directory, and run all the programs in that 
+directory at once.  Conveniently, the function
+will return a data frame that shows you the execution status for each program.
+
+The following example will execute four programs in a directory. Notice that
+the third program generates an error.  The error message will be passed back
+to the result data frame, and the status set to 1.  Also notice that the 
+function will continue to execute the remaining programs, even if program 3 
+has an error.
+
+<img src="../man/images/sourceall.png">
 
 
 [top](#top)
