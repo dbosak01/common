@@ -1,6 +1,7 @@
 # common 1.1.2
 
 * Added `source.all()` function.
+* Fix for data type on `subsc()` and `supsc()`.
 
 # common 1.1.1
 

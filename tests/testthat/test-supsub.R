@@ -62,6 +62,13 @@ test_that("super3: Superscript other characters work as expected.", {
 })
 
 
+test_that("super4: Non-character arguments turned to character without error.", {
+
+  ret2 <- supsc(1)
+
+  expect_equal(TRUE, TRUE)
+
+})
 
 
 test_that("sub1: Subscript lower case letters work as expected.", {
@@ -118,5 +125,12 @@ test_that("sub3: Subscript other characters work as expected.", {
 })
 
 
+test_that("sub4: Non-character arguments turned to character without error.", {
 
+  ret <- subsc(1)
+
+
+  expect_equal(TRUE, TRUE)
+
+})
 

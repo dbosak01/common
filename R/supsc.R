@@ -34,9 +34,12 @@
 #' @export
 supsc <- function(x) {
 
-
   ret <- c()
   val <- c()
+
+  if (!is.character(x)) {
+    x <- as.character(x)
+  }
 
   lnms <- names(suplower)
   unms <- names(supupper)

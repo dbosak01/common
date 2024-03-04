@@ -32,6 +32,10 @@ subsc <- function(x) {
   ret <- c()
   val <- c()
 
+  if (!is.character(x)) {
+    x <- as.character(x)
+  }
+
   lnms <- names(sublower)
   unms <- names(subupper)
 
