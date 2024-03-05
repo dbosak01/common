@@ -578,14 +578,25 @@ source.all <- function(path = ".", pattern = NULL, exclude = NULL,
     nms <- append(nms, basename(fnm))
     st <- append(st, Sys.time())
 
-    # Run each program
+    # Capture existing error handler
+    errfnc <- getOption("error")
+
     tres <- tryCatch({
-      sys.source(fnm, envir = e)
-      #print(warnings())
+      source(fnm, local = e)
+      # sys.source(fnm, envir = e, toplevel.env = globalenv())
       NULL
     }, error = function(cond) {
-       geterrmessage()
+      # Call existing error handler
+      if (!is.null(errfnc))
+        eval(errfnc, envir = e)
+
+        # Return error messages
+        geterrmessage()
     })
+
+    # Reconnect any error handlers
+    if (!is.null(errfnc))
+      options(error = errfnc)
 
     # Capture status and any errors
     if (!is.null(tres)) {

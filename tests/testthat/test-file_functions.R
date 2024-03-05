@@ -265,7 +265,12 @@ test_that("file9: source.all() no params works as expected.", {
 
   orig <- getwd()
 
-  pth <- file.path(dirname(Sys.path()), "programs")
+  dpth <- dirname(Sys.path())
+
+  if (basename(dpth) == "programs")
+    pth <- dpth
+  else
+    pth <- file.path(dpth, "programs")
 
   setwd(pth)
 
@@ -283,8 +288,12 @@ test_that("file9: source.all() no params works as expected.", {
 
 test_that("file10: source.all() path works as expected.", {
 
+  dpth <- dirname(Sys.path())
 
-  pth <- file.path(dirname(Sys.path()), "programs")
+  if (basename(dpth) == "programs")
+    pth <- dpth
+  else
+    pth <- file.path(dpth, "programs")
 
   res <- suppressWarnings(source.all(pth))
 
@@ -293,13 +302,21 @@ test_that("file10: source.all() path works as expected.", {
   expect_equal(nrow(res), 4)
   expect_equal(res$Status, c(0, 0, 1, 0))
 
+
+  #res <- try(source(file.path(pth, "program3.R")))
+
 })
 
 
 test_that("file11: source.all() pattern works as expected.", {
 
 
-  pth <- file.path(dirname(Sys.path()), "programs")
+  dpth <- dirname(Sys.path())
+
+  if (basename(dpth) == "programs")
+    pth <- dpth
+  else
+    pth <- file.path(dpth, "programs")
 
   res <- source.all(pth, pattern = c("program1", "program4.R"))
 
@@ -321,8 +338,12 @@ test_that("file11: source.all() pattern works as expected.", {
 
 test_that("file12: source.all() exclude works as expected.", {
 
+  dpth <- dirname(Sys.path())
 
-  pth <- file.path(dirname(Sys.path()), "programs")
+  if (basename(dpth) == "programs")
+    pth <- dpth
+  else
+    pth <- file.path(dpth, "programs")
 
   res <- source.all(pth, pattern = "program*", exclude = c("*2", "*3"))
 
@@ -337,7 +358,12 @@ test_that("file12: source.all() exclude works as expected.", {
 test_that("file13: source.all() attributes work as expected.", {
 
 
-  pth <- file.path(dirname(Sys.path()), "programs")
+  dpth <- dirname(Sys.path())
+
+  if (basename(dpth) == "programs")
+    pth <- dpth
+  else
+    pth <- file.path(dpth, "programs")
 
   res <- source.all(pth, pattern = "program*", exclude = c("*2", "*3"))
 
@@ -360,7 +386,12 @@ test_that("file14: source.all() isolate works as expected.", {
 
   if (dev) {
 
-    pth <- file.path(dirname(Sys.path()), "programs")
+    dpth <- dirname(Sys.path())
+
+    if (basename(dpth) == "programs")
+      pth <- dpth
+    else
+      pth <- file.path(dpth, "programs")
 
 
     if ("myfunc" %in% names(globalenv())) {
