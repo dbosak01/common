@@ -378,6 +378,8 @@ test_that("file13: source.all() attributes work as expected.", {
 
   expect_equal(ats$exclude, c("*2", "*3"))
 
+  expect_equal(ats$errors, 0)
+
 })
 
 
@@ -432,3 +434,23 @@ test_that("file14: source.all() isolate works as expected.", {
 })
 
 
+test_that("file14: source.all() no matching programs.", {
+
+
+  dpth <- dirname(Sys.path())
+
+  if (basename(dpth) == "programs")
+    pth <- dpth
+  else
+    pth <- file.path(dpth, "programs")
+
+  res <- source.all(pth, pattern = c("fork"))
+
+  res
+
+  attributes(res)
+
+  expect_equal(nrow(res), 0)
+  expect_equal(ncol(res), 5)
+
+})

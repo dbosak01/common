@@ -743,18 +743,24 @@ the first:</p>
 </h2>
 <p>Base R has a <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> function to run a specified
 program. What if you want to run an entire directory full of programs?
-Base R does not have a built-in way to do this. The
-<code><a href="../reference/source.all.html">source.all()</a></code> function fills this need.</p>
-<p>The function allows you to run many programs in batch. You can point
-the function to a directory, and run all the programs in that directory
-at once. Conveniently, the function will return a data frame that shows
-you the execution status for each program.</p>
+The <code><a href="../reference/source.all.html">source.all()</a></code> function makes it easy!</p>
+<p>The function allows you to run many programs at once. You can point
+the function to a directory, and run all the programs in that directory.
+Conveniently, the function will return a data frame that shows you the
+execution status for each program.</p>
+<p>The function also has two parameters to help you control which
+programs get run: “pattern” and “exclude”. The “pattern” parameter
+allows you to pass a vector of inclusion criteria. The “exclusion”
+parameter does the opposite. Between the two, you will have very precise
+control over what gets executed.</p>
 <p>The following example will execute four programs in a directory.
 Notice that the third program generates an error. The error message will
 be passed back to the result data frame, and the status set to 1. Also
 notice that the function will continue to execute the remaining
 programs, even if program 3 has an error.</p>
 <p><img src="../man/images/sourceall.png"></p>
+<p>See the <code><a href="../reference/source.all.html">source.all()</a></code> documentation for additional
+information and examples.</p>
 <p><a href="#top">top</a></p>
 </div>
   </div>

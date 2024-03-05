@@ -415,8 +415,8 @@ get_matching_dirs <- function(dirs, srch = NULL) {
 #'   \item{\strong{Filename}: The name of the program.}
 #'   \item{\strong{StartTime}: The date and time execution started.}
 #'   \item{\strong{EndTime}: The date and time execution ended.}
-#'   \item{\strong{Status}: A 0 or 1 value indicating wether the program returned
-#'   without errors. A zero (0) value indicated that no errors occured.}
+#'   \item{\strong{Status}: A 0 or 1 value indicating whether the program returned
+#'   without errors. A zero (0) value indicates that no errors occurred.}
 #'   \item{\strong{Message}: If errors are returned from the program, they
 #'   will be shown in this column.}
 #' }
@@ -486,17 +486,56 @@ get_matching_dirs <- function(dirs, srch = NULL) {
 #' writeLines("print('Hello from program 3')", p3)
 #' close(p3)
 #'
-#' # Run all programs
-#' res <- source.all(tmp)
+#' # Example #1: Run all programs
+#' res1 <- source.all(tmp)
 #' # [1] "Hello from program 1"
 #' # [1] "Hello from program 3"
 #'
 #' # View results
-#' res
+#' res1
 #' #   Filename           StartTime             EndTime Status              Message
-#' # 1  prog1.R 2024-03-03 17:20:14 2024-03-03 17:20:14      0              Success
-#' # 2  prog2.R 2024-03-03 17:20:14 2024-03-03 17:20:14      1 Error from program 2
-#' # 3  prog3.R 2024-03-03 17:20:14 2024-03-03 17:20:14      0              Success
+#' # 1  prog1.R 2024-03-05 10:12:04 2024-03-05 10:12:04      0              Success
+#' # 2  prog2.R 2024-03-05 10:12:04 2024-03-05 10:12:04      1 Error from program 2
+#' # 3  prog3.R 2024-03-05 10:12:04 2024-03-05 10:12:04      0              Success
+#'
+#' #' # Example #2: Exclusion criteria
+#' res2 <- source.all(tmp, exclude = "prog2")
+#' # [1] "Hello from program 1"
+#' # [1] "Hello from program 3"
+#'
+#' # View results
+#' res2
+#' # Filename           StartTime             EndTime Status Message
+#' # 1  prog1.R 2024-03-05 10:13:24 2024-03-05 10:13:24      0 Success
+#' # 2  prog3.R 2024-03-05 10:13:24 2024-03-05 10:13:24      0 Success
+#'
+#' # Example #3: Inclusion criteria
+#' res3 <- source.all(tmp, pattern = "*2")
+#'
+#' # View results
+#' res3
+#' #   Filename           StartTime             EndTime Status              Message
+#' # 1  prog2.R 2024-03-05 10:16:41 2024-03-05 10:16:41      1 Error from program 2
+#'
+#' # View attributes
+#' attributes(res3)
+#' # $names
+#' # [1] "Filename"  "StartTime" "EndTime"   "Status"    "Message"
+#' #
+#' # $class
+#' # [1] "data.frame"
+#' #
+#' # $row.names
+#' # [1] 1
+#' #
+#' # $path
+#' # [1] "C:\\Users\\dbosa\\AppData\\Local\\Temp\\RtmpGAXYJl"
+#' #
+#' # $pattern
+#' # [1] "*2.R"
+#' #
+#' # $errors
+#' # [1] 1
 #' @export
 source.all <- function(path = ".", pattern = NULL, exclude = NULL,
                        isolate = TRUE) {
@@ -613,14 +652,25 @@ source.all <- function(path = ".", pattern = NULL, exclude = NULL,
   }
 
   # Construct return data
-  ret <- data.frame(Filename = nms, StartTime = st,
-                    EndTime = en, Status = stat,
-                    Message = msgs, stringsAsFactors = FALSE)
+  if (length(nms) == 0) {
+
+    ret <- data.frame(Filename = "", StartTime = Sys.time(),
+                      EndTime = Sys.time(), Status = 0,
+                      Message = "", stringsAsFactors = FALSE)
+
+    ret <- ret[0, ]
+
+  } else {
+    ret <- data.frame(Filename = nms, StartTime = st,
+                      EndTime = en, Status = stat,
+                      Message = msgs, stringsAsFactors = FALSE)
+  }
 
 
   attr(ret, "path") <- path
   attr(ret, "pattern") <- pattern
   attr(ret, "exclude") <- exclude
+  attr(ret, "errors") <- sum(stat)
 
   return(ret)
 }

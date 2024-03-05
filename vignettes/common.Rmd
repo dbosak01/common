@@ -666,14 +666,18 @@ res3
 
 ## Source a directory of programs {#sourceall}
 Base R has a `source()` function to run a specified program. What if you want
-to run an entire directory full of programs?  Base R does not have 
-a built-in way to do this.  The `source.all()` function
-fills this need.  
+to run an entire directory full of programs? The `source.all()` function
+makes it easy!
 
-The function allows you to run many programs in batch. 
+The function allows you to run many programs at once. 
 You can point the function to a directory, and run all the programs in that 
-directory at once.  Conveniently, the function
+directory.  Conveniently, the function
 will return a data frame that shows you the execution status for each program.
+
+The function also has two parameters to help you control which programs get run:
+"pattern" and "exclude". The "pattern" parameter allows you to pass a vector
+of inclusion criteria.  The "exclusion" parameter does the opposite. Between the
+two, you will have very precise control over what gets executed.
 
 The following example will execute four programs in a directory. Notice that
 the third program generates an error.  The error message will be passed back
@@ -683,5 +687,6 @@ has an error.
 
 <img src="../man/images/sourceall.png">
 
+See the `source.all()` documentation for additional information and examples.
 
 [top](#top)
