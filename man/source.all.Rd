@@ -61,10 +61,19 @@ return dataset has the following columns:
   \item{\strong{Filename}: The name of the program.}
   \item{\strong{StartTime}: The date and time execution started.}
   \item{\strong{EndTime}: The date and time execution ended.}
-  \item{\strong{Status}: A 0 or 1 value indicating whether the program returned
-  without errors. A zero (0) value indicates that no errors occurred.}
-  \item{\strong{Message}: If errors are returned from the program, they
-  will be shown in this column.}
+  \item{\strong{Status}: A numeric value indicating whether or not
+  the program returned errors or warnings. A zero (0) value indicates that
+  no errors occurred. A one (1) value indicates that an error
+  occurred. Warnings can also be generated along with an error, but
+  the status will still be one (1). A two (2) value indicates
+  that warnings occurred but no errors. Note that capture of warnings
+  is less reliable than the capture of errors. It is possible that a program
+  may generate a warning and still return a zero (0) status. If you want to
+  ensure that warnings are detected, convert them to errors with
+  \code{options(warn = 2)}.}
+  \item{\strong{Message}: If errors or warnings are returned from the program,
+  they will be shown in this column. Multiple messages will be separated
+  with a semi-colon (;) and a carriage return.}
 }
 In addition to the information shown above, the results dataset will have
 attributes assigned with the parameter values passed to the function. Those

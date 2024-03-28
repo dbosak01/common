@@ -434,7 +434,7 @@ test_that("file14: source.all() isolate works as expected.", {
 })
 
 
-test_that("file14: source.all() no matching programs.", {
+test_that("file15: source.all() no matching programs.", {
 
 
   dpth <- dirname(Sys.path())
@@ -443,6 +443,8 @@ test_that("file14: source.all() no matching programs.", {
     pth <- dpth
   else
     pth <- file.path(dpth, "programs")
+
+
 
   res <- source.all(pth, pattern = c("fork"))
 
@@ -454,3 +456,32 @@ test_that("file14: source.all() no matching programs.", {
   expect_equal(ncol(res), 5)
 
 })
+
+
+test_that("file16: source.all() returns errors.", {
+
+  if (dev) {
+
+    dpth <- dirname(Sys.path())
+
+    if (basename(dpth) == "programs")
+      pth <- dpth
+    else
+      pth <- file.path(dpth, "programs")
+
+
+
+    res <- source.all(pth)
+
+    res
+
+    expect_equal(sum(res$Status), 1)
+
+  } else {
+
+    expect_equal(TRUE, TRUE)
+  }
+
+})
+
+

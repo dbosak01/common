@@ -19,7 +19,7 @@ return a data frame of results of the run."><meta property="og:image" content="h
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">common</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.3</span>
       </span>
     </div>
 
@@ -125,10 +125,19 @@ source operation. There will be one row for each program executed. The
 return dataset has the following columns:</p><ul><li><p><strong>Filename</strong>: The name of the program.</p></li>
 <li><p><strong>StartTime</strong>: The date and time execution started.</p></li>
 <li><p><strong>EndTime</strong>: The date and time execution ended.</p></li>
-<li><p><strong>Status</strong>: A 0 or 1 value indicating whether the program returned
-  without errors. A zero (0) value indicates that no errors occurred.</p></li>
-<li><p><strong>Message</strong>: If errors are returned from the program, they
-  will be shown in this column.</p></li>
+<li><p><strong>Status</strong>: A numeric value indicating whether or not
+  the program returned errors or warnings. A zero (0) value indicates that
+  no errors occurred. A one (1) value indicates that an error
+  occurred. Warnings can also be generated along with an error, but
+  the status will still be one (1). A two (2) value indicates
+  that warnings occurred but no errors. Note that capture of warnings
+  is less reliable than the capture of errors. It is possible that a program
+  may generate a warning and still return a zero (0) status. If you want to
+  ensure that warnings are detected, convert them to errors with
+  <code>options(warn = 2)</code>.</p></li>
+<li><p><strong>Message</strong>: If errors or warnings are returned from the program,
+  they will be shown in this column. Multiple messages will be separated
+  with a semi-colon (;) and a carriage return.</p></li>
 </ul><p>In addition to the information shown above, the results dataset will have
 attributes assigned with the parameter values passed to the function. Those
 attributes can be observed with the Base R <code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes()</a></code> function.</p>

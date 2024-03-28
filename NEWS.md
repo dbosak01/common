@@ -1,3 +1,8 @@
+# common 1.1.3
+
+* Fixes for `source.all()` function to make it work properly with **logr** package.
+* Attempt to capture warnings in `source.all()` return dataset.
+
 # common 1.1.2
 
 * Added `source.all()` function.

@@ -415,10 +415,19 @@ get_matching_dirs <- function(dirs, srch = NULL) {
 #'   \item{\strong{Filename}: The name of the program.}
 #'   \item{\strong{StartTime}: The date and time execution started.}
 #'   \item{\strong{EndTime}: The date and time execution ended.}
-#'   \item{\strong{Status}: A 0 or 1 value indicating whether the program returned
-#'   without errors. A zero (0) value indicates that no errors occurred.}
-#'   \item{\strong{Message}: If errors are returned from the program, they
-#'   will be shown in this column.}
+#'   \item{\strong{Status}: A numeric value indicating whether or not
+#'   the program returned errors or warnings. A zero (0) value indicates that
+#'   no errors occurred. A one (1) value indicates that an error
+#'   occurred. Warnings can also be generated along with an error, but
+#'   the status will still be one (1). A two (2) value indicates
+#'   that warnings occurred but no errors. Note that capture of warnings
+#'   is less reliable than the capture of errors. It is possible that a program
+#'   may generate a warning and still return a zero (0) status. If you want to
+#'   ensure that warnings are detected, convert them to errors with
+#'   \code{options(warn = 2)}.}
+#'   \item{\strong{Message}: If errors or warnings are returned from the program,
+#'   they will be shown in this column. Multiple messages will be separated
+#'   with a semi-colon (;) and a carriage return.}
 #' }
 #' In addition to the information shown above, the results dataset will have
 #' attributes assigned with the parameter values passed to the function. Those
@@ -617,15 +626,14 @@ source.all <- function(path = ".", pattern = NULL, exclude = NULL,
     nms <- append(nms, basename(fnm))
     st <- append(st, Sys.time())
 
-    # Capture existing error handler
-    errfnc <- getOption("error")
-
     tres <- tryCatch({
       source(fnm, local = e)
       # sys.source(fnm, envir = e, toplevel.env = globalenv())
       NULL
     }, error = function(cond) {
       # Call existing error handler
+
+      errfnc <- eval(getOption("error"), envir = e)
       if (!is.null(errfnc))
         eval(errfnc, envir = e)
 
@@ -633,17 +641,32 @@ source.all <- function(path = ".", pattern = NULL, exclude = NULL,
         geterrmessage()
     })
 
-    # Reconnect any error handlers
-    if (!is.null(errfnc))
-      options(error = errfnc)
+    lw1 <- eval(warnings(), envir = e)
 
-    # Capture status and any errors
+    lw2 <- eval(getOption("logr.warnings"), envir = e)
+
+    lw <- unique(append(lw1, lw2))
+
+    # Capture status and any errors or warnings
     if (!is.null(tres)) {
-      stat <- append(stat, 1)
-      msgs <- append(msgs, paste0(tres, collapse="\n"))
+      if (length(lw) > 0) {
+        stat <- append(stat, 1)
+        msgs <- append(msgs, paste0(tres, ';\n', lw, collapse = ';\n'))
+
+      } else {
+        stat <- append(stat, 1)
+        msgs <- append(msgs, paste0(tres, collapse=";\n"))
+      }
     } else {
-      stat <- append(stat, 0)
-      msgs <- append(msgs, "Success")
+
+      if (length(lw) > 0) {
+        stat <- append(stat, 2)
+        msgs <- append(msgs, paste0(lw, collapse = ';\n'))
+
+      } else {
+        stat <- append(stat, 0)
+        msgs <- append(msgs, "Success")
+      }
     }
 
     # Capture end time
@@ -670,7 +693,7 @@ source.all <- function(path = ".", pattern = NULL, exclude = NULL,
   attr(ret, "path") <- path
   attr(ret, "pattern") <- pattern
   attr(ret, "exclude") <- exclude
-  attr(ret, "errors") <- sum(stat)
+  attr(ret, "errors") <- length(stat[stat == 1])
 
   return(ret)
 }
