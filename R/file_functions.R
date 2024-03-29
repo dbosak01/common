@@ -613,6 +613,21 @@ source.all <- function(path = ".", pattern = NULL, exclude = NULL,
 
   for (fnm in fnms) {
 
+    # Clear any warnings
+    has_warnings <- FALSE
+    if(exists("last.warning")) {
+      lw <- get("last.warning")
+      has_warnings <- length(lw) > 0
+      if(has_warnings) {
+        # Would like to do this, but CRAN does not allow it.
+        tryCatch({assign("last.warning", NULL, envir = baseenv())},
+                 error = function(cond){},
+                 warning = function(cond){},
+                 finally = {})
+
+      }
+    }
+
     # Create new environment for each program
     if (is.environment(isolate)) {
       e <- isolate
@@ -641,10 +656,28 @@ source.all <- function(path = ".", pattern = NULL, exclude = NULL,
         geterrmessage()
     })
 
+    # Get system warnings
     lw1 <- eval(warnings(), envir = e)
 
+    # Clear any warnings
+    has_warnings <- FALSE
+    if(exists("last.warning")) {
+      lw <- get("last.warning")
+      has_warnings <- length(lw) > 0
+      if(has_warnings) {
+        # Would like to do this, but CRAN does not allow it.
+        tryCatch({assign("last.warning", NULL, envir = baseenv())},
+                 error = function(cond){},
+                 warning = function(cond){},
+                 finally = {})
+
+      }
+    }
+
+    # Get logr warnings
     lw2 <- eval(getOption("logr.warnings"), envir = e)
 
+    # Combine sets of warnings
     lw <- unique(append(lw1, lw2))
 
     # Capture status and any errors or warnings
