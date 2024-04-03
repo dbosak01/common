@@ -245,22 +245,65 @@ Sys.path <- function() {
 
       } else {
 
-        # Parse command line to pull out file argument
-        argv <- paste(commandArgs(), collapse = " ")
-        startpos <- regexpr("--args", argv, fixed = TRUE)
-        if (startpos > 0) {
-          argv <- substr(argv, 1, startpos - 1)
+        # Try RStudio running in batch mode
+        sret <- tryCatch({
 
-        }
+          context <- rstudioapi::getSourceEditorContext()
 
-        ret <- trimws(sub("--file=", "", argv, fixed = TRUE))
-        ret <- trimws(sub("-f ", "", argv, fixed = TRUE))
+          context[["path"]]
 
-        if (length(ret) == 0)
+        }, error = function(e) {NULL})
+
+        if (!is.null(sret)) {
+          ret <- sret
+
+          if (debug)
+            message("RStudio batch call found:" %p% ret)
+        } else {
+
+
+          # Parse command line to pull out file argument
+          argv <- commandArgs()
+
+          # Try to find --file=
+          pos <- grep("--file=", argv, fixed = TRUE)
+          if (length(pos) > 0) {
+            if (length(pos) == 1) {
+
+              sret <- trimws(sub("--file=", "", argv[pos], fixed = TRUE))
+            } else {
+
+              sret <- NULL
+            }
+
+          }
+
+
+          if (is.null(sret)) {
+            # Try to find -f
+            pos <- grep("-f ", argv, fixed = TRUE)
+            if (length(pos) > 0) {
+              if (length(pos) == 1) {
+
+                sret <- trimws(sub("-f ", "", argv[pos], fixed = TRUE))
+              } else {
+
+                sret <- NULL
+              }
+
+            }
+
+          }
+
           ret <- NULL
+          if (!is.null(sret)) {
+            ret <- sret
+          }
 
-        if (debug)
-          message("Shell call found:" %p% ret)
+
+          if (debug)
+            message("Shell call found:" %p% ret)
+        }
 
       }
 
