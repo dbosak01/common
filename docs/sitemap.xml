@@ -1,87 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://common.r-sassy.org/404.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/articles/archive/common-faq.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/articles/common-faq.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/articles/common.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/index.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/changed.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/common.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/copy.attributes.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/dir.find.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/file.find.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/find.names.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/grapes-eq-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/grapes-p-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/labels.data.frame.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/roundup.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/sort.data.frame.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/source.all.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/spaces.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/subsc.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/supsc.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/symbol.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/Sys.path.html</loc>
-  </url>
-  <url>
-    <loc>https://common.r-sassy.org/reference/v.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://common.r-sassy.org/404.html</loc></url>
+<url><loc>https://common.r-sassy.org/articles/archive/common-faq.html</loc></url>
+<url><loc>https://common.r-sassy.org/articles/common-faq.html</loc></url>
+<url><loc>https://common.r-sassy.org/articles/common.html</loc></url>
+<url><loc>https://common.r-sassy.org/articles/index.html</loc></url>
+<url><loc>https://common.r-sassy.org/authors.html</loc></url>
+<url><loc>https://common.r-sassy.org/index.html</loc></url>
+<url><loc>https://common.r-sassy.org/LICENSE.html</loc></url>
+<url><loc>https://common.r-sassy.org/news/index.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/changed.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/common.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/copy.attributes.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/dir.find.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/file.find.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/find.names.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/grapes-eq-grapes.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/grapes-p-grapes.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/index.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/labels.data.frame.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/roundup.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/sort.data.frame.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/source.all.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/spaces.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/subsc.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/supsc.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/symbol.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/Sys.path.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/v.html</loc></url>
 </urlset>
+

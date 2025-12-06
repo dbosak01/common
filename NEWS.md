@@ -1,3 +1,8 @@
+# common 1.1.4
+
+* Documentation fixes.
+* Add YouTube video links to home page.
+
 # common 1.1.3
 
 * Fixes for `source.all()` function to make it work properly with **logr** package.

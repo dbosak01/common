@@ -10,7 +10,8 @@
 <!-- badges: end -->
 
 # Introduction to **common**
-<img src='man/images/common_new.png' align="left" height="138" style="margin-right:10px;height:138px"/>
+<img src='man/images/common_new.png' align="left" height="138" 
+style="margin-right:10px;height:138px" alt="Common Package Logo"/>
 
 When working in Base R, there are some situations where you stop and wonder:
 "Why isn't there a function to do that?" For example:
@@ -46,7 +47,19 @@ Then put the following line at the top of your script:
     
 For examples and usage 
 information, please visit the **common** documentation site 
-at common.r-sassy.org/articles/common.html
+[here](https://common.r-sassy.org/articles/common.html).
+
+### Introductory Videos
+
+Here is a video introducing most of the major functions in the 
+**common** package:
+
+[![Common Package Introduction](https://img.youtube.com/vi/scy3jmIU6UY/0.jpg)](https://www.youtube.com/watch?v=scy3jmIU6UY)
+
+Here is an video elaborating on the `source.all()` function:
+
+[![How to Run a Batch Job](https://img.youtube.com/vi/0SnOYyS7x8k/0.jpg)](https://www.youtube.com/watch?v=0SnOYyS7x8k)
+
 
 ### Getting Help
 
