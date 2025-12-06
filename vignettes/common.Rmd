@@ -499,7 +499,7 @@ create a superscript or subscript. The UTF-8 character set provides
 superscript and subscript versions of many commonly used characters.
 For example, the following code can be used to add a superscript '1'
 to the front of a footnote string:
-<img src="../man/images/sup1.png"/>
+<img src="../man/images/sup1.png" alt="Embedded UTF-8 character"/>
 
 Remembering these UTF-8 codes, however, can be a challenge for most people.
 The `supsc()` and `subsc()` functions look up the superscript
@@ -507,14 +507,14 @@ or subscript version of a normal character, without having to remember
 or research the proper UTF-8 code.  
 
 Using these functions, we can therefore rewrite the above example as follows:
-<img src="../man/images/sup2.png"/>
+<img src="../man/images/sup2.png" alt="Supsc() example"/>
 
 Here are a couple more examples:
-<img src="../man/images/sup3.png"/>
+<img src="../man/images/sup3.png" alt="More subscripts"/>
 
 Note that using the **glue** package, you can embed these functions
 directly in your character strings:
-<img src="../man/images/sup4.png"/>
+<img src="../man/images/sup4.png" alt="Glue example"/>
 
 [top](#top)
 
@@ -532,7 +532,7 @@ follow HTML conventions.  The function supports keywords for trademarks,
 currencies, mathematical symbols, logical symbols, Greek letters, and 
 more.  See the `symbol()` documentation for a complete list 
 of supported keywords.  
-<img src="../man/images/symbol.png">
+<img src="../man/images/symbol.png" alt = "Special Symbols">
 
 [top](#top)
 
@@ -685,7 +685,7 @@ to the result data frame, and the status set to 1.  Also notice that the
 function will continue to execute the remaining programs, even if program 3 
 has an error.
 
-<img src="../man/images/sourceall.png">
+<img src="../man/images/sourceall.png" alt = "Source All example">
 
 See the `source.all()` documentation for additional information and examples.
 

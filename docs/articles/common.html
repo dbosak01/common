@@ -587,18 +587,19 @@ example above, let’s now restore the attributes lost during the
 subscript. The UTF-8 character set provides superscript and subscript
 versions of many commonly used characters. For example, the following
 code can be used to add a superscript ‘1’ to the front of a footnote
-string: <img src="../man/images/sup1.png"></p>
+string:
+<img src="../man/images/sup1.png" alt="Embedded UTF-8 character"></p>
 <p>Remembering these UTF-8 codes, however, can be a challenge for most
 people. The <code><a href="../reference/supsc.html">supsc()</a></code> and <code><a href="../reference/subsc.html">subsc()</a></code> functions look
 up the superscript or subscript version of a normal character, without
 having to remember or research the proper UTF-8 code.</p>
 <p>Using these functions, we can therefore rewrite the above example as
-follows: <img src="../man/images/sup2.png"></p>
+follows: <img src="../man/images/sup2.png" alt="Supsc() example"></p>
 <p>Here are a couple more examples:
-<img src="../man/images/sup3.png"></p>
+<img src="../man/images/sup3.png" alt="More subscripts"></p>
 <p>Note that using the <strong>glue</strong> package, you can embed
 these functions directly in your character strings:
-<img src="../man/images/sup4.png"></p>
+<img src="../man/images/sup4.png" alt="Glue example"></p>
 <p><a href="#top">top</a></p>
 </div>
 <div class="section level2">
@@ -614,7 +615,7 @@ symbol. The ‘ne’ keyword looks up the symbol for not equals. These
 keyword names follow HTML conventions. The function supports keywords
 for trademarks, currencies, mathematical symbols, logical symbols, Greek
 letters, and more. See the <code><a href="../reference/symbol.html">symbol()</a></code> documentation for a
-complete list of supported keywords.<br><img src="../man/images/symbol.png"></p>
+complete list of supported keywords.<br><img src="../man/images/symbol.png" alt="Special Symbols"></p>
 <p><a href="#top">top</a></p>
 </div>
 <div class="section level2">
@@ -756,7 +757,7 @@ Notice that the third program generates an error. The error message will
 be passed back to the result data frame, and the status set to 1. Also
 notice that the function will continue to execute the remaining
 programs, even if program 3 has an error.</p>
-<p><img src="../man/images/sourceall.png"></p>
+<p><img src="../man/images/sourceall.png" alt="Source All example"></p>
 <p>See the <code><a href="../reference/source.all.html">source.all()</a></code> documentation for additional
 information and examples.</p>
 <p><a href="#top">top</a></p>
