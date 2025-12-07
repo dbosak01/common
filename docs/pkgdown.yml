@@ -3,7 +3,7 @@ pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   common: common.html
-last_built: 2025-12-06T22:31Z
+last_built: 2025-12-07T04:17Z
 urls:
   reference: https://common.r-sassy.org/reference
   article: https://common.r-sassy.org/articles

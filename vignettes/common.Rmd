@@ -181,6 +181,13 @@ dat2
 The `sort.data.frame()` function also allows you to control whether NA
 values are sorted to the top or bottom.  See the documentation for further 
 information and more examples.   
+
+NOTE: As of R version 4.4, released Spring of 2024, there is a new function
+to sort by multiple columns in Base R: `sort_by()`.  The `sort.data.frame()` 
+function from the **common** package will remain for backward compatibility 
+reasons.  Going forward, it is probably better to use the Base R function 
+if it is available.
+
 [top](#top)
 
 ## Modify labels on a data frame {#labels}

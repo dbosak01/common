@@ -278,7 +278,14 @@ direction for each sort variable. Here is an example:</p>
 <span><span class="co"># Merc 240D         24.4   4 146.7</span></span></code></pre></div>
 <p>The <code><a href="../reference/sort.data.frame.html">sort.data.frame()</a></code> function also allows you to
 control whether NA values are sorted to the top or bottom. See the
-documentation for further information and more examples.<br><a href="#top">top</a></p>
+documentation for further information and more examples.</p>
+<p>NOTE: As of R version 4.4, released Spring of 2024, there is a new
+function to sort by multiple columns in Base R: <code><a href="https://rdrr.io/r/base/sort_by.html" class="external-link">sort_by()</a></code>.
+The <code><a href="../reference/sort.data.frame.html">sort.data.frame()</a></code> function from the
+<strong>common</strong> package will remain for backward compatibility
+reasons. Going forward, it is probably better to use the Base R function
+if it is available.</p>
+<p><a href="#top">top</a></p>
 </div>
 <div class="section level2">
 <h2 id="labels">Modify labels on a data frame<a class="anchor" aria-label="anchor" href="#labels"></a>

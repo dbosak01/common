@@ -16,10 +16,10 @@ style="margin-right:10px;height:138px" alt="Common Package Logo"/>
 When working in Base R, there are some situations where you stop and wonder:
 "Why isn't there a function to do that?" For example:
 
-<tab>- Why isn't there a function in Base R to sort a data frame by multiple columns?  
 <tab>- Why isn't there a function in Base R to get the path of the current program?  
 <tab>- In Base R, why is there no infix operator for concatenation?  
 <tab>- Why isn't there a function in Base R to add/modify data frame labels?  
+<tab>- Why isn't there a function in Base R to source all the programs in a directory?  
 
 The answer to all of the above questions is that there should be.
 The purpose of the **common** package is to encapsulate these types of functions,
