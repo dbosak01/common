@@ -305,7 +305,7 @@ mtcars %eq% NULL      # FALSE
 v1 %eq% NA            # FALSE
 1 %eq% v1             # FALSE
 ```
-In addition to the `%eq%` operator, the **common** package includes  
+In addition to the `%eq%` operator, the **common** package includes 
 mnemonic infix operators for `%ne%`, `%lt%`, `%gt%`, `%le%`, and `%ge%`.  All 
 of these operators perform the appropriate comparison and handle NA and NULL values.
 For examples and explanation, consult the documentation for each of the operators.
