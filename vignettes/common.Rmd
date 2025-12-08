@@ -183,10 +183,11 @@ values are sorted to the top or bottom.  See the documentation for further
 information and more examples.   
 
 NOTE: As of R version 4.4, released Spring of 2024, there is a new function
-to sort by multiple columns in Base R: `sort_by()`.  The `sort.data.frame()` 
-function from the **common** package will remain for backward compatibility 
-reasons.  Going forward, it is probably better to use the Base R function 
-if it is available.
+to sort by multiple columns in Base R: 
+[sort_by()](https://search.r-project.org/CRAN/refmans/lessR/html/sort_by.html).  
+The `sort.data.frame()` function from the **common** package will remain 
+for backward compatibility reasons.  Going forward, it is probably better 
+to use the Base R function if it is available.
 
 [top](#top)
 
@@ -304,9 +305,14 @@ mtcars %eq% NULL      # FALSE
 v1 %eq% NA            # FALSE
 1 %eq% v1             # FALSE
 ```
-While it can be advantageous to have a comparison operator that does not give
+In addition to the `%eq%` operator, the **common** package includes  
+mnemonic infix operators for `%ne%`, `%lt%`, `%gt%`, `%le%`, and `%ge%`.  All 
+of these operators perform the appropriate comparison and handle NA and NULL values.
+For examples and explanation, consult the documentation for each of the operators.
+
+While it can be advantageous to have comparison operators that do not give
 errors when encountering a NULL or NA value, note that this behavior can also 
-mask problems with your code.  Therefore, use the `%eq%` operator
+mask problems with your code.  Therefore, use the comparison operators
 with care.   
 [top](#top)
 

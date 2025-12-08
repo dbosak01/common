@@ -60,11 +60,13 @@ Here is an video elaborating on the `source.all()` function:
 
 [![How to Run a Batch Job](https://img.youtube.com/vi/0SnOYyS7x8k/0.jpg)](https://www.youtube.com/watch?v=0SnOYyS7x8k)
 
+For complete function documentation, visit the reference page
+[here](https://common.r-sassy.org/reference/index.html)
 
 ### Getting Help
 
 If you need help, the first place 
-to turn to is the  web site at common.r-sassy.org
+to turn to is the web site [here](https://common.r-sassy.org)
 
 If you want to look at the code for the **common** package, visit the
 github page [here](https://github.com/dbosak01/common).

@@ -53,5 +53,14 @@ iris \%eq\% iris[1:50,] # FALSE
 mtcars \%eq\% NULL      # FALSE
 v1 \%eq\% NA            # FALSE
 1 \%eq\% v1             # FALSE
-
 }
+\seealso{
+Other operators: 
+\code{\link{\%ge\%}()},
+\code{\link{\%gt\%}()},
+\code{\link{\%le\%}()},
+\code{\link{\%lt\%}()},
+\code{\link{\%ne\%}()},
+\code{\link{\%p\%}()}
+}
+\concept{operators}

@@ -11,6 +11,11 @@ reference:
   contents:
   - '%p%'
   - '%eq%'
+  - '%ne%'
+  - '%lt%'
+  - '%gt%'
+  - '%le%'
+  - '%ge%'
 - title: File Operations
   desc: Functions that help with file management.
   contents:

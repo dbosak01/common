@@ -8,6 +8,9 @@
 <url><loc>https://common.r-sassy.org/index.html</loc></url>
 <url><loc>https://common.r-sassy.org/LICENSE.html</loc></url>
 <url><loc>https://common.r-sassy.org/news/index.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/%ge%.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/%gt%.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/%lt%.html</loc></url>
 <url><loc>https://common.r-sassy.org/reference/changed.html</loc></url>
 <url><loc>https://common.r-sassy.org/reference/common.html</loc></url>
 <url><loc>https://common.r-sassy.org/reference/copy.attributes.html</loc></url>
@@ -15,6 +18,11 @@
 <url><loc>https://common.r-sassy.org/reference/file.find.html</loc></url>
 <url><loc>https://common.r-sassy.org/reference/find.names.html</loc></url>
 <url><loc>https://common.r-sassy.org/reference/grapes-eq-grapes.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/grapes-ge-grapes.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/grapes-gt-grapes.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/grapes-le-grapes.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/grapes-lt-grapes.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/grapes-ne-grapes.html</loc></url>
 <url><loc>https://common.r-sassy.org/reference/grapes-p-grapes.html</loc></url>
 <url><loc>https://common.r-sassy.org/reference/index.html</loc></url>
 <url><loc>https://common.r-sassy.org/reference/labels.data.frame.html</loc></url>
@@ -27,5 +35,9 @@
 <url><loc>https://common.r-sassy.org/reference/symbol.html</loc></url>
 <url><loc>https://common.r-sassy.org/reference/Sys.path.html</loc></url>
 <url><loc>https://common.r-sassy.org/reference/v.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/`%ge%`.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/`%gt%`.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/`%le%`.html</loc></url>
+<url><loc>https://common.r-sassy.org/reference/`%lt%`.html</loc></url>
 </urlset>
 

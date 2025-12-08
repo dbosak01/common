@@ -2,6 +2,7 @@
 
 * Documentation fixes.
 * Add YouTube video links to home page.
+* Added additional comparison operators: `%ne%`, `%le%`, `%ge%`, `%lt%`, `%gt%`
 
 # common 1.1.3
 

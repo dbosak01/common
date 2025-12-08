@@ -280,7 +280,7 @@ direction for each sort variable. Here is an example:</p>
 control whether NA values are sorted to the top or bottom. See the
 documentation for further information and more examples.</p>
 <p>NOTE: As of R version 4.4, released Spring of 2024, there is a new
-function to sort by multiple columns in Base R: <code><a href="https://rdrr.io/r/base/sort_by.html" class="external-link">sort_by()</a></code>.
+function to sort by multiple columns in Base R: <a href="https://search.r-project.org/CRAN/refmans/lessR/html/sort_by.html" class="external-link">sort_by()</a>.<br>
 The <code><a href="../reference/sort.data.frame.html">sort.data.frame()</a></code> function from the
 <strong>common</strong> package will remain for backward compatibility
 reasons. Going forward, it is probably better to use the Base R function
@@ -400,10 +400,17 @@ often have many attributes assigned by <code>dplyr</code> functions.</p>
 <span><span class="va">mtcars</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="cn">NULL</span>      <span class="co"># FALSE</span></span>
 <span><span class="va">v1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="cn">NA</span>            <span class="co"># FALSE</span></span>
 <span><span class="fl">1</span> <span class="op"><a href="../reference/grapes-eq-grapes.html">%eq%</a></span> <span class="va">v1</span>             <span class="co"># FALSE</span></span></code></pre></div>
-<p>While it can be advantageous to have a comparison operator that does
-not give errors when encountering a NULL or NA value, note that this
+<p>In addition to the <code>%eq%</code> operator, the
+<strong>common</strong> package includes<br>
+mnemonic infix operators for <code>%ne%</code>, <code>%lt%</code>,
+<code>%gt%</code>, <code>%le%</code>, and <code>%ge%</code>. All of
+these operators perform the appropriate comparison and handle NA and
+NULL values. For examples and explanation, consult the documentation for
+each of the operators.</p>
+<p>While it can be advantageous to have comparison operators that do not
+give errors when encountering a NULL or NA value, note that this
 behavior can also mask problems with your code. Therefore, use the
-<code>%eq%</code> operator with care.<br><a href="#top">top</a></p>
+comparison operators with care.<br><a href="#top">top</a></p>
 </div>
 <div class="section level2">
 <h2 id="path">Getting the current path<a class="anchor" aria-label="anchor" href="#path"></a>

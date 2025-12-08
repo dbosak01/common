@@ -41,3 +41,13 @@ str <- v1 \%p\% v2
 str
 # [1] "A1" "B2" "C3"
 }
+\seealso{
+Other operators: 
+\code{\link{\%eq\%}()},
+\code{\link{\%ge\%}()},
+\code{\link{\%gt\%}()},
+\code{\link{\%le\%}()},
+\code{\link{\%lt\%}()},
+\code{\link{\%ne\%}()}
+}
+\concept{operators}
