@@ -138,7 +138,8 @@ labels.data.frame <- function(object, ...) {
 #' By default, all variables will be sorted ascending.
 #' @param na.last Whether to put NA values first or last in the sort. If TRUE,
 #' NA values will sort to the bottom.  If FALSE, NA values will sort to the
-#' top.  The default is TRUE.
+#' top.  The default is TRUE. Parameter also accepts a vector of TRUE/FALSE
+#' values, which correspond one to one with the number of by variables.
 #' @param index.return Whether to return the sorted data frame or a vector
 #' of sorted index values.  If this parameter is TRUE, the function
 #' will return sorted index values.  By default, the parameter is FALSE,
@@ -263,13 +264,41 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
   }
   names(a) <- by
 
+  # Set na.last if supplied
+  if (length(na.last) < length(by)) {
+    nlst <- rep(na.last, length(by))
+  } else {
+    nlst <- na.last
+  }
+  names(nlst) <- by
+
+
   # Create rank columns to handle custom sorts
   for (nm in by) {
 
-    if (a[nm] == TRUE)
-      tmp[[nm]] <- rank(df[[nm]], na.last = na.last)
-    else
-      tmp[[nm]] <- -rank(df[[nm]], na.last = !na.last)
+    if (a[nm] == TRUE) {
+      tmp[[nm]] <- rank(df[[nm]], na.last = nlst[nm])
+    } else {
+      tmp[[nm]] <- -rank(df[[nm]], na.last = !nlst[nm])
+    }
+
+    # Adjust rank for NA values.
+    # If there are multiple NA values, R assigns an order
+    # by the order encountered.  But they should
+    # be assigned to top or bottom based on na.last.
+    # Also need to consider ascending and descending.
+    # Rank is negative for descending sort.
+    if (any(is.na(df[[nm]]))) {
+      if (nlst[nm] & a[nm]) {
+        tmp[[nm]] <- ifelse(is.na(df[[nm]]), length(df[[nm]]), tmp[[nm]])
+      } else if (!nlst[nm] & a[nm]) {
+        tmp[[nm]] <- ifelse(is.na(df[[nm]]), 1, tmp[[nm]])
+      } else if (nlst[nm] & !a[nm]) {
+        tmp[[nm]] <- ifelse(is.na(df[[nm]]), -1, tmp[[nm]])
+      } else if (!nlst[nm] & !a[nm]) {
+        tmp[[nm]] <- ifelse(is.na(df[[nm]]), -length(df[[nm]]), tmp[[nm]])
+      }
+    }
   }
 
   # Get modified dataframe

@@ -36,7 +36,8 @@ By default, all variables will be sorted ascending.}
 
 \item{na.last}{Whether to put NA values first or last in the sort. If TRUE,
 NA values will sort to the bottom.  If FALSE, NA values will sort to the
-top.  The default is TRUE.}
+top.  The default is TRUE. Parameter also accepts a vector of TRUE/FALSE
+values, which correspond one to one with the number of by variables.}
 
 \item{index.return}{Whether to return the sorted data frame or a vector
 of sorted index values.  If this parameter is TRUE, the function

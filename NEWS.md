@@ -2,6 +2,8 @@
 
 * Fixed bug in `sort.data.frame()` regarding sorting NAs when sort direction
 is descending.  Was sorting them the opposite of expected.
+* Allow user to pass vector of values to "na.last" parameter 
+on `sort.data.frame()`.
 
 # common 1.1.4
 

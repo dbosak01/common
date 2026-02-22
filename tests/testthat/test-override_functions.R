@@ -109,33 +109,7 @@ test_that("override1: sort.data.frame() works as expected.", {
   expect_error(sort(dt_mod, by = "fork"))
 
 
-  # Sort descending and NA last
-  dt12 <-  sort(dt_mod, by = c( "disp"), ascending = FALSE, na.last = TRUE)
-  dt12
 
-  expect_equal(is.na(dt12[10, 3]), TRUE)
-  expect_equal(is.na(dt12[1, 3]), FALSE)
-
-
-  # Sort descending and NA first
-  dt13 <-  sort(dt_mod, by = c( "disp"), ascending = FALSE, na.last = FALSE)
-  dt13
-
-  expect_equal(is.na(dt13[1, 3]), TRUE)
-  expect_equal(is.na(dt13[10, 3]), FALSE)
-
-  # Multiple variables sort descending NA last
-  dt14 <-  sort(dt_mod, by = c("disp", "names"), ascending = FALSE, na.last = TRUE)
-  dt14
-
-  expect_equal(is.na(dt14[10, 3]), TRUE)
-
-
-  # Multiple variables sort descending NA first
-  dt14 <-  sort(dt_mod, by = c("disp", "names"), ascending = FALSE, na.last = FALSE)
-  dt14
-
-  expect_equal(is.na(dt14[1, 3]), TRUE)
 
 })
 
@@ -224,3 +198,138 @@ test_that("override4: Sort of two factors works as expected.", {
   expect_equal(unique(as.character(res$enrollment)), c("yes", "no", NA))
 
 })
+
+
+test_that("override5: Sort descending and na.last works as expected.", {
+
+  # Sample data frame to sort
+  dt <- mtcars[1:10, 1:3]
+  dt
+
+  # Test with NA value
+  dt_mod <- dt
+  dt_mod[2, 3] <- NA
+  dt_mod$names <- rownames(dt_mod)
+  dt_mod[5, 4] <- NA
+
+  # Sort descending and NA last
+  dt12 <-  sort(dt_mod, by = c( "disp"), ascending = FALSE, na.last = TRUE)
+  dt12
+
+  expect_equal(is.na(dt12[10, 3]), TRUE)
+  expect_equal(is.na(dt12[1, 3]), FALSE)
+
+
+  # Sort descending and NA first
+  dt13 <-  sort(dt_mod, by = c( "disp"), ascending = FALSE, na.last = FALSE)
+  dt13
+
+  expect_equal(is.na(dt13[1, 3]), TRUE)
+  expect_equal(is.na(dt13[10, 3]), FALSE)
+
+  # Multiple variables sort descending NA last
+  dt14 <-  sort(dt_mod, by = c("disp", "names"), ascending = FALSE, na.last = TRUE)
+  dt14
+
+  expect_equal(is.na(dt14[10, 3]), TRUE)
+
+
+  # Multiple variables sort descending NA first
+  dt14 <-  sort(dt_mod, by = c("disp", "names"), ascending = FALSE, na.last = FALSE)
+  dt14
+
+  expect_equal(is.na(dt14[1, 3]), TRUE)
+
+})
+
+# All below are good and match SAS
+test_that("override6: Multiple na.last values work as expected.", {
+
+  # Only 1 NA per column
+  df <- data.frame(
+    id = c(1,2,3,4),
+    a  = c(NA, 2, 2, 1),
+    b  = c(1,  NA,  1, 2)
+  )
+
+  # Multiple variables sort descending NA  - OK with SAS
+  res <-  sort(df, by = c("a", "b"), ascending = c(FALSE, TRUE), na.last = c(TRUE, FALSE))
+  res
+
+  expect_equal(is.na(res$a[4]), TRUE)
+  expect_equal(is.na(res$b[1]), TRUE)
+
+
+  # Multiple variables sort descending NA - OK with SAS
+  res <-  sort(df, by = c("a", "b"), ascending = c(FALSE, FALSE), na.last = c(TRUE, TRUE))
+  res
+
+  expect_equal(is.na(res$a[4]), TRUE)
+  expect_equal(is.na(res$b[2]), TRUE)
+
+
+  # Multiple variables sort descending NA - OK with SAS
+  res <-  sort(df, by = c("a", "b"), ascending = c(TRUE, FALSE), na.last = c(FALSE, TRUE))
+  res
+
+  expect_equal(is.na(res$a[1]), TRUE)
+  expect_equal(is.na(res$b[4]), TRUE)
+
+
+  # Multiple variables sort descending NA - OK with SAS
+  res <-  sort(df, by = c("a", "b"), ascending = c(TRUE, TRUE), na.last = c(FALSE, FALSE))
+  res
+
+  expect_equal(is.na(res$a[1]), TRUE)
+  expect_equal(is.na(res$b[3]), TRUE)
+
+
+
+
+})
+
+# Sorting within multiple NAs - ** Trouble here originally. Working now **
+test_that("override7: Sorting with multiple NAs and parameter combinations.", {
+
+  df <- data.frame(
+    id = c(1,2,3,4),
+    a  = c(NA, 2, NA, 1),
+    b  = c(2,  1,  NA, 2)
+  )
+
+  # Multiple variables sort with NA - Got it
+  res <-  sort(df, by = c("a", "b"), ascending = c(TRUE, TRUE), na.last = c(FALSE, FALSE))
+  res
+
+  expect_equal(is.na(res$a[1]), TRUE)
+  expect_equal(is.na(res$a[2]), TRUE)
+  expect_equal(is.na(res$b[1]), TRUE)
+
+  # Multiple variables sort with NA - Yes
+  res <-  sort(df, by = c("a", "b"), ascending = c(FALSE, FALSE), na.last = c(TRUE, TRUE))
+  res
+
+  expect_equal(is.na(res$a[3]), TRUE)
+  expect_equal(is.na(res$a[4]), TRUE)
+  expect_equal(is.na(res$b[4]), TRUE)
+
+  # Multiple variables sort with NA - This actually correct
+  res <-  sort(df, by = c("a", "b"), ascending = c(FALSE, TRUE), na.last = c(TRUE, FALSE))
+  res
+
+  expect_equal(is.na(res$a[3]), TRUE)
+  expect_equal(is.na(res$a[4]), TRUE)
+  expect_equal(is.na(res$b[3]), TRUE)
+
+  # Multiple variables sort with NA - This actually correct
+  res <-  sort(df, by = c("a", "b"), ascending = c(TRUE, FALSE), na.last = c(FALSE, TRUE))
+  res
+
+  expect_equal(is.na(res$a[1]), TRUE)
+  expect_equal(is.na(res$a[2]), TRUE)
+  expect_equal(is.na(res$b[2]), TRUE)
+
+
+})
+
+
