@@ -1,3 +1,8 @@
+# common 1.1.5
+
+* Fixed bug in `sort.data.frame()` regarding sorting NAs when sort direction
+is descending.  Was sorting them the opposite of expected.
+
 # common 1.1.4
 
 * Documentation fixes.

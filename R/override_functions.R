@@ -269,7 +269,7 @@ sort.data.frame <- function(x, decreasing = FALSE, ..., by = NULL,
     if (a[nm] == TRUE)
       tmp[[nm]] <- rank(df[[nm]], na.last = na.last)
     else
-      tmp[[nm]] <- -rank(df[[nm]], na.last = na.last)
+      tmp[[nm]] <- -rank(df[[nm]], na.last = !na.last)
   }
 
   # Get modified dataframe

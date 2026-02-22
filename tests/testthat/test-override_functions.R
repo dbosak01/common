@@ -108,6 +108,35 @@ test_that("override1: sort.data.frame() works as expected.", {
 
   expect_error(sort(dt_mod, by = "fork"))
 
+
+  # Sort descending and NA last
+  dt12 <-  sort(dt_mod, by = c( "disp"), ascending = FALSE, na.last = TRUE)
+  dt12
+
+  expect_equal(is.na(dt12[10, 3]), TRUE)
+  expect_equal(is.na(dt12[1, 3]), FALSE)
+
+
+  # Sort descending and NA first
+  dt13 <-  sort(dt_mod, by = c( "disp"), ascending = FALSE, na.last = FALSE)
+  dt13
+
+  expect_equal(is.na(dt13[1, 3]), TRUE)
+  expect_equal(is.na(dt13[10, 3]), FALSE)
+
+  # Multiple variables sort descending NA last
+  dt14 <-  sort(dt_mod, by = c("disp", "names"), ascending = FALSE, na.last = TRUE)
+  dt14
+
+  expect_equal(is.na(dt14[10, 3]), TRUE)
+
+
+  # Multiple variables sort descending NA first
+  dt14 <-  sort(dt_mod, by = c("disp", "names"), ascending = FALSE, na.last = FALSE)
+  dt14
+
+  expect_equal(is.na(dt14[1, 3]), TRUE)
+
 })
 
 
