@@ -332,4 +332,46 @@ test_that("override7: Sorting with multiple NAs and parameter combinations.", {
 
 })
 
+# Edge cases
+test_that("override8: Various edge cases with na.last.", {
 
+  df <- data.frame(
+    id = c(1,2,3,4),
+    a  = c(NA, 2, NA, 1),
+    b  = c(2,  1,  NA, 2)
+  )
+
+
+  # Multiple variables sort with NA - Got it
+  res <-  sort(df, by = c("a", "b"), ascending = c(TRUE, TRUE), na.last = FALSE)
+  res
+
+  expect_equal(is.na(res$a[1]), TRUE)
+  expect_equal(is.na(res$a[2]), TRUE)
+  expect_equal(is.na(res$b[1]), TRUE)
+
+  # Multiple variables sort with NA - Yes
+  res <-  sort(df, by = c("a", "b"), ascending = c(FALSE, FALSE), na.last = TRUE)
+  res
+
+  expect_equal(is.na(res$a[3]), TRUE)
+  expect_equal(is.na(res$a[4]), TRUE)
+  expect_equal(is.na(res$b[4]), TRUE)
+
+  # Multiple variables sort with NA - This actually correct
+  res <-  sort(df, by = c("a", "b"), ascending = c(FALSE, TRUE), na.last = c(TRUE, FALSE, TRUE))
+  res
+
+  expect_equal(is.na(res$a[3]), TRUE)
+  expect_equal(is.na(res$a[4]), TRUE)
+  expect_equal(is.na(res$b[3]), TRUE)
+
+  # Multiple variables sort with NA - This actually correct
+  res <-  sort(df, by = c("a", "b"), ascending = c(TRUE, FALSE), na.last = c(FALSE, TRUE, TRUE))
+  res
+
+  expect_equal(is.na(res$a[1]), TRUE)
+  expect_equal(is.na(res$a[2]), TRUE)
+  expect_equal(is.na(res$b[2]), TRUE)
+
+})
